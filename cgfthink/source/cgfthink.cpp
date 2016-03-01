@@ -17,6 +17,7 @@ extern "C" {
 	#include <stdlib.h>
 	#include <time.h>
 	#include <windows.h>
+	#include <tchar.h> // Unicode対応の _T() 関数を使用するために。
 	#include "../header/cgfthink.h"
 
 	//--------------------------------------------------------------------------------
@@ -73,20 +74,23 @@ extern "C" {
 	static HANDLE hOutput = INVALID_HANDLE_VALUE;	// コンソールに出力するためのハンドル
 
 	// printf()の代用関数。
-	void PRT(const char *fmt, ...)
+	void PRT(const _TCHAR* fmt, ...)//const char *fmt
 	{
 		va_list ap;
 		int len;
-		static char text[PRT_LEN_MAX];
+		//static char text[PRT_LEN_MAX];
+		static _TCHAR text[PRT_LEN_MAX];
 		DWORD nw;
 
 		if (hOutput == INVALID_HANDLE_VALUE) return;
 		va_start(ap, fmt);
-		len = _vsnprintf(text, PRT_LEN_MAX - 1, fmt, ap);
+		//len = _vsnprintf(text, PRT_LEN_MAX - 1, fmt, ap);
+		len = _vsnwprintf(text, PRT_LEN_MAX - 1, fmt, ap);
 		va_end(ap);
 
 		if (len < 0 || len >= PRT_LEN_MAX) return;
-		WriteConsole(hOutput, text, (DWORD)strlen(text), &nw, NULL);
+		//WriteConsole(hOutput, text, (DWORD)strlen(text), &nw, NULL);
+		WriteConsole(hOutput, text, (DWORD)wcslen(text), &nw, NULL);
 	}
 }//extern "C" {
 
@@ -94,8 +98,8 @@ extern "C" {
 DLL_EXPORT void cgfgui_thinking_init(int *ptr_stop_thinking)
 {
 	// muzudho: 
-	ofstream outputfile("muzudho_cgfthink_log.txt");
-	outputfile << "called: cgfgui_thinking_init" << endl;
+	ofstream outputfile(_T("muzudho_cgfthink_log.txt"));
+	outputfile << _T("called: cgfgui_thinking_init") << endl;
 
 	// 中断フラグへのポインタ変数。
 	// この値が1になった場合は思考を終了してください。
@@ -103,9 +107,9 @@ DLL_EXPORT void cgfgui_thinking_init(int *ptr_stop_thinking)
 
 	// PRT()情報を表示するためのコンソールを起動する。
 	AllocConsole();		// この行をコメントアウトすればコンソールは表示されません。
-	SetConsoleTitle("CgfgobanDLL Infomation Window");
+	SetConsoleTitle(_T("CgfgobanDLL Infomation Window"));
 	hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-	PRT("デバッグ用の窓です。PRT()関数で出力できます。\n");
+	PRT(_T("デバッグ用の窓です。PRT()関数で出力できます。\n"));
 
 	// この下に、メモリの確保など必要な場合のコードを記述してください。
 }
@@ -116,8 +120,8 @@ DLL_EXPORT void cgfgui_thinking_init(int *ptr_stop_thinking)
 DLL_EXPORT void cgfgui_thinking_close(void)
 {
 	// muzudho: 
-	ofstream outputfile("muzudho_cgfthink_log.txt", ios::app);
-	outputfile << "called: cgfgui_thinking_close" << endl;
+	ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
+	outputfile << _T("called: cgfgui_thinking_close") << endl;
 
 	FreeConsole();
 	// この下に、メモリの解放など必要な場合のコードを記述してください。
@@ -137,8 +141,8 @@ DLL_EXPORT int cgfgui_thinking(
 )
 {
 	// muzudho: 
-	ofstream outputfile("muzudho_cgfthink_log.txt", ios::app);
-	outputfile << "called: cgfgui_thinking" << endl;
+	ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
+	outputfile << _T("called: cgfgui_thinking") << endl;
 
 	int z,col,t,i,ret_z;
 
@@ -175,8 +179,8 @@ DLL_EXPORT int cgfgui_thinking(
 	else                  col = WHITE;
 	ret_z = think_sample(col);
 
-	PRT("思考時間：先手=%d秒、後手=%d秒\n",sg_time[0],sg_time[1]);
-	PRT("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n",(ret_z&0xff),(ret_z>>8),ret_z, dll_tesuu,dll_black_turn,dll_board_size,dll_komi);
+	PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"),sg_time[0],sg_time[1]);
+	PRT(_T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(ret_z&0xff),(ret_z>>8),ret_z, dll_tesuu,dll_black_turn,dll_board_size,dll_komi);
 //	print_board();
 	return ret_z;
 }

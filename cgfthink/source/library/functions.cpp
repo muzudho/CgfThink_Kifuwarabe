@@ -3,6 +3,7 @@ extern "C" {
 
 	#include <time.h>		// clock() を使用するために。
 	#include <windows.h>	// rand() 等を使用するために。
+	#include <tchar.h> // Unicode対応の _T() 関数を使用するために。
 	#include "../../header/cgfthink.h"
 
 	//--------------------------------------------------------------------------------
@@ -90,12 +91,12 @@ extern "C" {
 	void print_board(void)
 	{
 		int x, y, z;
-		char *str[4] = { "・","●","○","＋" };
+		_TCHAR* str[4] = { _T("・"), _T("●"), _T("○"), _T("＋") };
 
 		for (y = 0; y<board_size + 2; y++) for (x = 0; x<board_size + 2; x++) {
 			z = (y + 0) * 256 + (x + 0);
-			PRT("%s", str[board[z]]);
-			if (x == board_size + 1) PRT("\n");
+			PRT(_T("%s"), str[board[z]]);
+			if (x == board_size + 1) PRT(_T("\n"));
 		}
 	}
 
@@ -221,11 +222,11 @@ extern "C" {
 			return MOVE_SUCCESS;
 		}
 		if (z == kou_z) {
-			PRT("move() Err: コウ！z=%04x\n", z);
+			PRT(_T("move() Err: コウ！z=%04x\n"), z);
 			return MOVE_KOU;
 		}
 		if (board[z] != 0) {
-			PRT("move() Err: 空点ではない！z=%04x\n", z);
+			PRT(_T("move() Err: 空点ではない！z=%04x\n"), z);
 			return MOVE_EXIST;
 		}
 		board[z] = col;	// とりあえず置いてみる
@@ -245,7 +246,7 @@ extern "C" {
 		// 自殺手を判定
 		count_dame(z);
 		if (dame == 0) {
-			PRT("move() Err: 自殺手! z=%04x\n", z);
+			PRT(_T("move() Err: 自殺手! z=%04x\n"), z);
 			board[z] = 0;
 			return MOVE_SUICIDE;
 		}
@@ -263,7 +264,7 @@ extern "C" {
 				if (dame == 1 && ishi == 1) sum++;
 			}
 			if (sum >= 2) {
-				PRT("１つ取られて、コウの位置へ打つと、１つの石を2つ以上取れる？z=%04x\n", z);
+				PRT(_T("１つ取られて、コウの位置へ打つと、１つの石を2つ以上取れる？z=%04x\n"), z);
 				return MOVE_FATAL;
 			}
 			if (sum == 0) kou_z = 0;	// コウにはならない。
