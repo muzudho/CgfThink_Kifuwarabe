@@ -1,0 +1,9 @@
+C:\Root_Igo_Cgfthink\SocketClient\SocketClient\bin\Debug\SocketClient.exe.config
+C:\Root_Igo_Cgfthink\SocketClient\SocketClient\obj\Debug\SocketClient.Properties.Resources.resources
+C:\Root_Igo_Cgfthink\SocketClient\SocketClient\obj\Debug\SocketClient.Uc_Main.resources
+C:\Root_Igo_Cgfthink\SocketClient\SocketClient\obj\Debug\SocketClient.csproj.GenerateResource.Cache
+C:\Root_Igo_Cgfthink\SocketClient\SocketClient\bin\Debug\SocketClient.exe
+C:\Root_Igo_Cgfthink\SocketClient\SocketClient\bin\Debug\SocketClient.pdb
+C:\Root_Igo_Cgfthink\SocketClient\SocketClient\obj\Debug\SocketClient.exe
+C:\Root_Igo_Cgfthink\SocketClient\SocketClient\obj\Debug\SocketClient.pdb
+C:\Root_Igo_Cgfthink\SocketClient\SocketClient\obj\Debug\SocketClient.Form1.resources

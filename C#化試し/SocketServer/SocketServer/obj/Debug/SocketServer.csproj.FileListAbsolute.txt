@@ -1,0 +1,10 @@
+C:\Root_Igo_Cgfthink\SocketServer\SocketServer\bin\Debug\SocketServer.exe.config
+C:\Root_Igo_Cgfthink\SocketServer\SocketServer\bin\Debug\SocketServer.exe
+C:\Root_Igo_Cgfthink\SocketServer\SocketServer\bin\Debug\SocketServer.pdb
+C:\Root_Igo_Cgfthink\SocketServer\SocketServer\obj\Debug\SocketServer.csprojResolveAssemblyReference.cache
+C:\Root_Igo_Cgfthink\SocketServer\SocketServer\obj\Debug\SocketServer.Properties.Resources.resources
+C:\Root_Igo_Cgfthink\SocketServer\SocketServer\obj\Debug\SocketServer.Uc_Main.resources
+C:\Root_Igo_Cgfthink\SocketServer\SocketServer\obj\Debug\SocketServer.csproj.GenerateResource.Cache
+C:\Root_Igo_Cgfthink\SocketServer\SocketServer\obj\Debug\SocketServer.exe
+C:\Root_Igo_Cgfthink\SocketServer\SocketServer\obj\Debug\SocketServer.pdb
+C:\Root_Igo_Cgfthink\SocketServer\SocketServer\obj\Debug\SocketServer.Form1.resources
