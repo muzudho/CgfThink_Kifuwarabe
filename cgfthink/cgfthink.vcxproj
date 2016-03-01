@@ -133,10 +133,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cgfthink.cpp" />
+    <ClInclude Include="header\cgfthink.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\cgfthink.h" />
+    <ClCompile Include="source\cgfthink.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

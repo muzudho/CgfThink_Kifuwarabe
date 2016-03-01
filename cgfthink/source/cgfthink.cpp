@@ -13,7 +13,7 @@ extern "C" {
 	#include <stdlib.h>
 	#include <time.h>
 	#include <windows.h>
-	#include "header/cgfthink.h"
+	#include "../header/cgfthink.h"
 
 
 	// 思考中断フラグ。0で初期化されています。
