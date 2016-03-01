@@ -23,20 +23,20 @@ extern "C" {
 	// グローバル変数
 	//--------------------------------------------------------------------------------
 
+	int board[BOARD_MAX];
+
+	// 左右、上下に移動する場合の動く量
+	int dir4[4] = { +0x001,-0x001,+0x100,-0x100 };
+
 	// 思考中断フラグ。0で初期化されています。
 	// GUIの「思考中断ボタン」を押された場合に1になります。
 	int* pThinkStop = NULL;
 
 
-	#define BOARD_MAX ((19+2)*256)			// 19路盤を最大サイズとする
 
-	int board[BOARD_MAX];
 	int check_board[BOARD_MAX];		// 既にこの石を検索した場合は1
 
 	int board_size;	// 盤面のサイズ。19路盤では19、9路盤では9
-
-	// 左右、上下に移動する場合の動く量
-	int dir4[4] = { +0x001,-0x001,+0x100,-0x100 };
 
 	int ishi = 0;	// 取った石の数(再帰関数で使う)
 	int dame = 0;	// 連のダメの数(再帰関数で使う)
@@ -329,18 +329,6 @@ extern "C" {
 				dame++;				// ダメの数
 			}
 			if ( board[z] == col ) count_dame_sub(z,col);	// 未探索の自分の石
-		}
-	}
-
-	// 石を消す
-	void del_stone(int tz,int col)
-	{
-		int z,i;
-	
-		board[tz] = 0;
-		for (i=0;i<4;i++) {
-			z = tz + dir4[i];
-			if ( board[z] == col ) del_stone(z,col);
 		}
 	}
 
