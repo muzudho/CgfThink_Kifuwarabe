@@ -1,5 +1,9 @@
+//
+// コンピューター囲碁ソフト『きふわらべ』の思考エンジン
+//
 // CgfGoban.exe用の思考ルーチンのサンプル
-// 2005/06/04 - 2005/07/15 山下 宏
+//
+// 『2005/06/04 - 2005/07/15 山下 宏』版を元に改造。
 // 乱数で手を返すだけです。
 
 // muzudho: ログ出力のために。
@@ -15,6 +19,9 @@ extern "C" {
 	#include <windows.h>
 	#include "../header/cgfthink.h"
 
+	//--------------------------------------------------------------------------------
+	// グローバル変数
+	//--------------------------------------------------------------------------------
 
 	// 思考中断フラグ。0で初期化されています。
 	// GUIの「思考中断ボタン」を押された場合に1になります。
@@ -39,27 +46,8 @@ extern "C" {
 
 	#define UNCOL(x) (3-(x))	// 石の色を反転させる
 
-	// move()関数で手を進めた時の結果
-	enum MoveResult {
-		MOVE_SUCCESS,	// 成功
-		MOVE_SUICIDE,	// 自殺手
-		MOVE_KOU,		// コウ
-		MOVE_EXIST,		// 既に石が存在
-		MOVE_FATAL		// それ以外
-	};
 
 
-
-	// 関数のプロトタイプ宣言
-	void count_dame(int tz);				// ダメと石の数を調べる
-	void count_dame_sub(int tz, int col);	// ダメと石の数を調べる再帰関数
-	int move_one(int z, int col);			// 1手進める。z ... 座標、col ... 石の色
-	void print_board(void);					// 現在の盤面を表示
-	int think_sample(int col);
-	int get_z(int x, int y);					// (x,y)を1つの座標に変換
-	int endgame_status(int endgame_board[]);		// 終局処理
-	int endgame_draw_figure(int endgame_board[]);	// 図形を描く
-	int endgame_draw_number(int endgame_board[]);	// 数値を書く(0は表示されない)
 
 
 
