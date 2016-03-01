@@ -135,6 +135,9 @@
   <ItemGroup>
     <ClCompile Include="cgfthink.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\cgfthink.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
