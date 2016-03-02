@@ -44,6 +44,46 @@ extern "C" {
 	// 関数定義
 	//--------------------------------------------------------------------------------
 
+	// 一時的にWindowsに制御を渡します。
+	// 思考中にこの関数を呼ぶと思考中断ボタンが有効になります。
+	// 毎秒30回以上呼ばれるようにするとスムーズに中断できます。
+	void PassWindowsSystem(void)
+	{
+		MSG msg;
+
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+			TranslateMessage(&msg);						// keyboard input.
+			DispatchMessage(&msg);
+		}
+	}
+
+	#define PRT_LEN_MAX 256			// 最大256文字まで出力可
+
+	// コンソールに出力するためのハンドル
+	//static extern HANDLE hOutput;
+	extern HANDLE hOutput;
+
+
+	// printf()の代用関数。
+	void PRT(const _TCHAR* fmt, ...)//const char *fmt
+	{
+		va_list ap;
+		int len;
+		//static char text[PRT_LEN_MAX];
+		static _TCHAR text[PRT_LEN_MAX];
+		DWORD nw;
+
+		if (hOutput == INVALID_HANDLE_VALUE) return;
+		va_start(ap, fmt);
+		//len = _vsnprintf(text, PRT_LEN_MAX - 1, fmt, ap);
+		len = _vsnwprintf(text, PRT_LEN_MAX - 1, fmt, ap);
+		va_end(ap);
+
+		if (len < 0 || len >= PRT_LEN_MAX) return;
+		//WriteConsole(hOutput, text, (DWORD)strlen(text), &nw, NULL);
+		WriteConsole(hOutput, text, (DWORD)wcslen(text), &nw, NULL);
+	}
+
 	// 乱数に近い評価関数。少し石を取りに行くように。
 	int think_sample(int col)
 	{
