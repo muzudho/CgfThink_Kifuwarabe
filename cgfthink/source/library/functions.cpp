@@ -17,32 +17,31 @@ extern "C" {
 	// グローバル変数
 	//--------------------------------------------------------------------------------
 
-	int board[BOARD_MAX];
+	int g_board[BOARD_MAX];
 
 	// 左右、上下に移動する場合の動く量
-	int dir4[4] = { +0x001,-0x001,+0x100,-0x100 };
+	int g_dir4[4] = { +0x001,-0x001,+0x100,-0x100 };
 
 	// 既にこの石を検索した場合は1
-	int check_board[BOARD_MAX];
+	int g_checkedBoard[BOARD_MAX];
 
 	// 盤面のサイズ。19路盤では19、9路盤では9
-	int board_size;
+	int g_boardSize;
 
 	// 取った石の数(再帰関数で使う)
-	int ishi = 0;
+	int g_ishi = 0;
 
 	// 連のダメの数(再帰関数で使う)
-	int dame = 0;
+	int g_dame = 0;
 
 	// 次にコウになる位置
-	int kou_z = 0;
+	int g_kouZ = 0;
 
 	// [0]... 黒が取った石の数, [1]...白が取った石の数
-	int hama[2];
+	int g_hama[2];
 
 	// コンソールに出力するためのハンドル
-	//static HANDLE hOutput = INVALID_HANDLE_VALUE;	
-	HANDLE hOutput = INVALID_HANDLE_VALUE;
+	HANDLE g_hConsoleWindow = INVALID_HANDLE_VALUE;
 
 	//--------------------------------------------------------------------------------
 	// 関数定義
@@ -56,30 +55,27 @@ extern "C" {
 		MSG msg;
 
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-			TranslateMessage(&msg);						// keyboard input.
+			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
 	}
 
 
 	// printf()の代用関数。
-	void PRT(const _TCHAR* fmt, ...)//const char *fmt
+	void PRT(const _TCHAR* format, ...)
 	{
-		va_list ap;
+		va_list argList;
 		int len;
-		//static char text[PRT_LEN_MAX];
 		static _TCHAR text[PRT_LEN_MAX];
 		DWORD nw;
 
-		if (hOutput == INVALID_HANDLE_VALUE) return;
-		va_start(ap, fmt);
-		//len = _vsnprintf(text, PRT_LEN_MAX - 1, fmt, ap);
-		len = _vsnwprintf(text, PRT_LEN_MAX - 1, fmt, ap);
-		va_end(ap);
+		if (g_hConsoleWindow == INVALID_HANDLE_VALUE) return;
+		va_start(argList, format);
+		len = _vsnwprintf(text, PRT_LEN_MAX - 1, format, argList);
+		va_end(argList);
 
 		if (len < 0 || len >= PRT_LEN_MAX) return;
-		//WriteConsole(hOutput, text, (DWORD)strlen(text), &nw, NULL);
-		WriteConsole(hOutput, text, (DWORD)wcslen(text), &nw, NULL);
+		WriteConsole(g_hConsoleWindow, text, (DWORD)wcslen(text), &nw, NULL);
 	}
 
 	// 乱数に近い評価関数。少し石を取りに行くように。
@@ -94,29 +90,29 @@ extern "C" {
 
 		max = -1;
 		ret_z = 0;
-		for (y = 0; y<board_size; y++) for (x = 0; x<board_size; x++) {
+		for (y = 0; y<g_boardSize; y++) for (x = 0; x<g_boardSize; x++) {
 			z = get_z(x, y);
-			if (board[z]) continue;
-			if (z == kou_z) continue;	// コウ
+			if (g_board[z]) continue;
+			if (z == g_kouZ) continue;	// コウ
 
 			value = rand() % 100;
 			capture = safe = 0;
 			for (i = 0; i<4; i++) {
-				z1 = z + dir4[i];
-				k = board[z1];
+				z1 = z + g_dir4[i];
+				k = g_board[z1];
 				if (k == WAKU) safe++;
 				if (k == 0 || k == WAKU) continue;
 				count_dame(z1);
-				if (k == un_col && dame == 1) capture = 1;	// 敵石が取れる
-				if (k == col && dame >= 2) safe++;			// 安全な味方に繋がる
-				value += (k == un_col) * ishi * (10 / (dame + 1));
+				if (k == un_col && g_dame == 1) capture = 1;	// 敵石が取れる
+				if (k == col && g_dame >= 2) safe++;			// 安全な味方に繋がる
+				value += (k == un_col) * g_ishi * (10 / (g_dame + 1));
 			}
 			if (safe == 4) continue;	// 眼には打たない。
 			if (capture == 0) {		// 石が取れない場合は実際に置いてみて自殺手かどうか判定
-				int kz = kou_z;			// コウの位置を退避
+				int kz = g_kouZ;			// コウの位置を退避
 				flag = move_one(z, col);
-				board[z] = 0;
-				kou_z = kz;
+				g_board[z] = 0;
+				g_kouZ = kz;
 				if (flag == MOVE_SUICIDE) continue;	// 自殺手
 			}
 			//		PRT("x,y=(%d,%d)=%d\n",x,y,value);
@@ -131,10 +127,10 @@ extern "C" {
 		int x, y, z;
 		_TCHAR* str[4] = { _T("・"), _T("●"), _T("○"), _T("＋") };
 
-		for (y = 0; y<board_size + 2; y++) for (x = 0; x<board_size + 2; x++) {
+		for (y = 0; y<g_boardSize + 2; y++) for (x = 0; x<g_boardSize + 2; x++) {
 			z = (y + 0) * 256 + (x + 0);
-			PRT(_T("%s"), str[board[z]]);
-			if (x == board_size + 1) PRT(_T("\n"));
+			PRT(_T("%s"), str[g_board[z]]);
+			if (x == g_boardSize + 1) PRT(_T("\n"));
 		}
 	}
 
@@ -144,14 +140,14 @@ extern "C" {
 		int x, y, z, sum, i, k;
 		int *p;
 
-		for (y = 0; y<board_size; y++) for (x = 0; x<board_size; x++) {
+		for (y = 0; y<g_boardSize; y++) for (x = 0; x<g_boardSize; x++) {
 			z = get_z(x, y);
 			p = endgame_board + z;
-			if (board[z] == 0) {
+			if (g_board[z] == 0) {
 				*p = GTP_DAME;
 				sum = 0;
 				for (i = 0; i<4; i++) {
-					k = board[z + dir4[i]];
+					k = g_board[z + g_dir4[i]];
 					if (k == WAKU) continue;
 					sum |= k;
 				}
@@ -162,7 +158,7 @@ extern "C" {
 				*p = GTP_ALIVE;
 				count_dame(z);
 				//			PRT("(%2d,%2d),ishi=%2d,dame=%2d\n",z&0xff,z>>8,ishi,dame);
-				if (dame <= 1) *p = GTP_DEAD;
+				if (g_dame <= 1) *p = GTP_DEAD;
 			}
 		}
 		return 0;
@@ -174,7 +170,7 @@ extern "C" {
 		int x, y, z;
 		int *p;
 
-		for (y = 0; y<board_size; y++) for (x = 0; x<board_size; x++) {
+		for (y = 0; y<g_boardSize; y++) for (x = 0; x<g_boardSize; x++) {
 			z = get_z(x, y);
 			p = endgame_board + z;
 			if ((rand() % 2) == 0) *p = FIGURE_NONE;
@@ -193,7 +189,7 @@ extern "C" {
 		int x, y, z;
 		int *p;
 
-		for (y = 0; y<board_size; y++) for (x = 0; x<board_size; x++) {
+		for (y = 0; y<g_boardSize; y++) for (x = 0; x<g_boardSize; x++) {
 			z = get_z(x, y);
 			p = endgame_board + z;
 			*p = (rand() % 110) - 55;
@@ -212,9 +208,9 @@ extern "C" {
 	{
 		int i;
 
-		dame = ishi = 0;
-		for (i = 0; i<BOARD_MAX; i++) check_board[i] = 0;
-		count_dame_sub(tz, board[tz]);
+		g_dame = g_ishi = 0;
+		for (i = 0; i<BOARD_MAX; i++) g_checkedBoard[i] = 0;
+		count_dame_sub(tz, g_board[tz]);
 	}
 
 	// ダメと石の数える再帰関数
@@ -223,16 +219,16 @@ extern "C" {
 	{
 		int z, i;
 
-		check_board[tz] = 1;			// この石は検索済み	
-		ishi++;							// 石の数
+		g_checkedBoard[tz] = 1;			// この石は検索済み	
+		g_ishi++;							// 石の数
 		for (i = 0; i<4; i++) {
-			z = tz + dir4[i];
-			if (check_board[z]) continue;
-			if (board[z] == 0) {
-				check_board[z] = 1;	// この空点は検索済み
-				dame++;				// ダメの数
+			z = tz + g_dir4[i];
+			if (g_checkedBoard[z]) continue;
+			if (g_board[z] == 0) {
+				g_checkedBoard[z] = 1;	// この空点は検索済み
+				g_dame++;				// ダメの数
 			}
-			if (board[z] == col) count_dame_sub(z, col);	// 未探索の自分の石
+			if (g_board[z] == col) count_dame_sub(z, col);	// 未探索の自分の石
 		}
 	}
 
@@ -241,10 +237,10 @@ extern "C" {
 	{
 		int z, i;
 
-		board[tz] = 0;
+		g_board[tz] = 0;
 		for (i = 0; i < 4; i++) {
-			z = tz + dir4[i];
-			if (board[z] == col) del_stone(z, col);
+			z = tz + g_dir4[i];
+			if (g_board[z] == col) del_stone(z, col);
 		}
 	}
 
@@ -256,56 +252,56 @@ extern "C" {
 		int un_col = UNCOL(col);
 
 		if (z == 0) {	// PASSの場合
-			kou_z = 0;
+			g_kouZ = 0;
 			return MOVE_SUCCESS;
 		}
-		if (z == kou_z) {
+		if (z == g_kouZ) {
 			PRT(_T("move() Err: コウ！z=%04x\n"), z);
 			return MOVE_KOU;
 		}
-		if (board[z] != 0) {
+		if (g_board[z] != 0) {
 			PRT(_T("move() Err: 空点ではない！z=%04x\n"), z);
 			return MOVE_EXIST;
 		}
-		board[z] = col;	// とりあえず置いてみる
+		g_board[z] = col;	// とりあえず置いてみる
 
 		for (i = 0; i<4; i++) {
-			z1 = z + dir4[i];
-			if (board[z1] != un_col) continue;
+			z1 = z + g_dir4[i];
+			if (g_board[z1] != un_col) continue;
 			// 敵の石が取れるか？
 			count_dame(z1);
-			if (dame == 0) {
-				hama[col - 1] += ishi;
-				all_ishi += ishi;
+			if (g_dame == 0) {
+				g_hama[col - 1] += g_ishi;
+				all_ishi += g_ishi;
 				del_z = z1;	// 取られた石の座標。コウの判定で使う。
 				del_stone(z1, un_col);
 			}
 		}
 		// 自殺手を判定
 		count_dame(z);
-		if (dame == 0) {
+		if (g_dame == 0) {
 			PRT(_T("move() Err: 自殺手! z=%04x\n"), z);
-			board[z] = 0;
+			g_board[z] = 0;
 			return MOVE_SUICIDE;
 		}
 
 		// 次にコウになる位置を判定。石を1つだけ取った場合。
-		kou_z = 0;	// コウではない
+		g_kouZ = 0;	// コウではない
 		if (all_ishi == 1) {
 			// 取られた石の4方向に自分のダメ1の連が1つだけある場合、その位置はコウ。
-			kou_z = del_z;	// 取り合えず取られた石の場所をコウの位置とする
+			g_kouZ = del_z;	// 取り合えず取られた石の場所をコウの位置とする
 			sum = 0;
 			for (i = 0; i<4; i++) {
-				z1 = del_z + dir4[i];
-				if (board[z1] != col) continue;
+				z1 = del_z + g_dir4[i];
+				if (g_board[z1] != col) continue;
 				count_dame(z1);
-				if (dame == 1 && ishi == 1) sum++;
+				if (g_dame == 1 && g_ishi == 1) sum++;
 			}
 			if (sum >= 2) {
 				PRT(_T("１つ取られて、コウの位置へ打つと、１つの石を2つ以上取れる？z=%04x\n"), z);
 				return MOVE_FATAL;
 			}
-			if (sum == 0) kou_z = 0;	// コウにはならない。
+			if (sum == 0) g_kouZ = 0;	// コウにはならない。
 		}
 		return MOVE_SUCCESS;
 	}
