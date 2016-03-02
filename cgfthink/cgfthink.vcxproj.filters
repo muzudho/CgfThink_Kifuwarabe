@@ -18,6 +18,9 @@
     <ClInclude Include="header\cgfthink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\library\functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\cgfthink.cpp">

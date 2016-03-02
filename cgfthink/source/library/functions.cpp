@@ -5,6 +5,7 @@ extern "C" {
 	#include <windows.h>	// rand() 等を使用するために。
 	#include <tchar.h> // Unicode対応の _T() 関数を使用するために。
 	#include "../../header/cgfthink.h"
+	#include "../../header/library/functions.h"
 
 	//--------------------------------------------------------------------------------
 	// グローバル変数
