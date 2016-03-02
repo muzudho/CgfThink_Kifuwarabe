@@ -22,45 +22,56 @@ extern "C" {
 	// グローバル変数
 	//--------------------------------------------------------------------------------
 
-	int board[BOARD_MAX];
-
-	// 左右、上下に移動する場合の動く量
-	int dir4[4] = { +0x001,-0x001,+0x100,-0x100 };
-
 	// 思考中断フラグ。0で初期化されています。
 	// GUIの「思考中断ボタン」を押された場合に1になります。
-	int* pThinkStop = NULL;
+	int* g_pThinkStop = NULL;
 
+	// 累計思考時間 [0]先手 [1]後手
+	int g_sumThinkTime[2];
+
+
+	//--------------------------------------------------------------------------------
+	// 外部グローバル変数
+	//--------------------------------------------------------------------------------
+
+	//
+	// extern とは、変数や関数を　別のファイルで既に 定義してあるときに、
+	// もう他のファイルで定義してあるのでそれを使います、という意味で定義の頭に付ける、
+	// おまじないだぜ☆！
+	// コンパイラが読みに行くファイルのどこかに 1つ extern のついていない定義が
+	// あればOKなんだぜ☆！ もう定義してあります、というコンパイル・エラーを防げるぜ☆！
+	//
+	extern int board[BOARD_MAX];
+
+	// 左右、上下に移動する場合の動く量
+	extern int dir4[4];
 
 	// 既にこの石を検索した場合は1
-	int check_board[BOARD_MAX];		
+	extern int check_board[BOARD_MAX];
 
 	// 盤面のサイズ。19路盤では19、9路盤では9
-	int board_size;	
+	extern int board_size;
 
 	// 取った石の数(再帰関数で使う)
-	int ishi = 0;	
+	extern int ishi;
 
 	// 連のダメの数(再帰関数で使う)
-	int dame = 0;	
-	
+	extern int dame;
+
 	// 次にコウになる位置
-	int kou_z = 0;	
+	extern int kou_z;
 
 	// [0]... 黒が取った石の数, [1]...白が取った石の数
-	int hama[2];
-
-	// 累計思考時間
-	int sg_time[2];	
+	extern int hama[2];
 
 	// コンソールに出力するためのハンドル
-	//static HANDLE hOutput = INVALID_HANDLE_VALUE;	
-	HANDLE hOutput = INVALID_HANDLE_VALUE;
+	//static extern HANDLE hOutput;
+	extern HANDLE hOutput;
 
 }//extern "C" {
 
 // 対局開始時に一度だけ呼ばれます。
-DLL_EXPORT void cgfgui_thinking_init(int *ptr_stop_thinking)
+DLL_EXPORT void cgfgui_thinking_init( int* ptr_stop_thinking)
 {
 	// muzudho: 
 	ofstream outputfile(_T("muzudho_cgfthink_log.txt"));
@@ -68,7 +79,7 @@ DLL_EXPORT void cgfgui_thinking_init(int *ptr_stop_thinking)
 
 	// 中断フラグへのポインタ変数。
 	// この値が1になった場合は思考を終了してください。
-	pThinkStop = ptr_stop_thinking;
+	g_pThinkStop = ptr_stop_thinking;
 
 	// PRT()情報を表示するためのコンソールを起動する。
 	AllocConsole();		// この行をコメントアウトすればコンソールは表示されません。
@@ -115,21 +126,21 @@ DLL_EXPORT int cgfgui_thinking(
 	for (i=0;i<BOARD_MAX;i++) board[i] = dll_init_board[i];	// 初期盤面をコピー
 	board_size = dll_board_size;
 	hama[0] = hama[1] = 0;
-	sg_time[0] = sg_time[1] = 0;	// 累計思考時間を初期化
+	g_sumThinkTime[0] = g_sumThinkTime[1] = 0;	// 累計思考時間を初期化
 	kou_z = 0;
 		
 	for (i=0;i<dll_tesuu;i++) {
 		z   = dll_kifu[i][0];	// 座標、y*256 + x の形で入っている
 		col = dll_kifu[i][1];	// 石の色
 		t   = dll_kifu[i][2];	// 消費時間
-		sg_time[i&1] += t;
+		g_sumThinkTime[i&1] += t;
 		if ( move_one(z,col) != MOVE_SUCCESS ) break;
 	}
 	 
 #if 0	// 中断処理を入れる場合のサンプル。0を1にすればコンパイルされます。
 	for (i=0;i<300;i++) {				// 300*10ms = 3000ms = 3秒待ちます。
 		PassWindowsSystem();			// 一時的にWindowsに制御を渡します。
-		if ( *pThinkStop != 0 ) break;	// 中断ボタンが押された場合。
+		if ( *g_pThinkStop != 0 ) break;	// 中断ボタンが押された場合。
 		Sleep(10);						// 10ms(0.01秒)停止。
 	}
 #endif
@@ -144,7 +155,7 @@ DLL_EXPORT int cgfgui_thinking(
 	else                  col = WHITE;
 	ret_z = think_sample(col);
 
-	PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"),sg_time[0],sg_time[1]);
+	PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"), g_sumThinkTime[0], g_sumThinkTime[1]);
 	PRT(_T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(ret_z&0xff),(ret_z>>8),ret_z, dll_tesuu,dll_black_turn,dll_board_size,dll_komi);
 //	print_board();
 	return ret_z;

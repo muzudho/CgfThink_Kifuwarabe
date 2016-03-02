@@ -8,38 +8,41 @@ extern "C" {
 	#include "../../header/library/functions.h"
 
 	//--------------------------------------------------------------------------------
+	// 定義
+	//--------------------------------------------------------------------------------
+
+	#define PRT_LEN_MAX 256			// 最大256文字まで出力可
+
+	//--------------------------------------------------------------------------------
 	// グローバル変数
 	//--------------------------------------------------------------------------------
 
-	//
-	// extern とは、変数や関数を　別のファイルで既に 定義してあるときに、
-	// もう他のファイルで定義してあるのでそれを使います、という意味で定義の頭に付ける、
-	// おまじないだぜ☆！
-	// コンパイラが読みに行くファイルのどこかに 1つ extern のついていない定義が
-	// あればOKなんだぜ☆！ もう定義してあります、というコンパイル・エラーを防げるぜ☆！
-	//
-	extern int board[BOARD_MAX];
+	int board[BOARD_MAX];
 
 	// 左右、上下に移動する場合の動く量
-	extern int dir4[4];
+	int dir4[4] = { +0x001,-0x001,+0x100,-0x100 };
 
 	// 既にこの石を検索した場合は1
-	extern int check_board[BOARD_MAX];
+	int check_board[BOARD_MAX];
 
 	// 盤面のサイズ。19路盤では19、9路盤では9
-	extern int board_size;
+	int board_size;
 
 	// 取った石の数(再帰関数で使う)
-	extern int ishi;
+	int ishi = 0;
 
 	// 連のダメの数(再帰関数で使う)
-	extern int dame;
+	int dame = 0;
 
 	// 次にコウになる位置
-	extern int kou_z;
+	int kou_z = 0;
 
 	// [0]... 黒が取った石の数, [1]...白が取った石の数
-	extern int hama[2];
+	int hama[2];
+
+	// コンソールに出力するためのハンドル
+	//static HANDLE hOutput = INVALID_HANDLE_VALUE;	
+	HANDLE hOutput = INVALID_HANDLE_VALUE;
 
 	//--------------------------------------------------------------------------------
 	// 関数定義
@@ -57,12 +60,6 @@ extern "C" {
 			DispatchMessage(&msg);
 		}
 	}
-
-	#define PRT_LEN_MAX 256			// 最大256文字まで出力可
-
-	// コンソールに出力するためのハンドル
-	//static extern HANDLE hOutput;
-	extern HANDLE hOutput;
 
 
 	// printf()の代用関数。
