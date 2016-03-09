@@ -8,24 +8,25 @@ extern "C" {
 	// printf()の代用関数。
 	void PRT(const _TCHAR* format, ...)
 	{
-		va_list argList;
-		int len;
-		static _TCHAR text[PRT_LEN_MAX];
-		DWORD nw;
+		va_list			argList;
+		int				len;
+		static _TCHAR	text[PRT_LEN_MAX];
+		DWORD			nw;
 
-		if (g_hConsoleWindow == INVALID_HANDLE_VALUE) return;
+		if (g_hConsoleWindow == INVALID_HANDLE_VALUE) {
+			return;
+		}
 		va_start(argList, format);
 		len = _vsnwprintf(text, PRT_LEN_MAX - 1, format, argList);
 		va_end(argList);
 
-		if (len < 0 || len >= PRT_LEN_MAX) return;
+		if (len < 0 || len >= PRT_LEN_MAX) {
+			return;
+		}
 		WriteConsole(g_hConsoleWindow, text, (DWORD)wcslen(text), &nw, NULL);
 	}
 
-	// 一時的にWindowsに制御を渡します。
-	// 思考中にこの関数を呼ぶと思考中断ボタンが有効になります。
-	// 毎秒30回以上呼ばれるようにするとスムーズに中断できます。
-	void PassWindowsSystem(void)
+	void YieldWindowsSystem(void)
 	{
 		MSG msg;
 

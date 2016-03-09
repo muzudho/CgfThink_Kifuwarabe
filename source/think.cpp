@@ -1,3 +1,11 @@
+//
+// /source/think.cpp
+//
+
+// muzudho: ログ出力のために。
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 extern "C" {
 
@@ -32,11 +40,11 @@ extern "C" {
 	// 盤面のサイズ。19路盤では19、9路盤では9
 	int g_boardSize;
 
-	// 取った石の数(再帰関数で使う)
-	int g_ishi = 0;
+	// 囲んで取れる相手の石の数(再帰関数で使う)
+	int g_kakondaIshi = 0;
 
-	// 連のダメの数(再帰関数で使う)
-	int g_dame = 0;
+	// 連のリバティ（石の呼吸点）の数(再帰関数で使う)
+	int g_liberty = 0;
 
 	// 次にコウになる位置。無ければ 0。
 	int g_kouNode = 0;
@@ -52,30 +60,36 @@ extern "C" {
 	//--------------------------------------------------------------------------------
 
 	// 説明はヘッダーファイルを見てください。
-	int bestmove(
+	int Bestmove(
 		int color
 	)
 	{
-		int max;
 		int bestmoveNode;
 		int x;
 		int y;
 		int node;
-		int node1;
 		int i;
 		int iDir;
-		int value;
-		int capture;
-		int flag;
+		int maxScore;	// 今まで読んだ手で一番高かった評価値
+		int score;		// 読んでいる手の評価値
+		int flgCapture;	// 敵石を取ったフラグ
+		int flgMove;	// 移動結果の種類
 		int safe;
-		int color2;
-		int un_col = UNCOL(color);//白黒反転
+		int adjNode;	// 上下左右隣(adjacent)の交点
+		int adjColor;	// 上下左右隣(adjacent)の石の色
+		int invClr = INVCLR(color);//白黒反転
+
+
+		// ログ： 動いていることの確認。
+		ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
+		outputfile << _T("Bestmove: (^q^)") << endl;
+
 
 		// 実行するたびに違う値が得られるように現在の時刻で乱数を初期化
 		srand((unsigned)clock());
 
-		max = -1;
-		bestmoveNode = 0;
+		maxScore = -1;
+		bestmoveNode = 0; // 0 ならパス。
 		for (y = 0; y < g_boardSize; y++) {
 			for (x = 0; x < g_boardSize; x++) {
 				node = ConvertNode(x, y);
@@ -89,47 +103,71 @@ extern "C" {
 					continue;
 				}
 
-				value = rand() % 100;
-				capture = safe = 0;
+				score		= rand() % 100; // 0 ～ 99 のランダムな評価値を与える。
+				flgCapture	= 0;
+				safe		= 0;
 				for (iDir = 0; iDir < 4; iDir++) {
-					node1 = node + g_dir4[iDir];
-					color2 = g_board[node1];
-					if (color2 == WAKU) {
+					adjNode		= node + g_dir4[iDir];
+					adjColor	= g_board[adjNode];
+					if (adjColor == WAKU) {
 						// 枠なら
 						safe++;
 					}
-					if (color2 == 0 || color2 == WAKU) {
+					if (adjColor == 0 || adjColor == WAKU) {
 						// 空っぽか、枠なら。
 						continue;
 					}
-					count_dame(node1);
-					if (color2 == un_col && g_dame == 1) {
-						capture = 1; 	// 敵石が取れる
+
+					// 隣の石のリバティ（呼吸点）の数を数えます。
+					CountLiberty(adjNode);
+
+					// 敵石で、呼吸点の数が 1 なら、ここに石を置くと取ることができます。
+					if (adjColor == invClr && g_liberty == 1) {
+						flgCapture = 1; 	// 敵石を、取ったフラグ。
 					}
-					if (color2 == color && g_dame >= 2) {
-						safe++;			// 安全な味方に繋がる
+
+					// ここに石を置いても、呼吸点が 1 以上残る（＝安全な）味方につながります。
+					if (adjColor == color && 2 <= g_liberty ) {
+						safe++;
 					}
-					value += (color2 == un_col) * g_ishi * (10 / (g_dame + 1));
+
+					// 評価値の計算
+					score +=
+						(adjColor == invClr)		// 隣の石は、相手の石なら 1。
+						* g_kakondaIshi				// 囲んで取れる石の数。
+						* (10 / (g_liberty + 1));	// 連の呼吸点の個数が
+													//		0 なら 10点
+													//		1 なら 5点
+													//		2 なら 3.3333...点
+													//		3 なら 2.5点
+													//		4 なら 2点
+													//		...
 				}
-				if (safe == 4) {
+				if (safe == 4) { // 四方が　自分の石や、壁に　囲まれている場所（眼）になるなら
 					continue;	// 眼には打たない。
 				}
-				if (capture == 0) {		// 石が取れない場合は実際に置いてみて自殺手かどうか判定
-					int kz = g_kouNode;			// コウの位置を退避
-					flag = move_one(node, color);
-					g_board[node] = 0;
-					g_kouNode = kz;
-					if (flag == MOVE_SUICIDE) {
-						continue;	// 自殺手
+				if (flgCapture == 0) {		// 石が取れない場合
+					// 実際に置いてみて　自殺手かどうか判定
+					int temp_kouNode	= g_kouNode;				// コウの位置を退避
+					flgMove				= MoveOne(node, color);		// コウの位置が変わるかも。
+					g_board[node]		= 0;
+					g_kouNode			= temp_kouNode;
+					if (flgMove == MOVE_SUICIDE) {	// 自殺手なら
+						continue;	// ベストムーブにはなりえない
 					}
 				}
-				//		PRT("x,y=(%d,%d)=%d\n",x,y,value);
-				if (value > max) {
-					max = value; bestmoveNode = node;
+
+				// ベストムーブを更新します。
+				// PRT("x,y=(%d,%d)=%d\n",x,y,value);
+				if (maxScore < score) {
+					maxScore = score;
+					bestmoveNode = node;
 				}
 			}
 		}
 
+
 		return bestmoveNode;
+		//return 1*256 + 1;
 	}
 }

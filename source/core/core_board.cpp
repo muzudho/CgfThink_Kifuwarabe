@@ -4,58 +4,60 @@
 extern "C" {
 
 	#include "../../header/core/core_board.h"
+	#include "../../header/core/core_ui.h"
 	#include "../../header/think.h"
 
-	// 位置 tz におけるダメの数と石の数を計算。結果はグローバル変数に。
-	void count_dame(int tz)
+	void CountLiberty(int tNode)
 	{
 		int i;
 
-		g_dame = g_ishi = 0;
-		for (i = 0; i < BOARD_MAX; i++) g_checkedBoard[i] = 0;
-		count_dame_sub(tz, g_board[tz]);
+		g_liberty = g_kakondaIshi = 0;
+		for (i = 0; i < BOARD_MAX; i++) {
+			g_checkedBoard[i] = 0; 
+		}
+		CountLibertyElement(tNode, g_board[tNode]);
 	}
 
-	// ダメと石の数える再帰関数
-	// 4方向を調べて、空白だったら+1、自分の石なら再帰で。相手の石、壁ならそのまま。
-	void count_dame_sub(int tNode, int col)
+	void CountLibertyElement(int tNode, int color)
 	{
-		int node;
+		int adjNode;
 		int i;
 
-		g_checkedBoard[tNode] = 1;			// この石は検索済み	
-		g_ishi++;							// 石の数
+		g_checkedBoard[tNode] = 1;				// この石は検索済み	
+		g_kakondaIshi++;								// 取れる相手の石の数
 		for (i = 0; i < 4; i++) {
-			node = tNode + g_dir4[i];
-			if (g_checkedBoard[node]) continue;
-			if (g_board[node] == 0) {
-				g_checkedBoard[node] = 1;	// この空点は検索済み
-				g_dame++;				// ダメの数
+			adjNode = tNode + g_dir4[i];
+			if (g_checkedBoard[adjNode]) {
+				continue;
 			}
-			if (g_board[node] == col) count_dame_sub(node, col);	// 未探索の自分の石
+			if (g_board[adjNode] == 0) {				// 空点
+				g_checkedBoard[adjNode] = 1;			// この空点は検索済みとする
+				g_liberty++;							// リバティの数
+			}
+			if (g_board[adjNode] == color) {
+				CountLibertyElement(adjNode, color);	// 未探索の自分の石
+			}
 		}
 	}
 
-	// (x,y)を1つの座標に変換
 	int ConvertNode(int x, int y)
 	{
 		return (y + 1) * 256 + (x + 1);
 	}
 
-	// 手を進める。
-	int move_one(
-		int node,	// 座標
-		int col			// 石の色
-		)
+	int MoveOne(
+		int node	,
+		int color
+	)
 	{
 		int i;
-		int z1;
+		int adjNode;			// 四方に隣接する交点
 		int sum;
-		int delNode = 0;
-		int all_ishi = 0;	// 取った石の合計
-		int un_col = UNCOL(col);
+		int delNode		= 0;
+		int all_ishi	= 0;	// 取った石の合計
+		int un_col		= INVCLR(color);
 
-		if (node == 0) {	// PASSの場合
+		if (node == 0) {		// PASSの場合
 			g_kouNode = 0;
 			return MOVE_SUCCESS;
 		}
@@ -67,23 +69,25 @@ extern "C" {
 			PRT(_T("move() Err: 空点ではない！z=%04x\n"), node);
 			return MOVE_EXIST;
 		}
-		g_board[node] = col;	// とりあえず置いてみる
+		g_board[node] = color;	// とりあえず置いてみる
 
 		for (i = 0; i < 4; i++) {
-			z1 = node + g_dir4[i];
-			if (g_board[z1] != un_col) continue;
+			adjNode = node + g_dir4[i];
+			if (g_board[adjNode] != un_col) {
+				continue;
+			}
 			// 敵の石が取れるか？
-			count_dame(z1);
-			if (g_dame == 0) {
-				g_hama[col - 1] += g_ishi;
-				all_ishi += g_ishi;
-				delNode = z1;	// 取られた石の座標。コウの判定で使う。
-				del_stone(z1, un_col);
+			CountLiberty(adjNode);
+			if (g_liberty == 0) {
+				g_hama[color - 1] += g_kakondaIshi;
+				all_ishi += g_kakondaIshi;
+				delNode = adjNode;	// 取られた石の座標。コウの判定で使う。
+				DeleteStone(adjNode, un_col);
 			}
 		}
 		// 自殺手を判定
-		count_dame(node);
-		if (g_dame == 0) {
+		CountLiberty(node);
+		if (g_liberty == 0) {
 			PRT(_T("move() Err: 自殺手! z=%04x\n"), node);
 			g_board[node] = 0;
 			return MOVE_SUICIDE;
@@ -96,30 +100,40 @@ extern "C" {
 			g_kouNode = delNode;	// 取り合えず取られた石の場所をコウの位置とする
 			sum = 0;
 			for (i = 0; i < 4; i++) {
-				z1 = delNode + g_dir4[i];
-				if (g_board[z1] != col) continue;
-				count_dame(z1);
-				if (g_dame == 1 && g_ishi == 1) sum++;
+				adjNode = delNode + g_dir4[i];
+				if (g_board[adjNode] != color) {
+					continue;
+				}
+				CountLiberty(adjNode);
+				if (g_liberty == 1 && g_kakondaIshi == 1) {
+					sum++;
+				}
 			}
 			if (sum >= 2) {
-				PRT(_T("１つ取られて、コウの位置へ打つと、１つの石を2つ以上取れる？z=%04x\n"), node);
+				PRT(_T("１つ取られて、コウの位置へ打つと、１つの石を2つ以上取れる？node=%04x\n"), node);
 				return MOVE_FATAL;
 			}
-			if (sum == 0) g_kouNode = 0;	// コウにはならない。
+			if (sum == 0) {
+				g_kouNode = 0;	// コウにはならない。
+			}
 		}
 		return MOVE_SUCCESS;
 	}
 
-	// 石を消す
-	void del_stone(int tNode, int col)
+	void DeleteStone(
+		int tNode,
+		int color
+	)
 	{
-		int node;
+		int adjNode;	// 上下左右に隣接する交点
 		int i;
 
 		g_board[tNode] = 0;
 		for (i = 0; i < 4; i++) {
-			node = tNode + g_dir4[i];
-			if (g_board[node] == col) del_stone(node, col);
+			adjNode = tNode + g_dir4[i];
+			if (g_board[adjNode] == color) {
+				DeleteStone(adjNode, color);
+			}
 		}
 	}
 

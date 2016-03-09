@@ -27,6 +27,16 @@ extern "C" {
 	// 関数
 	//--------------------------------------------------------------------------------
 
-	extern void PRT(const _TCHAR* fmt, ...);	// printf()の代用関数。コンソールに出力。
-	extern void PassWindowsSystem(void);	// 一時的にWindowsに制御を渡します。
+	// printf()の代用関数。コンソールに出力。
+	void PRT(
+		const _TCHAR* format,
+		...
+	);
+
+	// 一時的にWindowsに制御を渡します。
+	// 思考中にこの関数を呼ぶと思考中断ボタンが有効になります。
+	// 毎秒30回以上呼ばれるようにするとスムーズに中断できます。
+	void YieldWindowsSystem(
+		void
+	);
 }

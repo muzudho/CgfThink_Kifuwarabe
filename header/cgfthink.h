@@ -34,8 +34,8 @@ extern "C" {
 	extern int g_dir4[4];
 	extern int g_checkedBoard[BOARD_MAX];
 	extern int g_boardSize;
-	extern int g_ishi;
-	extern int g_dame;
+	extern int g_kakondaIshi;
+	extern int g_liberty;
 	extern int g_kouNode;
 	extern int g_hama[2];
 	extern HANDLE g_hConsoleWindow;
@@ -69,6 +69,7 @@ DLL_EXPORT int cgfgui_thinking(
 );
 
 // 対局終了時に一度だけ呼ばれます。
+// メモリの解放などが必要な場合にここに記述してください。
 DLL_EXPORT void cgfgui_thinking_close(void);
 
 

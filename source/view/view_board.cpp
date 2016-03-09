@@ -10,17 +10,21 @@ extern "C" {
 	#include "../../header/think.h"
 
 	// Œ»İ‚Ì”Õ–Ê‚ğ•\¦
-	void print_board(void)
+	void PrintBoard(void)
 	{
 		int x;
 		int y;
 		int node;
 		_TCHAR* str[4] = { _T("E"), _T("œ"), _T("›"), _T("{") };
 
-		for (y = 0; y < g_boardSize + 2; y++) for (x = 0; x < g_boardSize + 2; x++) {
-			node = (y + 0) * 256 + (x + 0);
-			PRT(_T("%s"), str[g_board[node]]);
-			if (x == g_boardSize + 1) PRT(_T("\n"));
+		for (y = 0; y < g_boardSize + 2; y++) {
+			for (x = 0; x < g_boardSize + 2; x++) {
+				node = (y + 0) * 256 + (x + 0);
+				PRT(_T("%s"), str[g_board[node]]);
+				if (x == g_boardSize + 1) {
+					PRT(_T("\n"));
+				}
+			}
 		}
 	}
 }

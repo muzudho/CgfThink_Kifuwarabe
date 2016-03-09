@@ -14,30 +14,44 @@ extern "C" {
 	extern int g_board[BOARD_MAX];
 	extern int g_dir4[4];
 	extern int g_checkedBoard[BOARD_MAX];
-	extern int g_ishi;
-	extern int g_dame;
+	extern int g_kakondaIshi;
+	extern int g_liberty;
 	extern int g_kouNode;
 	extern int g_hama[2];
-	extern void PRT(const _TCHAR* format, ...);
 
 
 	//--------------------------------------------------------------------------------
 	// 関数
 	//--------------------------------------------------------------------------------
 
-	// ダメと石の数を調べる
-	void	count_dame(int tz);
+	// 位置 tNode におけるリバティ（石の呼吸点）の数と石の数を計算。結果はグローバル変数に格納。
+	void	CountLiberty (
+		int tNode
+	);
 
-	// ダメと石の数を調べる再帰関数
-	void	count_dame_sub(int tz, int col);
+	// リバティ（石の呼吸点）と石の数える再帰関数
+	// 4方向を調べて、空白だったら+1、自分の石なら再帰で。相手の石、壁ならそのまま。
+	void	CountLibertyElement	(
+		int tNode,
+		int color
+	);
 
 	// (x,y)を1つの座標に変換
-	extern int		ConvertNode(int x, int y);
+	int	ConvertNode	(
+		int x,
+		int y
+	);
 
-	// 1手進める。z ... 座標、col ... 石の色
-	int		move_one(int z, int col);
+	// 1手進める。
+	int	MoveOne	(
+		int node	,	// 座標
+		int color		// 石の色
+	);
 
 	// 石を消す
-	void	del_stone(int tz, int col);
+	void	DeleteStone	(
+		int tNode,
+		int color
+	);
 
 }

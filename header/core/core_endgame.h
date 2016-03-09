@@ -32,21 +32,30 @@ extern "C" {
 	extern int g_board[BOARD_MAX];
 	extern int g_dir4[4];
 	extern int g_boardSize;
-	extern int g_dame;
+	extern int g_liberty;
 
 
 	//--------------------------------------------------------------------------------
 	// 関数宣言まとめ
 	//--------------------------------------------------------------------------------
 
-	extern int ConvertNode(int x, int y);
+	int ConvertNode		(
+		int x,
+		int y
+	);
 
-	// 終局処理
-	extern int endgame_status(int endgame_board[]);
+	// 終局処理（サンプルでは簡単な判断で死石と地の判定をしています）
+	int EndgameStatus	(
+		int arr_endgameBoard[]	// 終局図の盤上の石の色
+	);
 
 	// 図形を描く
-	extern int endgame_draw_figure(int endgame_board[]);
+	int EndgameDrawFigure(
+		int arr_endgameBoard[]
+	);
 
 	// 数値を書く(0は表示されない)
-	extern int endgame_draw_number(int endgame_board[]);
+	int EndgameDrawNumber(
+		int arr_endgameBoard[]
+	);
 }

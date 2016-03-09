@@ -35,7 +35,6 @@ extern "C" {
 
 }//extern "C"
 
-// 説明はヘッダーファイルを見てください。
 DLL_EXPORT void cgfgui_thinking_init(
 	int* pThinkStoped
 )
@@ -58,7 +57,6 @@ DLL_EXPORT void cgfgui_thinking_init(
 	// この下に、メモリの確保など必要な場合のコードを記述してください。
 }
 
-// 説明は cgfthink.h の関数プロトタイプ宣言を参照してください。
 DLL_EXPORT int cgfgui_thinking(
 	int		initBoard[]		,
 	int		kifu[][3]		,
@@ -95,63 +93,70 @@ DLL_EXPORT int cgfgui_thinking(
 	//--------------------
 	// 初期化
 	//--------------------
-	g_hama	     [BLACK]	= g_hama	   [WHITE]	= 0;
-	g_thoughtTime[BLACK]	= g_thoughtTime[WHITE]	= 0;	// 累計思考時間を初期化
-	g_kouNode				= 0;
+	g_hama[BLACK]			= 0;	// 取った石の数
+	g_hama[WHITE]			= 0;
+	g_thoughtTime[BLACK]	= 0;	// 累計思考時間
+	g_thoughtTime[WHITE]	= 0;	
+	g_kouNode				= 0;	// コウになる位置。
 
 	// 棋譜を進めていくぜ☆
 	for (iTesuu =0; iTesuu<curTesuu; iTesuu++) {
-		node   = kifu[iTesuu][0];	// 座標、y*256 + x の形で入っている
-		color = kifu[iTesuu][1];	// 石の色
-		time   = kifu[iTesuu][2];	// 消費時間
-		g_thoughtTime[iTesuu & 1] += time;
-		if (move_one(node, color) != MOVE_SUCCESS) {
+		node	= kifu[iTesuu][0];	// 座標、y*256 + x の形で入っている
+		color	= kifu[iTesuu][1];	// 石の色
+		time	= kifu[iTesuu][2];	// 消費時間
+		g_thoughtTime[iTesuu & 1] += time; // 手数の下1桁を見て [0]先手、[1]後手。
+		if (MoveOne(node, color) != MOVE_SUCCESS) {
+			// 動かせなければそこで止める。
 			break;
 		}
 	}
 	 
 #if 0	// 中断処理を入れる場合のサンプル。0を1にすればコンパイルされます。
 	for (i=0;i<300;i++) {				// 300*10ms = 3000ms = 3秒待ちます。
-		PassWindowsSystem();			// 一時的にWindowsに制御を渡します。
+		YieldWindowsSystem();			// 一時的にWindowsに制御を渡します。
 		if ( *g_pThinkStop != 0 ) break;	// 中断ボタンが押された場合。
 		Sleep(10);						// 10ms(0.01秒)停止。
 	}
 #endif
 
-	// 終局処理、図形、数値を表示する場合
+	// モード別対応
 	switch (endgameType)
 	{
+	// 「終局処理」なら
 	case GAME_END_STATUS:
-		return endgame_status(endgameBoard);
+							return EndgameStatus		(endgameBoard);
+	// 「図形を描く」なら
 	case GAME_DRAW_FIGURE:
-		return endgame_draw_figure(endgameBoard);
-	case GAME_DRAW_NUMBER:
-		return endgame_draw_number(endgameBoard);
-	default:
-		break;
+							return EndgameDrawFigure	(endgameBoard);
+	// 「数値を書く」なら
+	case GAME_DRAW_NUMBER:	
+							return EndgameDrawNumber	(endgameBoard);
+	// 通常の指し手
+	default:				
+							break;
 	}
 
 	//--------------------------------------------------------------------------------
 	// 思考ルーチン
 	//--------------------------------------------------------------------------------
 
-	// ランダムに１手指します。
 	if (blackTurn) {
 		color = BLACK;
 	} else {
 		color = WHITE;
 	}
-	bestmoveNode = bestmove(color);
+	// １手指します。
+	bestmoveNode = Bestmove(color);
 
 	PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"), g_thoughtTime[0], g_thoughtTime[1]);
 	PRT(_T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,blackTurn,boardSize,komi);
-//	print_board();
+//	PrintBoard();
 	return bestmoveNode;
 }
 
-// 対局終了時に一度だけ呼ばれます。
-// メモリの解放などが必要な場合にここに記述してください。
-DLL_EXPORT void cgfgui_thinking_close(void)
+DLL_EXPORT void cgfgui_thinking_close(
+	void
+)
 {
 	// ログ： 動いていることの確認。
 	ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
