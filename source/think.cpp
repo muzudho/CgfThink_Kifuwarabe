@@ -64,6 +64,8 @@ extern "C" {
 		int color
 	)
 	{
+		PRT(_T("Bestmove開始☆！ \n"));
+
 		int bestmoveNode;
 		int x;
 		int y;
@@ -79,6 +81,8 @@ extern "C" {
 		int adjColor;	// 上下左右隣(adjacent)の石の色
 		int invClr = INVCLR(color);//白黒反転
 
+		PRT(_T("color=%d invClr=%d \n", color, invClr));
+
 
 		// ログ： 動いていることの確認。
 		ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
@@ -90,16 +94,22 @@ extern "C" {
 
 		maxScore = -1;
 		bestmoveNode = 0; // 0 ならパス。
+
+		PRT(_T("g_boardSize=%d \n", g_boardSize));
+
 		for (y = 0; y < g_boardSize; y++) {
 			for (x = 0; x < g_boardSize; x++) {
 				node = ConvertNode(x, y);
+				PRT(_T("node=%d \n"));
 
 				if (g_board[node]) {
 					// 石があるか、枠なら
+					PRT(_T("石があるか、枠。 \n"));
 					continue;
 				}
 				if (node == g_kouNode) {
 					// コウになる位置なら
+					PRT(_T("コウ。 \n"));
 					continue;
 				}
 
@@ -111,10 +121,12 @@ extern "C" {
 					adjColor	= g_board[adjNode];
 					if (adjColor == WAKU) {
 						// 枠なら
+						PRT(_T("枠。 \n"));
 						safe++;
 					}
 					if (adjColor == 0 || adjColor == WAKU) {
 						// 空っぽか、枠なら。
+						PRT(_T("空っぽか、枠。 \n"));
 						continue;
 					}
 
@@ -123,6 +135,7 @@ extern "C" {
 
 					// 敵石で、呼吸点の数が 1 なら、ここに石を置くと取ることができます。
 					if (adjColor == invClr && g_liberty == 1) {
+						PRT(_T("敵石を取った。 \n"));
 						flgCapture = 1; 	// 敵石を、取ったフラグ。
 					}
 
@@ -142,8 +155,10 @@ extern "C" {
 													//		3 なら 2.5点
 													//		4 なら 2点
 													//		...
+					PRT(_T("スコア=%d \n", score));
 				}
 				if (safe == 4) { // 四方が　自分の石や、壁に　囲まれている場所（眼）になるなら
+					PRT(_T("眼には打たない。 \n"));
 					continue;	// 眼には打たない。
 				}
 				if (flgCapture == 0) {		// 石が取れない場合
@@ -153,6 +168,7 @@ extern "C" {
 					g_board[node]		= 0;
 					g_kouNode			= temp_kouNode;
 					if (flgMove == MOVE_SUICIDE) {	// 自殺手なら
+						PRT(_T("自殺手は打たない。 \n"));
 						continue;	// ベストムーブにはなりえない
 					}
 				}

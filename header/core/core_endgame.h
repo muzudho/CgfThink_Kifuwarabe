@@ -28,10 +28,9 @@ extern "C" {
 	// •Ï”éŒ¾‚Ü‚Æ‚ß
 	//--------------------------------------------------------------------------------
 
-	// à–¾‚Í /source/think.cpp ‚ğŒ©‚Ä‚­‚¾‚³‚¢B
 	extern int g_board[BOARD_MAX];
 	extern int g_dir4[4];
-	extern int g_boardSize;
+	//extern int g_boardSize;
 	extern int g_liberty;
 
 

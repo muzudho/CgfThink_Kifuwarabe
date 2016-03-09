@@ -33,7 +33,7 @@ extern "C" {
 	extern int g_board[BOARD_MAX];
 	extern int g_dir4[4];
 	extern int g_checkedBoard[BOARD_MAX];
-	extern int g_boardSize;
+	//extern int g_boardSize;
 	extern int g_kakondaIshi;
 	extern int g_liberty;
 	extern int g_kouNode;
