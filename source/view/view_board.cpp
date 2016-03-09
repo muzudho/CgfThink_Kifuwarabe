@@ -6,10 +6,8 @@ extern "C" {
 
 	#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
 	#include "../../header/core/core_ui.h"
+	#include "../../header/view/view_board.h"
 	#include "../../header/think.h"
-
-	extern int g_board[BOARD_MAX];
-	extern int g_boardSize;
 
 	// 現在の盤面を表示
 	void print_board(void)

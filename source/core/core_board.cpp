@@ -6,15 +6,6 @@ extern "C" {
 	#include "../../header/core/core_board.h"
 	#include "../../header/think.h"
 
-	extern int g_board[BOARD_MAX];
-	extern int g_dir4[4];
-	extern int g_checkedBoard[BOARD_MAX];
-	extern int g_ishi;
-	extern int g_dame;
-	extern int g_kouNode;
-	extern int g_hama[2];
-	extern void PRT(const _TCHAR* format, ...);
-
 	// 位置 tz におけるダメの数と石の数を計算。結果はグローバル変数に。
 	void count_dame(int tz)
 	{

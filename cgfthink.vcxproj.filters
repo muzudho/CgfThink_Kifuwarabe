@@ -30,9 +30,6 @@
     <ClInclude Include="header\cgfthink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\library\think.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="header\view\view_board.h">
       <Filter>Header Files\view</Filter>
     </ClInclude>
@@ -47,6 +44,9 @@
     </ClInclude>
     <ClInclude Include="header\core\core_ui.h">
       <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\think.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +65,7 @@
     <ClCompile Include="source\core\core_ui.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="source\view\core_board.cpp">
+    <ClCompile Include="source\view\view_board.cpp">
       <Filter>Source Files\view</Filter>
     </ClCompile>
   </ItemGroup>

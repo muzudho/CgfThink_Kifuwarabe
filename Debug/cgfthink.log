@@ -1,5 +1,14 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(936,5): warning MSB8027: Two or more files with the name of core_board.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are source\core\core_board.cpp, source\view\core_board.cpp.
+﻿  think.cpp
+source\think.cpp(65): warning C4101: 'i': unreferenced local variable
+  core_ui.cpp
+source\core\core_ui.cpp(18): warning C4996: '_vsnwprintf': This function or variable may be unsafe. Consider using _vsnwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\corecrt_wstdio.h(1120): note: see declaration of '_vsnwprintf'
+  cgfthink.cpp
+source\cgfthink.cpp(81): warning C4101: 'i': unreferenced local variable
+  Generating Code...
+  Compiling...
+  view_board.cpp
+  core_endgame.cpp
   core_board.cpp
-.\Debug\core_board.obj : warning LNK4042: object specified more than once; extras ignored
-     Creating library .\Debug\cgfthink.lib and object .\Debug\cgfthink.exp
+  Generating Code...
   cgfthink.vcxproj -> E:\Muzudho\Igo\Root_Cgfthink_Kifuwarabe\.\Debug\cgfthink.dll

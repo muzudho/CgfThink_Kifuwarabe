@@ -33,33 +33,9 @@ extern "C" {
 	// 累計思考時間 [0]先手 [1]後手。　黒白とは限らない？
 	int g_thoughtTime[2];
 
-
-	//--------------------------------------------------------------------------------
-	// 外部グローバル変数
-	//--------------------------------------------------------------------------------
-
-	//
-	// extern とは、変数や関数を　別のファイルで既に 定義してあるときに、
-	// もう他のファイルで定義してあるのでそれを使います、という意味で定義の頭に付ける、
-	// おまじないだぜ☆！
-	// コンパイラが読みに行くファイルのどこかに 1つ extern のついていない定義が
-	// あればOKなんだぜ☆！ もう定義してあります、というコンパイル・エラーを防げるぜ☆！
-	//
-
-	// 説明は header/functions.cpp を参照してください。
-	extern int g_board[BOARD_MAX];
-	extern int g_dir4[4];
-	extern int g_checkedBoard[BOARD_MAX];
-	extern int g_boardSize;
-	extern int g_ishi;
-	extern int g_dame;
-	extern int g_kouNode;
-	extern int g_hama[2];
-	extern HANDLE g_hConsoleWindow;
-
 }//extern "C"
 
-// 説明は cgfthink.h の関数プロトタイプ宣言を参照してください。
+// 説明はヘッダーファイルを見てください。
 DLL_EXPORT void cgfgui_thinking_init(
 	int* pThinkStoped
 )
@@ -165,7 +141,7 @@ DLL_EXPORT int cgfgui_thinking(
 	} else {
 		color = WHITE;
 	}
-	bestmoveNode = think_sample(color);
+	bestmoveNode = bestmove(color);
 
 	PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"), g_thoughtTime[0], g_thoughtTime[1]);
 	PRT(_T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,blackTurn,boardSize,komi);
