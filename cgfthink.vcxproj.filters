@@ -13,12 +13,33 @@
       <UniqueIdentifier>{485ce998-5b79-4f14-bf21-d77eb42b16ed}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{4dfad55f-b569-4c3f-872d-7b273a7a79e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\view">
+      <UniqueIdentifier>{a8668a78-abe8-4d03-997f-b73d913a12fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\cgfthink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\library\functions.h">
+    <ClInclude Include="header\core\ui.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\core\explain.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\core\endgame.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\core\board.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\view\board.h">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="header\library\think.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -26,7 +47,7 @@
     <ClCompile Include="source\cgfthink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\library\functions.cpp">
+    <ClCompile Include="source\library\think.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

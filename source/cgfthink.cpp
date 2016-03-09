@@ -16,7 +16,11 @@ extern "C" {
 	#include <windows.h> // コンソールへの出力等
 	#include <tchar.h> // Unicode対応の _T() 関数を使用するために。
 	#include "../header/cgfthink.h"
-	#include "../header/library/functions.h"
+	#include "../header/core/ui.h"
+	#include "../header/core/board.h"
+	#include "../header/core/explain.h"
+	#include "../header/core/endgame.h"
+	#include "../header/library/think.h"
 
 	//--------------------------------------------------------------------------------
 	// グローバル変数
@@ -41,38 +45,23 @@ extern "C" {
 	// コンパイラが読みに行くファイルのどこかに 1つ extern のついていない定義が
 	// あればOKなんだぜ☆！ もう定義してあります、というコンパイル・エラーを防げるぜ☆！
 	//
+
+	// 説明は header/functions.cpp を参照してください。
 	extern int g_board[BOARD_MAX];
-
-	// 左右、上下に移動する場合の動く量
 	extern int g_dir4[4];
-
-	// 既にこの石を検索した場合は1
 	extern int g_checkedBoard[BOARD_MAX];
-
-	// 盤面のサイズ。19路盤では19、9路盤では9
 	extern int g_boardSize;
-
-	// 取った石の数(再帰関数で使う)
 	extern int g_ishi;
-
-	// 連のダメの数(再帰関数で使う)
 	extern int g_dame;
-
-	// 次にコウになる位置
-	extern int g_kouZ;
-
-	// [0]... 黒が取った石の数, [1]...白が取った石の数
+	extern int g_kouNode;
 	extern int g_hama[2];
-
-	// コンソールに出力するためのハンドル
-	//static extern HANDLE hOutput;
 	extern HANDLE g_hConsoleWindow;
 
-}//extern "C" {
+}//extern "C"
 
-// 対局開始時に一度だけ呼ばれます。
+// 説明は cgfthink.h の関数プロトタイプ宣言を参照してください。
 DLL_EXPORT void cgfgui_thinking_init(
-	int* pThinkStoped		// 普段は0。中止ボタンが押されたときに 1 になります。この値が1になった場合は思考を終了してください。
+	int* pThinkStoped
 )
 {
 	// ログ： 動いていることの確認。
@@ -93,20 +82,16 @@ DLL_EXPORT void cgfgui_thinking_init(
 	// この下に、メモリの確保など必要な場合のコードを記述してください。
 }
 
-// 思考ルーチン。次の1手を返す。
-// 本体から初期盤面、棋譜、手数、手番、盤のサイズ、コミ、が入った状態で呼ばれる。
+// 説明は cgfthink.h の関数プロトタイプ宣言を参照してください。
 DLL_EXPORT int cgfgui_thinking(
-	int		initBoard[]		,	// 初期盤面
-	int		kifu[][3]		,	// 棋譜	[手数][0]...座標
-								//		[手数][1]...石の色
-								//		[手数][2]...消費時間（秒)
-								// 手数は 0 から始まり、curTesuu の1つ手前まである。
-	int		curTesuu		,	// 現在の手数
-	int		blackTurn		,	// 手番(黒番...1、白番...0)
-	int		boardSize		,	// 盤面のサイズ
-	double	komi			,	// コミ
-	int		endgameType		,	// 0...通常の思考、1...終局処理、2...図形を表示、3...数値を表示。
-	int		endgameBoard[]		// 終局処理の結果を代入する。
+	int		initBoard[]		,
+	int		kifu[][3]		,
+	int		curTesuu		,
+	int		blackTurn		,
+	int		boardSize		,
+	double	komi			,
+	int		endgameType		,
+	int		endgameBoard[]
 )
 {
 	// ログ： 動いていることの確認。
@@ -136,7 +121,7 @@ DLL_EXPORT int cgfgui_thinking(
 	//--------------------
 	g_hama	     [BLACK]	= g_hama	   [WHITE]	= 0;
 	g_thoughtTime[BLACK]	= g_thoughtTime[WHITE]	= 0;	// 累計思考時間を初期化
-	g_kouZ					= 0;
+	g_kouNode				= 0;
 
 	// 棋譜を進めていくぜ☆
 	for (iTesuu =0; iTesuu<curTesuu; iTesuu++) {
