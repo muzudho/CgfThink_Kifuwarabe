@@ -135,16 +135,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="header\cgfthink.h" />
-    <ClInclude Include="header\core\board.h" />
-    <ClInclude Include="header\core\endgame.h" />
-    <ClInclude Include="header\core\explain.h" />
-    <ClInclude Include="header\core\ui.h" />
+    <ClInclude Include="header\core\core_board.h" />
+    <ClInclude Include="header\core\core_endgame.h" />
+    <ClInclude Include="header\core\core_explain.h" />
+    <ClInclude Include="header\core\core_ui.h" />
     <ClInclude Include="header\library\think.h" />
-    <ClInclude Include="header\view\board.h" />
+    <ClInclude Include="header\view\view_board.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\cgfthink.cpp" />
-    <ClCompile Include="source\library\think.cpp" />
+    <ClCompile Include="source\core\core_board.cpp" />
+    <ClCompile Include="source\core\core_endgame.cpp" />
+    <ClCompile Include="source\core\core_ui.cpp" />
+    <ClCompile Include="source\think.cpp" />
+    <ClCompile Include="source\view\core_board.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

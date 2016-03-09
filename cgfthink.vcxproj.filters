@@ -19,36 +19,54 @@
     <Filter Include="Header Files\view">
       <UniqueIdentifier>{a8668a78-abe8-4d03-997f-b73d913a12fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{4a2b4ef1-65c0-4b68-a6d0-c50ce34edaf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\view">
+      <UniqueIdentifier>{79026af8-f66a-47ec-94a1-611a49ad30d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\cgfthink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\core\ui.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="header\core\explain.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="header\core\endgame.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="header\core\board.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="header\view\board.h">
-      <Filter>Header Files\view</Filter>
-    </ClInclude>
     <ClInclude Include="header\library\think.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\view\view_board.h">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="header\core\core_board.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\core\core_endgame.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\core\core_explain.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\core\core_ui.h">
+      <Filter>Header Files\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\cgfthink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\library\think.cpp">
+    <ClCompile Include="source\think.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\core\core_board.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\core\core_endgame.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\core\core_ui.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\view\core_board.cpp">
+      <Filter>Source Files\view</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
