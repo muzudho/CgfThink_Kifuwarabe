@@ -31,6 +31,18 @@
     <Filter Include="Source Files\s190_board">
       <UniqueIdentifier>{aecfee18-d30f-42d5-9d76-b1e1e85c4f78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\h090_core">
+      <UniqueIdentifier>{36a26ab2-6e8a-4e36-91f0-c48a68a3705a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s090_core">
+      <UniqueIdentifier>{a4a99de9-7a23-445c-9474-54386c867844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\h300_move">
+      <UniqueIdentifier>{247ba9f2-a252-4039-bd9a-9134d978d442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s300_move">
+      <UniqueIdentifier>{a52d18b1-c0cf-4073-b50b-ce0576f68a00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\cgfthink.h">
@@ -48,11 +60,14 @@
     <ClInclude Include="header\h400_core\h400_explain.h">
       <Filter>Header Files\h400_core</Filter>
     </ClInclude>
-    <ClInclude Include="header\h400_core\h400_ui.h">
-      <Filter>Header Files\h400_core</Filter>
-    </ClInclude>
     <ClInclude Include="header\h500_view\h500_board.h">
       <Filter>Header Files\h500_view</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h090_core\h090_core.h">
+      <Filter>Header Files\h090_core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h300_move\h300_move.h">
+      <Filter>Header Files\h300_move</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,11 +83,14 @@
     <ClCompile Include="source\s400_core\s400_endgame.cpp">
       <Filter>Source Files\s400_core</Filter>
     </ClCompile>
-    <ClCompile Include="source\s400_core\s400_ui.cpp">
-      <Filter>Source Files\s400_core</Filter>
-    </ClCompile>
     <ClCompile Include="source\s500_view\s500_board.cpp">
       <Filter>Source Files\s500_view</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s090_core\s090_core.cpp">
+      <Filter>Source Files\s090_core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s300_move\s300_move.cpp">
+      <Filter>Source Files\s300_move</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

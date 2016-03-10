@@ -5,7 +5,7 @@
 extern "C" {
 
 	#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
-	#include "../../header/h400_core/h400_ui.h"
+	#include "../../header/h090_core/h090_core.h"
 	#include "../../header/h500_view/h500_board.h"
 
 	// 現在の盤面を表示

@@ -4,10 +4,10 @@
 extern "C" {
 
 	#include <windows.h> // コンソールへの出力等
-	#include "../../header/h400_core/h400_board.h"
+	#include "../../header/h190_board/h190_board.h"
 	#include "../../header/h400_core/h400_endgame.h"
 	#include "../../header/h400_core/h400_explain.h"
-	#include "../../header/think.h"
+
 
 	int EndgameStatus(int arr_endgameBoard[])
 	{

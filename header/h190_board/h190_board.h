@@ -74,5 +74,4 @@ extern "C" {
 		int color
 		);
 
-
 }

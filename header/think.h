@@ -20,15 +20,6 @@ extern "C" {
 		GAME_DRAW_NUMBER 		// 数値を書く
 	};
 
-	// move()関数で手を進めた時の結果
-	enum MoveResult {
-		MOVE_SUCCESS,			// 成功
-		MOVE_SUICIDE,			// 自殺手
-		MOVE_KOU,				// コウ
-		MOVE_EXIST,				// 既に石が存在
-		MOVE_FATAL				// それ以外
-	};
-
 
 	//--------------------------------------------------------------------------------
 	// グローバル変数
