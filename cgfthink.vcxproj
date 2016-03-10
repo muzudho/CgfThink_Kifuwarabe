@@ -135,20 +135,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="header\cgfthink.h" />
-    <ClInclude Include="header\core\core_board.h" />
-    <ClInclude Include="header\core\core_endgame.h" />
-    <ClInclude Include="header\core\core_explain.h" />
-    <ClInclude Include="header\core\core_ui.h" />
+    <ClInclude Include="header\h190_board\h190_board.h" />
+    <ClInclude Include="header\h400_core\h400_endgame.h" />
+    <ClInclude Include="header\h400_core\h400_explain.h" />
+    <ClInclude Include="header\h400_core\h400_ui.h" />
+    <ClInclude Include="header\h500_view\h500_board.h" />
     <ClInclude Include="header\think.h" />
-    <ClInclude Include="header\view\view_board.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\cgfthink.cpp" />
-    <ClCompile Include="source\core\core_board.cpp" />
-    <ClCompile Include="source\core\core_endgame.cpp" />
-    <ClCompile Include="source\core\core_ui.cpp" />
+    <ClCompile Include="source\s190_board\s190_board.cpp" />
+    <ClCompile Include="source\s400_core\s400_endgame.cpp" />
+    <ClCompile Include="source\s400_core\s400_ui.cpp" />
+    <ClCompile Include="source\s500_view\s500_board.cpp" />
     <ClCompile Include="source\think.cpp" />
-    <ClCompile Include="source\view\view_board.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

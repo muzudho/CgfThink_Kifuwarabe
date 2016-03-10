@@ -13,40 +13,46 @@
       <UniqueIdentifier>{485ce998-5b79-4f14-bf21-d77eb42b16ed}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
-    <Filter Include="Header Files\core">
+    <Filter Include="Header Files\h190_board">
+      <UniqueIdentifier>{4a37737e-674a-4c30-a4b0-1ea666415947}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\h400_core">
       <UniqueIdentifier>{4dfad55f-b569-4c3f-872d-7b273a7a79e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\view">
+    <Filter Include="Header Files\h500_view">
       <UniqueIdentifier>{a8668a78-abe8-4d03-997f-b73d913a12fb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\core">
+    <Filter Include="Source Files\s400_core">
       <UniqueIdentifier>{4a2b4ef1-65c0-4b68-a6d0-c50ce34edaf8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\view">
+    <Filter Include="Source Files\s500_view">
       <UniqueIdentifier>{79026af8-f66a-47ec-94a1-611a49ad30d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s190_board">
+      <UniqueIdentifier>{aecfee18-d30f-42d5-9d76-b1e1e85c4f78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\cgfthink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\view\view_board.h">
-      <Filter>Header Files\view</Filter>
-    </ClInclude>
-    <ClInclude Include="header\core\core_board.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="header\core\core_endgame.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="header\core\core_explain.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="header\core\core_ui.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
     <ClInclude Include="header\think.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h190_board\h190_board.h">
+      <Filter>Header Files\h190_board</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h400_core\h400_endgame.h">
+      <Filter>Header Files\h400_core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h400_core\h400_explain.h">
+      <Filter>Header Files\h400_core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h400_core\h400_ui.h">
+      <Filter>Header Files\h400_core</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h500_view\h500_board.h">
+      <Filter>Header Files\h500_view</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -56,17 +62,17 @@
     <ClCompile Include="source\think.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\core\core_board.cpp">
-      <Filter>Source Files\core</Filter>
+    <ClCompile Include="source\s190_board\s190_board.cpp">
+      <Filter>Source Files\s190_board</Filter>
     </ClCompile>
-    <ClCompile Include="source\core\core_endgame.cpp">
-      <Filter>Source Files\core</Filter>
+    <ClCompile Include="source\s400_core\s400_endgame.cpp">
+      <Filter>Source Files\s400_core</Filter>
     </ClCompile>
-    <ClCompile Include="source\core\core_ui.cpp">
-      <Filter>Source Files\core</Filter>
+    <ClCompile Include="source\s400_core\s400_ui.cpp">
+      <Filter>Source Files\s400_core</Filter>
     </ClCompile>
-    <ClCompile Include="source\view\view_board.cpp">
-      <Filter>Source Files\view</Filter>
+    <ClCompile Include="source\s500_view\s500_board.cpp">
+      <Filter>Source Files\s500_view</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

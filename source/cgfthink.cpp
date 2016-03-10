@@ -15,10 +15,10 @@ extern "C" {
 
 	#include <windows.h> // コンソールへの出力等
 	#include <tchar.h> // Unicode対応の _T() 関数を使用するために。
-	#include "../header/core/core_ui.h"
-	#include "../header/core/core_board.h"
-	#include "../header/core/core_explain.h"
-	#include "../header/core/core_endgame.h"
+	#include "../header/h400_core/h400_ui.h"
+	#include "../header/h400_core/h400_board.h"
+	#include "../header/h400_core/h400_explain.h"
+	#include "../header/h400_core/h400_endgame.h"
 	#include "../header/cgfthink.h"
 	#include "../header/think.h"
 

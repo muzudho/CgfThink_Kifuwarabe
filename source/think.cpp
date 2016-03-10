@@ -12,10 +12,10 @@ extern "C" {
 	#include <time.h>		// clock() を使用するために。
 	#include <windows.h>	// rand() 等を使用するために。
 	#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
-	#include "../header/core/core_board.h"
-	#include "../header/core/core_explain.h"
-	#include "../header/core/core_endgame.h"
-	#include "../header/core/core_ui.h"
+	#include "../header/h400_core/h400_board.h"
+	#include "../header/h400_core/h400_explain.h"
+	#include "../header/h400_core/h400_endgame.h"
+	#include "../header/h400_core/h400_ui.h"
 	#include "../header/cgfthink.h"
 	#include "../header/think.h"
 
@@ -23,8 +23,6 @@ extern "C" {
 	//--------------------------------------------------------------------------------
 	// グローバル変数
 	//--------------------------------------------------------------------------------
-
-	int g_board[BOARD_MAX];
 
 	// 右、左、下、上に移動するのに使う加減値
 	int g_dir4[4] = {
@@ -36,9 +34,6 @@ extern "C" {
 
 	// 既にこの石を検索した場合は1
 	int g_checkedBoard[BOARD_MAX];
-
-	// 盤面のサイズ。19路盤では19、9路盤では9
-	int g_boardSize;
 
 	// 囲んで取れる相手の石の数(再帰関数で使う)
 	int g_kakondaIshi = 0;
