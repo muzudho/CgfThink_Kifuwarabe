@@ -1,5 +1,5 @@
 //
-// /source/core/core_endgame.cpp
+// /source/s400_endgame/s400_endgame.cpp
 //
 extern "C" {
 

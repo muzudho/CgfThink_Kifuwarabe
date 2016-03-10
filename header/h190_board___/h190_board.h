@@ -68,8 +68,8 @@ extern "C" {
 		int color		// 石の色
 		);
 
-	// 石を消す
-	void	DeleteStone(
+	// 連になっている石を消す。１個の石でも消す。
+	void	DeleteRenStones(
 		int tNode,
 		int color
 		);

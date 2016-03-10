@@ -1,5 +1,5 @@
 //
-// /header/core/core_endgame.h
+// /header/h400_endgame/h400_endgame.h
 //
 #pragma once
 

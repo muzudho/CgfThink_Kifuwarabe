@@ -35,7 +35,7 @@ extern "C" {
 		int adjNode;
 		int i;
 
-		g_checkedBoard[tNode] = 1;				// この石は検索済み	
+		g_checkedBoard[tNode] = 1;						// この石は検索済み	
 		g_kakondaIshi++;								// 取れる相手の石の数
 		for (i = 0; i < 4; i++) {
 			adjNode = tNode + g_dir4[i];
@@ -57,7 +57,7 @@ extern "C" {
 		return (y + 1) * 256 + (x + 1);
 	}
 
-	void DeleteStone(
+	void DeleteRenStones(
 		int tNode,
 		int color
 	)
@@ -65,11 +65,14 @@ extern "C" {
 		int adjNode;	// 上下左右に隣接する交点
 		int i;
 
+		// 指定した位置の石を削除。
 		g_board[tNode] = 0;
+
+		// ４方向の石にも同じ処理を行います。
 		for (i = 0; i < 4; i++) {
 			adjNode = tNode + g_dir4[i];
 			if (g_board[adjNode] == color) {
-				DeleteStone(adjNode, color);
+				DeleteRenStones(adjNode, color);
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 //
-// /source/view/board.cpp
+// /source/s500_board/s500_board.cpp
 //
 
 extern "C" {

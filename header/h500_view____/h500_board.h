@@ -1,5 +1,5 @@
 //
-// view/board.h
+// /header/h500_board/h500_board.h
 //
 #pragma once
 

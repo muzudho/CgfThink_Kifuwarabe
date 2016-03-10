@@ -108,7 +108,8 @@ DLL_EXPORT int cgfgui_thinking(
 		time	= kifu[iTesuu][2];	// 消費時間
 		g_thoughtTime[iTesuu & 1] += time; // 手数の下1桁を見て [0]先手、[1]後手。
 		if (MoveOne(node, color) != MOVE_SUCCESS) {
-			// 動かせなければそこで止める。
+			// 動かせなければそこで止める。（エラーがあった？？）
+			PRT(_T("棋譜を進められなかったので止めた☆ \n"));
 			break;
 		}
 	}
