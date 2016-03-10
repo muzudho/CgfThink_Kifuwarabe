@@ -43,14 +43,20 @@
     <Filter Include="Source Files\s300_move">
       <UniqueIdentifier>{a52d18b1-c0cf-4073-b50b-ce0576f68a00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\h700_think">
+      <UniqueIdentifier>{7a9f15bd-5afc-4b17-b5cb-29bb1dc995ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\h800_cgfthink">
+      <UniqueIdentifier>{4bb21962-be77-46a2-b51b-220c41fda0a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s700_think">
+      <UniqueIdentifier>{23bac57b-b209-4516-8a37-fbdb8dae0cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s800_cgfthink">
+      <UniqueIdentifier>{ab5b3ed0-00e7-48e9-adc0-f469b69e7758}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\cgfthink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\think.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="header\h190_board\h190_board.h">
       <Filter>Header Files\h190_board</Filter>
     </ClInclude>
@@ -69,14 +75,14 @@
     <ClInclude Include="header\h300_move\h300_move.h">
       <Filter>Header Files\h300_move</Filter>
     </ClInclude>
+    <ClInclude Include="header\h700_think\h700_think.h">
+      <Filter>Header Files\h700_think</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h800_cgfthink\h800_cgfthink.h">
+      <Filter>Header Files\h800_cgfthink</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\cgfthink.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\think.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\s190_board\s190_board.cpp">
       <Filter>Source Files\s190_board</Filter>
     </ClCompile>
@@ -91,6 +97,12 @@
     </ClCompile>
     <ClCompile Include="source\s300_move\s300_move.cpp">
       <Filter>Source Files\s300_move</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s700_think\s700_think.cpp">
+      <Filter>Source Files\s700_think</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s800_cgfthink\s800_cgfthink.cpp">
+      <Filter>Source Files\s800_cgfthink</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
