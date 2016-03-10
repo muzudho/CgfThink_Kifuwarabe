@@ -10,7 +10,7 @@
 extern "C" {
 
 	#include <windows.h>	// HANDLE “™‚ğg—p‚·‚é‚½‚ß‚ÉB
-	#include "../h190_board/h190_board.h"
+	#include "../h190_board___/h190_board.h"
 
 
 	//--------------------------------------------------------------------------------

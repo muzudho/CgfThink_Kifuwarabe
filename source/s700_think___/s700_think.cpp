@@ -12,12 +12,12 @@ extern "C" {
 	#include <time.h>		// clock() を使用するために。
 	#include <windows.h>	// rand() 等を使用するために。
 	#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
-	#include "../../header/h090_core/h090_core.h"
-	#include "../../header/h300_move/h300_move.h"
-	#include "../../header/h400_core/h400_board.h"
-	#include "../../header/h400_core/h400_explain.h"
-	#include "../../header/h400_core/h400_endgame.h"
-	#include "../../header/h700_think/h700_think.h"
+	#include "../../header/h090_core____/h090_core.h"
+	#include "../../header/h190_board___/h190_board.h"
+	#include "../../header/h300_move____/h300_move.h"
+	#include "../../header/h390_explain_/h390_explain.h"
+	#include "../../header/h400_endgame_/h400_endgame.h"
+	#include "../../header/h700_think___/h700_think.h"
 
 
 	//--------------------------------------------------------------------------------

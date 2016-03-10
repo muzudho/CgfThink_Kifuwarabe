@@ -13,96 +13,99 @@
       <UniqueIdentifier>{485ce998-5b79-4f14-bf21-d77eb42b16ed}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
-    <Filter Include="Header Files\h190_board">
-      <UniqueIdentifier>{4a37737e-674a-4c30-a4b0-1ea666415947}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\h400_core">
-      <UniqueIdentifier>{4dfad55f-b569-4c3f-872d-7b273a7a79e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\h500_view">
-      <UniqueIdentifier>{a8668a78-abe8-4d03-997f-b73d913a12fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\s400_core">
-      <UniqueIdentifier>{4a2b4ef1-65c0-4b68-a6d0-c50ce34edaf8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\s500_view">
-      <UniqueIdentifier>{79026af8-f66a-47ec-94a1-611a49ad30d6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\s190_board">
-      <UniqueIdentifier>{aecfee18-d30f-42d5-9d76-b1e1e85c4f78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\h090_core">
-      <UniqueIdentifier>{36a26ab2-6e8a-4e36-91f0-c48a68a3705a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\s090_core">
-      <UniqueIdentifier>{a4a99de9-7a23-445c-9474-54386c867844}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\h300_move">
-      <UniqueIdentifier>{247ba9f2-a252-4039-bd9a-9134d978d442}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\s300_move">
-      <UniqueIdentifier>{a52d18b1-c0cf-4073-b50b-ce0576f68a00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\h700_think">
-      <UniqueIdentifier>{7a9f15bd-5afc-4b17-b5cb-29bb1dc995ce}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\h800_cgfthink">
       <UniqueIdentifier>{4bb21962-be77-46a2-b51b-220c41fda0a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\s700_think">
-      <UniqueIdentifier>{23bac57b-b209-4516-8a37-fbdb8dae0cf4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\s800_cgfthink">
       <UniqueIdentifier>{ab5b3ed0-00e7-48e9-adc0-f469b69e7758}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\h090_core____">
+      <UniqueIdentifier>{36a26ab2-6e8a-4e36-91f0-c48a68a3705a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\h190_board___">
+      <UniqueIdentifier>{4a37737e-674a-4c30-a4b0-1ea666415947}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\h300_move____">
+      <UniqueIdentifier>{247ba9f2-a252-4039-bd9a-9134d978d442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\h500_view____">
+      <UniqueIdentifier>{a8668a78-abe8-4d03-997f-b73d913a12fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\h700_think___">
+      <UniqueIdentifier>{7a9f15bd-5afc-4b17-b5cb-29bb1dc995ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s090_core____">
+      <UniqueIdentifier>{a4a99de9-7a23-445c-9474-54386c867844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s190_board___">
+      <UniqueIdentifier>{aecfee18-d30f-42d5-9d76-b1e1e85c4f78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s300_move____">
+      <UniqueIdentifier>{a52d18b1-c0cf-4073-b50b-ce0576f68a00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s500_view____">
+      <UniqueIdentifier>{79026af8-f66a-47ec-94a1-611a49ad30d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s700_think___">
+      <UniqueIdentifier>{23bac57b-b209-4516-8a37-fbdb8dae0cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\h390_explain_">
+      <UniqueIdentifier>{b8266ef4-eb77-447a-8d79-d1ac692ca964}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\h400_endgame_">
+      <UniqueIdentifier>{4dfad55f-b569-4c3f-872d-7b273a7a79e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s400_endgame_">
+      <UniqueIdentifier>{4a2b4ef1-65c0-4b68-a6d0-c50ce34edaf8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\h190_board\h190_board.h">
-      <Filter>Header Files\h190_board</Filter>
+    <ClInclude Include="header\h090_core____\h090_core.h">
+      <Filter>Header Files\h090_core____</Filter>
     </ClInclude>
-    <ClInclude Include="header\h400_core\h400_endgame.h">
-      <Filter>Header Files\h400_core</Filter>
+    <ClInclude Include="header\h190_board___\h190_board.h">
+      <Filter>Header Files\h190_board___</Filter>
     </ClInclude>
-    <ClInclude Include="header\h400_core\h400_explain.h">
-      <Filter>Header Files\h400_core</Filter>
+    <ClInclude Include="header\h300_move____\h300_move.h">
+      <Filter>Header Files\h300_move____</Filter>
     </ClInclude>
-    <ClInclude Include="header\h500_view\h500_board.h">
-      <Filter>Header Files\h500_view</Filter>
+    <ClInclude Include="header\h500_view____\h500_board.h">
+      <Filter>Header Files\h500_view____</Filter>
     </ClInclude>
-    <ClInclude Include="header\h090_core\h090_core.h">
-      <Filter>Header Files\h090_core</Filter>
-    </ClInclude>
-    <ClInclude Include="header\h300_move\h300_move.h">
-      <Filter>Header Files\h300_move</Filter>
-    </ClInclude>
-    <ClInclude Include="header\h700_think\h700_think.h">
-      <Filter>Header Files\h700_think</Filter>
+    <ClInclude Include="header\h700_think___\h700_think.h">
+      <Filter>Header Files\h700_think___</Filter>
     </ClInclude>
     <ClInclude Include="header\h800_cgfthink\h800_cgfthink.h">
       <Filter>Header Files\h800_cgfthink</Filter>
     </ClInclude>
+    <ClInclude Include="header\h390_explain_\h390_explain.h">
+      <Filter>Header Files\h390_explain_</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h400_endgame_\h400_endgame.h">
+      <Filter>Header Files\h400_endgame_</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\s190_board\s190_board.cpp">
-      <Filter>Source Files\s190_board</Filter>
+    <ClCompile Include="source\s090_core____\s090_core.cpp">
+      <Filter>Source Files\s090_core____</Filter>
     </ClCompile>
-    <ClCompile Include="source\s400_core\s400_endgame.cpp">
-      <Filter>Source Files\s400_core</Filter>
+    <ClCompile Include="source\s190_board___\s190_board.cpp">
+      <Filter>Source Files\s190_board___</Filter>
     </ClCompile>
-    <ClCompile Include="source\s500_view\s500_board.cpp">
-      <Filter>Source Files\s500_view</Filter>
+    <ClCompile Include="source\s300_move____\s300_move.cpp">
+      <Filter>Source Files\s300_move____</Filter>
     </ClCompile>
-    <ClCompile Include="source\s090_core\s090_core.cpp">
-      <Filter>Source Files\s090_core</Filter>
+    <ClCompile Include="source\s500_view____\s500_board.cpp">
+      <Filter>Source Files\s500_view____</Filter>
     </ClCompile>
-    <ClCompile Include="source\s300_move\s300_move.cpp">
-      <Filter>Source Files\s300_move</Filter>
-    </ClCompile>
-    <ClCompile Include="source\s700_think\s700_think.cpp">
-      <Filter>Source Files\s700_think</Filter>
+    <ClCompile Include="source\s700_think___\s700_think.cpp">
+      <Filter>Source Files\s700_think___</Filter>
     </ClCompile>
     <ClCompile Include="source\s800_cgfthink\s800_cgfthink.cpp">
       <Filter>Source Files\s800_cgfthink</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s400_endgame_\s400_endgame.cpp">
+      <Filter>Source Files\s400_endgame_</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

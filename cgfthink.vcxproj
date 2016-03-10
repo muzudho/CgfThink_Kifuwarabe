@@ -134,22 +134,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="header\h090_core\h090_core.h" />
-    <ClInclude Include="header\h190_board\h190_board.h" />
-    <ClInclude Include="header\h300_move\h300_move.h" />
-    <ClInclude Include="header\h400_core\h400_endgame.h" />
-    <ClInclude Include="header\h400_core\h400_explain.h" />
-    <ClInclude Include="header\h500_view\h500_board.h" />
-    <ClInclude Include="header\h700_think\h700_think.h" />
+    <ClInclude Include="header\h090_core____\h090_core.h" />
+    <ClInclude Include="header\h190_board___\h190_board.h" />
+    <ClInclude Include="header\h300_move____\h300_move.h" />
+    <ClInclude Include="header\h390_explain_\h390_explain.h" />
+    <ClInclude Include="header\h400_endgame_\h400_endgame.h" />
+    <ClInclude Include="header\h500_view____\h500_board.h" />
+    <ClInclude Include="header\h700_think___\h700_think.h" />
     <ClInclude Include="header\h800_cgfthink\h800_cgfthink.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\s090_core\s090_core.cpp" />
-    <ClCompile Include="source\s190_board\s190_board.cpp" />
-    <ClCompile Include="source\s300_move\s300_move.cpp" />
-    <ClCompile Include="source\s400_core\s400_endgame.cpp" />
-    <ClCompile Include="source\s500_view\s500_board.cpp" />
-    <ClCompile Include="source\s700_think\s700_think.cpp" />
+    <ClCompile Include="source\s090_core____\s090_core.cpp" />
+    <ClCompile Include="source\s190_board___\s190_board.cpp" />
+    <ClCompile Include="source\s300_move____\s300_move.cpp" />
+    <ClCompile Include="source\s400_endgame_\s400_endgame.cpp" />
+    <ClCompile Include="source\s500_view____\s500_board.cpp" />
+    <ClCompile Include="source\s700_think___\s700_think.cpp" />
     <ClCompile Include="source\s800_cgfthink\s800_cgfthink.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

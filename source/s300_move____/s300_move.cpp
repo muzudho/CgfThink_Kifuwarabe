@@ -3,9 +3,9 @@
 //
 extern "C" {
 
-	#include "../../header/h090_core/h090_core.h"
-	#include "../../header/h190_board/h190_board.h"
-	#include "../../header/h300_move/h300_move.h"
+	#include "../../header/h090_core____/h090_core.h"
+	#include "../../header/h190_board___/h190_board.h"
+	#include "../../header/h300_move____/h300_move.h"
 
 	int MoveOne(
 		int node,

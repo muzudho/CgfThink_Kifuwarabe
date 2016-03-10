@@ -5,7 +5,7 @@ extern "C" {
 
 	#include <windows.h>	// rand() 等を使用するために。
 	#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
-	#include "../../header/h090_core/h090_core.h"
+	#include "../../header/h090_core____/h090_core.h"
 
 
 	// printf()の代用関数。
