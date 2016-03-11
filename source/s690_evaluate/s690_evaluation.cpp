@@ -1,0 +1,117 @@
+//
+// /source/s690_evaluate/s690_evaluation.cpp
+//
+
+extern "C" {
+
+	#include <windows.h>								// rand() 等を使用するために。
+	#include "../../header/h190_board___/h190_board.h"
+	#include "../../header/h300_move____/h300_move.h"
+
+
+	int Evaluate(
+		int&	flgAbort	,
+		int		color		,
+		int		node
+	)
+	{
+		int score;		// 読んでいる手の評価値
+		int flgCapture;	// 敵石を取ったフラグ
+		int safe;
+		int iDir;
+		int adjNode;	// 上下左右隣(adjacent)の交点
+		int adjColor;	// 上下左右隣(adjacent)の石の色
+		int invClr = INVCLR(color);//白黒反転
+		int flgMove;	// 移動結果の種類
+
+		if (g_board[node]) {
+			// 石があるか、枠なら
+			//PRT(_T("石があるか、枠。 \n"));
+			score		= 0;
+			flgAbort	= 1;
+			goto gt_EndMethod;
+		}
+
+		if (node == g_kouNode) {
+			// コウになる位置なら
+			//PRT(_T("コウ。 \n"));
+			score		= 0;
+			flgAbort	= 1;
+			goto gt_EndMethod;
+		}
+
+		score		= rand() % 100; // 0 ～ 99 のランダムな評価値を与える。
+		flgCapture	= 0;
+		safe		= 0;
+		for (iDir = 0; iDir < 4; iDir++) {
+			adjNode		= node + g_dir4[iDir];
+			adjColor	= g_board[adjNode];
+			if (adjColor == WAKU) {
+				// 枠なら
+				//PRT(_T("枠。 \n"));
+				safe++;
+			}
+			if (adjColor == 0 || adjColor == WAKU) {
+				// 空っぽか、枠なら。
+				//PRT(_T("空っぽか、枠。 \n"));
+				continue;
+			}
+
+			// 隣の石のリバティ（呼吸点）の数を数えます。
+			CountLiberty(adjNode);
+
+			// 敵石で、呼吸点の数が 1 なら、ここに石を置くと取ることができます。
+			if (adjColor == invClr && g_liberty == 1) {
+				//PRT(_T("敵石を取った。 \n"));
+				flgCapture = 1; 	// 敵石を、取ったフラグ。
+			}
+
+			// ここに石を置いても、呼吸点が 1 以上残る（＝安全な）味方につながります。
+			if (adjColor == color && 2 <= g_liberty) {
+				safe++;
+			}
+
+			// 評価値の計算（４方向分繰り返す）
+			score +=
+				(adjColor == invClr)		// 隣の石
+											//		自分の石: 0
+											//		相手の石: 1
+											//   ×
+				* g_kakondaIshi				// 囲んで取れる石の数
+											//   ×
+				* (10 / (g_liberty + 1));	// 連の呼吸点の個数
+											//		0個: 10点
+											//		1個:  5点
+											//		2個:  3.3333...点
+											//		3個:  2.5点
+											//		4個:  2点
+											//		...
+											//PRT(_T("スコア=%d \n", score));
+		}
+
+		if (safe == 4) { // 四方が　自分の石や、壁に　囲まれている場所（眼）になるなら
+			//PRT(_T("眼には打たない。 \n"));
+			// 眼には打たない。
+			flgAbort = 1;
+			goto gt_EndMethod;
+		}
+
+		if (flgCapture == 0) {		// 石が取れない場合
+									// 実際に置いてみて　自殺手かどうか判定
+			int temp_kouNode = g_kouNode;				// コウの位置を退避
+			flgMove = MoveOne(node, color);		// コウの位置が変わるかも。
+			g_board[node] = 0;
+			g_kouNode = temp_kouNode;
+			if (flgMove == MOVE_SUICIDE) {	// 自殺手なら
+				//PRT(_T("自殺手は打たない。 \n"));
+				// ベストムーブにはなりえない
+				flgAbort = 1;
+				goto gt_EndMethod;
+			}
+		}
+
+	gt_EndMethod:
+		return score;
+	}
+
+}

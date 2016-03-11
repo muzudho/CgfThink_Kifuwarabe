@@ -72,7 +72,7 @@ DLL_EXPORT int cgfgui_thinking(
 	ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
 	outputfile << _T("called: cgfgui_thinking") << endl;
 
-	PRT(_T("cgfgui_thinking 開始☆！ boardSize=%d \n", boardSize));
+	PRT(_T("cgfgui_thinking 開始☆！ boardSize=%d \n"), boardSize);
 
 	int node;			// 囲碁盤上の交点（将棋盤でいうマス目）
 	int bestmoveNode;	// コンピューターが打つ交点。
