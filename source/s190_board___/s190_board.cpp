@@ -17,13 +17,13 @@ extern "C" {
 	// 既にこの石を検索した場合は1
 	int g_checkedBoard[BOARD_MAX];
 
-	// 右、左、下、上に移動するのに使う加減値
+	// 上、右、下、左　に移動するのに使う加減値
 	int g_dir4[4] = {
+		-0x100,	// 上
 		+0x001,	// 右
-		-0x001,	// 左
 		+0x100,	// 下
-		-0x100	// 上
-	};
+		-0x001	// 左
+	};// オリジナルのcgfthinkでは右、左、下、上の順だった。
 
 	// 盤面のサイズ。19路盤では19、9路盤では9
 	int g_boardSize;
@@ -59,12 +59,13 @@ extern "C" {
 	void CountLibertyElement(int tNode, int color)
 	{
 		int adjNode;
-		int i;
+		int iDir;
 
 		g_checkedBoard[tNode] = 1;						// この石は検索済み	
-		g_kakondaIshi++;								// 取れる相手の石の数
-		for (i = 0; i < 4; i++) {
-			adjNode = tNode + g_dir4[i];
+		g_kakondaIshi++;								// 呼吸点を数えている（もしかすると連の）
+														// 石の数
+		for (iDir = 0; iDir < 4; iDir++) {				// 隣接する四方向
+			adjNode = tNode + g_dir4[iDir];
 			if (g_checkedBoard[adjNode]) {
 				continue;
 			}

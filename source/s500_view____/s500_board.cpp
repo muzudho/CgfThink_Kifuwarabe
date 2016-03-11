@@ -8,13 +8,17 @@ extern "C" {
 	#include "../../header/h090_core____/h090_core.h"
 	#include "../../header/h500_view____/h500_board.h"
 
-	// Œ»İ‚Ì”Õ–Ê‚ğ•\¦
 	void PrintBoard(void)
 	{
 		int x;
 		int y;
 		int node;
-		_TCHAR* str[4] = { _T("E"), _T("œ"), _T("›"), _T("{") };
+		_TCHAR* str[4] = {
+			_T("E"),	// ‹ó‚«
+			_T("œ"),	// •Î
+			_T("›"),	// ”’Î
+			_T("{")		// ˜g
+		};
 
 		for (y = 0; y < g_boardSize + 2; y++) {
 			for (x = 0; x < g_boardSize + 2; x++) {

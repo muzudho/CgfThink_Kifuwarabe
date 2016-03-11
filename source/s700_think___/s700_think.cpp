@@ -24,12 +24,12 @@ extern "C" {
 	// 関数
 	//--------------------------------------------------------------------------------
 
-	// 説明はヘッダーファイルを見てください。
 	int Bestmove(
 		int color
 	)
 	{
 		PRT(_T("Bestmove開始☆！ \n"));
+		//PRT(_T("color=%d invClr=%d \n", color, invClr));
 
 		int x;
 		int y;
@@ -38,21 +38,12 @@ extern "C" {
 		int maxScore;	// 今まで読んだ手で一番高かった評価値
 		int bestmoveNode;
 
-		//PRT(_T("color=%d invClr=%d \n", color, invClr));
-
-
-		// ログ： 動いていることの確認。
-		ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
-		outputfile << _T("Bestmove: (^q^)") << endl;
-
-
 		// 実行するたびに違う値が得られるように現在の時刻で乱数を初期化
 		srand((unsigned)clock());
 
 		//----------------------------------------
 		// 石を置く位置１つずつ、その手の評価値を算出します。
 		//----------------------------------------
-
 		maxScore = -1;
 		bestmoveNode = 0; // 0 ならパス。
 
@@ -78,8 +69,6 @@ extern "C" {
 			}
 		}
 
-
 		return bestmoveNode;
-		//return 1*256 + 1;
 	}
 }

@@ -19,6 +19,7 @@ extern "C" {
 	#include "../../header/h300_move____/h300_move.h"
 	#include "../../header/h390_explain_/h390_explain.h"
 	#include "../../header/h400_endgame_/h400_endgame.h"
+	#include "../../header/h500_view____/h500_board.h"
 	#include "../../header/h700_think___/h700_think.h"
 	#include "../../header/h800_cgfthink/h800_cgfthink.h"
 
@@ -78,7 +79,6 @@ DLL_EXPORT int cgfgui_thinking(
 	int bestmoveNode;	// コンピューターが打つ交点。
 	int color;			// 石の色
 	int time;			// 消費時間
-	int i;
 	int iNode;
 	int iTesuu;
 
@@ -153,7 +153,7 @@ DLL_EXPORT int cgfgui_thinking(
 
 	PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"), g_thoughtTime[0], g_thoughtTime[1]);
 	PRT(_T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,blackTurn,boardSize,komi);
-//	PrintBoard();
+	//PrintBoard();
 	return bestmoveNode;
 }
 
