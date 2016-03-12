@@ -7,6 +7,7 @@ extern "C" {
 	#include <windows.h>								// rand() 等を使用するために。
 	#include "../../header/h190_board___/h190_board.h"
 	#include "../../header/h300_move____/h300_move.h"
+	#include "../../header/h680_suicide_/h680_suicide.h"
 
 
 	int Evaluate(
@@ -22,7 +23,6 @@ extern "C" {
 		int adjNode;	// 上下左右隣(adjacent)の交点
 		int adjColor;	// 上下左右隣(adjacent)の石の色
 		int invClr = INVCLR(color);//白黒反転
-		int flgMove;	// 移動結果の種類
 
 		if (g_board[node]) {
 			// 石があるか、枠なら
@@ -99,22 +99,14 @@ extern "C" {
 			goto gt_EndMethod;
 		}
 
-		if (flgCapture == 0) {					// 石が取れない場合
-												// 実際に置いてみて　自殺手かどうか判定
-			int temp_kouNode = g_kouNode;		// コウの位置を退避
-
-			flgMove = MoveOne(node, color);		// 石を置きます。コウの位置が変わるかも。
-
-			// 石を置く前の状態に戻します。
-			g_board[node] = 0;					// 置いた石を消します。
-			g_kouNode = temp_kouNode;			// コウの位置を元に戻します。
-
-			if (flgMove == MOVE_SUICIDE) {		// 自殺手なら
-				//PRT(_T("自殺手は打たない。 \n"));
-				// ベストムーブにはなりえない
-				flgAbort = 1;
-				goto gt_EndMethod;
-			}
+		JudgeSuicide(
+			flgAbort,
+			flgCapture,
+			color,
+			node
+			);
+		if (flgAbort) {
+			goto gt_EndMethod;
 		}
 
 	gt_EndMethod:
