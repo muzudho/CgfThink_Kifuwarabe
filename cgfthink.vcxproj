@@ -140,7 +140,8 @@
     <ClInclude Include="header\h390_explain_\h390_explain.h" />
     <ClInclude Include="header\h400_endgame_\h400_endgame.h" />
     <ClInclude Include="header\h500_view____\h500_board.h" />
-    <ClInclude Include="header\h670_noHitEye\h670_noHitEye.h" />
+    <ClInclude Include="header\h670_noHit___\h670_100_noHitEye.h" />
+    <ClInclude Include="header\h670_noHit___\h670_110_noHitMouth.h" />
     <ClInclude Include="header\h680_suicide_\h680_suicide.h" />
     <ClInclude Include="header\h690_evaluate\h690_evaluation.h" />
     <ClInclude Include="header\h700_think___\h700_think.h" />
@@ -152,7 +153,8 @@
     <ClCompile Include="source\s300_move____\s300_move.cpp" />
     <ClCompile Include="source\s400_endgame_\s400_endgame.cpp" />
     <ClCompile Include="source\s500_view____\s500_board.cpp" />
-    <ClCompile Include="source\s670_noHitEye\s670_noHitEye.cpp" />
+    <ClCompile Include="source\s670_noHit___\s670_100_noHitEye.cpp" />
+    <ClCompile Include="source\s670_noHit___\s670_110_noHitMouth.cpp" />
     <ClCompile Include="source\s680_suicide_\s680_suicide.cpp" />
     <ClCompile Include="source\s690_evaluate\s690_evaluation.cpp" />
     <ClCompile Include="source\s700_think___\s700_think.cpp" />

@@ -70,11 +70,11 @@
     <Filter Include="Header Files\h680_suicide_">
       <UniqueIdentifier>{0b22252f-3d7b-4799-b071-9f2418e98d3d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\s670_noHitEye">
-      <UniqueIdentifier>{4b17c28a-ad00-4ec2-a1db-9559ad68961b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\h670_noHitEye">
+    <Filter Include="Header Files\h670_noHit___">
       <UniqueIdentifier>{498a9cb4-0845-414e-b2b9-57c197399749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s670_noHit___">
+      <UniqueIdentifier>{4b17c28a-ad00-4ec2-a1db-9559ad68961b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -108,8 +108,11 @@
     <ClInclude Include="header\h680_suicide_\h680_suicide.h">
       <Filter>Header Files\h680_suicide_</Filter>
     </ClInclude>
-    <ClInclude Include="header\h670_noHitEye\h670_noHitEye.h">
-      <Filter>Header Files\h670_noHitEye</Filter>
+    <ClInclude Include="header\h670_noHit___\h670_100_noHitEye.h">
+      <Filter>Header Files\h670_noHit___</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h670_noHit___\h670_110_noHitMouth.h">
+      <Filter>Header Files\h670_noHit___</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -140,8 +143,11 @@
     <ClCompile Include="source\s680_suicide_\s680_suicide.cpp">
       <Filter>Source Files\s680_suicide_</Filter>
     </ClCompile>
-    <ClCompile Include="source\s670_noHitEye\s670_noHitEye.cpp">
-      <Filter>Source Files\s670_noHitEye</Filter>
+    <ClCompile Include="source\s670_noHit___\s670_100_noHitEye.cpp">
+      <Filter>Source Files\s670_noHit___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s670_noHit___\s670_110_noHitMouth.cpp">
+      <Filter>Source Files\s670_noHit___</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
