@@ -114,7 +114,16 @@
     <ClInclude Include="header\h675_hit_____\h675_100_hitTuke.h">
       <Filter>Header Files\h675_hit_____</Filter>
     </ClInclude>
-    <ClInclude Include="header\h670_noHit___\h670_050_suicide.h">
+    <ClInclude Include="header\h675_hit_____\h675_000_hit.h">
+      <Filter>Header Files\h675_hit_____</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h670_noHit___\h670_000_noHit.h">
+      <Filter>Header Files\h670_noHit___</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h675_hit_____\h675_050_hitRandom.h">
+      <Filter>Header Files\h675_hit_____</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h670_noHit___\h670_050_noHitSuicide.h">
       <Filter>Header Files\h670_noHit___</Filter>
     </ClInclude>
   </ItemGroup>
@@ -152,7 +161,16 @@
     <ClCompile Include="source\s675_hit_____\s675_100_hitTuke.cpp">
       <Filter>Source Files\s675_hit_____</Filter>
     </ClCompile>
-    <ClCompile Include="source\s670_noHit___\s670_050_suicide.cpp">
+    <ClCompile Include="source\s675_hit_____\s675_000_hit.cpp">
+      <Filter>Source Files\s675_hit_____</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s670_noHit___\s670_000_noHit.cpp">
+      <Filter>Source Files\s670_noHit___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s675_hit_____\s675_050_hitRandom.cpp">
+      <Filter>Source Files\s675_hit_____</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s670_noHit___\s670_050_noHitSuicide.cpp">
       <Filter>Source Files\s670_noHit___</Filter>
     </ClCompile>
   </ItemGroup>

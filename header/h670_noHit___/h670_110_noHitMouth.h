@@ -4,9 +4,9 @@
 
 #pragma once
 
-extern "C" {
 
-}
+#include "../../header/h670_noHit___/h670_000_noHit.h"
+
 
 // _____
 // __x__
@@ -18,7 +18,7 @@ extern "C" {
 // 1 を口の中に見立て、
 //
 // 相手の石の口の中に打たない仕組み。
-class NoHitMouth {
+class NoHitMouth : NoHit {
 public:
 	int adjOppo;	// 上下左右に隣接(adjacent)する相手(opponent)の石の数。
 

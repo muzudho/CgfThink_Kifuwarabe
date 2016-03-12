@@ -4,6 +4,10 @@
 
 #pragma once
 
+
+#include "../../header/h670_noHit___/h670_000_noHit.h"
+
+
 // _____
 // __o__
 // _o1o_
@@ -14,7 +18,7 @@
 // 1 を　眼　に見立てて、
 //
 // 自分の眼に打たない仕組み。
-class NoHitEye {
+class NoHitEye : NoHit {
 public:
 	int safe;
 

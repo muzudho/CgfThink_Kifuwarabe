@@ -4,6 +4,10 @@
 
 #pragma once
 
+
+#include "../../header/h670_noHit___/h670_000_noHit.h"
+
+
 //--------------------------------------------------------------------------------
 // クラス
 //--------------------------------------------------------------------------------
@@ -11,14 +15,14 @@
 //
 // 自殺手を指さない仕組み。
 //
-class Suicide
+class NoHitSuicide : NoHit
 {
 public:
 	// 敵石を取ったフラグ
 	int flgCapture;
 
 public:
-	Suicide();
+	NoHitSuicide();
 
 	// 自殺手になる状況でないか調査。
 	void Research(

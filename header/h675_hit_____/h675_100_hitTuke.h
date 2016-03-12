@@ -4,6 +4,10 @@
 
 #pragma once
 
+
+#include "../../header/h675_hit_____/h675_000_hit.h"
+
+
 // _____
 // _ooo_
 // __o__
@@ -16,10 +20,7 @@
 // 1 の評価が高くなる仕組み。
 //
 // ツケようとします。
-class HitTuke {
-public:
-	int unuse;//使っていません。
-
+class HitTuke : Hit {
 public:
 	HitTuke();
 

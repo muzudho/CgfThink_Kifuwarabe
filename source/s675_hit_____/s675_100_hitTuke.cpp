@@ -14,7 +14,6 @@ extern "C" {
 
 HitTuke::HitTuke()
 {
-	this->unuse = 0;
 };
 
 

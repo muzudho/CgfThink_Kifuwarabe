@@ -1,18 +1,18 @@
 //
-// /source/s680_suicide/s680_suicide.cpp
+// /source/s670_noHit___/s670_050_suicide.cpp
 //
 
 extern "C" {
 
 	#include "../../header/h190_board___/h190_board.h"
 	#include "../../header/h300_move____/h300_move.h"
-	#include "../../header/h670_noHit___/h670_050_suicide.h"
+	#include "../../header/h670_noHit___/h670_050_noHitSuicide.h"
 }
 
 
 
 
-Suicide::Suicide() {
+NoHitSuicide::NoHitSuicide() {
 	this->flgCapture = 0;
 }
 
@@ -20,7 +20,7 @@ Suicide::Suicide() {
 
 
 // ©Eè‚É‚È‚éó‹µ‚Å‚È‚¢‚©’²¸B
-void Suicide::Research(
+void NoHitSuicide::Research(
 	int invColor,
 	int adjColor
 )
@@ -35,7 +35,7 @@ void Suicide::Research(
 
 
 
-bool Suicide::DontHit(
+bool NoHitSuicide::DontHit(
 	int		color,
 	int		node
 	)

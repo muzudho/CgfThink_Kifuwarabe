@@ -4,13 +4,14 @@
 
 extern "C" {
 
-	#include <windows.h>								// rand() 等を使用するために。
+	//#include <windows.h>								// rand() 等を使用するために。
 	#include "../../header/h090_core____/h090_core.h"
 	#include "../../header/h190_board___/h190_board.h"
 	#include "../../header/h300_move____/h300_move.h"
-	#include "../../header/h670_noHit___/h670_050_suicide.h"
+	#include "../../header/h670_noHit___/h670_050_noHitSuicide.h"
 	#include "../../header/h670_noHit___/h670_100_noHitEye.h"
 	#include "../../header/h670_noHit___/h670_110_noHitMouth.h"
+	#include "../../header/h675_hit_____/h675_050_hitRandom.h"
 	#include "../../header/h675_hit_____/h675_100_hitTuke.h"
 
 
@@ -23,7 +24,8 @@ extern "C" {
 		int invColor = INVCLR(color);//白黒反転
 		NoHitEye	noHitEye;		// 自分の眼に打たない仕組み。
 		NoHitMouth	noHitMouth;		// 相手の口に打たない仕組み。
-		Suicide		suicide;		// 自殺手を打たないようにする仕組み。
+		NoHitSuicide		suicide;		// 自殺手を打たないようにする仕組み。
+		HitRandom	hitRandom;		// 手をばらけさせる仕組み。
 		HitTuke		hitTuke;		// 相手の石に積極的にツケるようにする仕組み。
 		int score = 0;		// 読んでいる手の評価値
 		int iDir;
@@ -44,7 +46,7 @@ extern "C" {
 			goto gt_EndMethod;
 		}
 
-		score			= rand() % 100; // 0 ～ 99 のランダムな評価値を与える。
+		score = hitRandom.Evaluate_AdjNode(); // 0 ～ 99 のランダムな評価値を与える。
 
 		for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
 			adjNode		= node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
@@ -56,8 +58,7 @@ extern "C" {
 				noHitEye.safe++;
 			}
 
-			// 相手の口に石を打ち込む状況でないか調査。
-			noHitMouth.Research(invColor, adjColor);
+			noHitMouth.Research(invColor, adjColor);// 相手の口に石を打ち込む状況でないか調査。
 
 			// 眼に打ち込まないか、口の中に打ち込まないか、の処理のあとに
 			if (adjColor == 0 || adjColor == WAKU) {
@@ -68,14 +69,10 @@ extern "C" {
 
 			//----------------------------------------
 
-			// 隣の石（または連）の呼吸点　の数を数えます。
-			CountLiberty(adjNode);
-
-			// 自殺手になる状況でないか調査。
-			suicide.Research(invColor, adjColor);
-
-			// 自分の眼に打ち込む状況か調査
-			noHitEye.Research(color, adjColor);
+			
+			CountLiberty(adjNode);					// 隣の石（または連）の呼吸点　の数を数えます。
+			suicide.Research(invColor, adjColor);	// 自殺手になる状況でないか調査。
+			noHitEye.Research(color, adjColor);		// 自分の眼に打ち込む状況か調査
 
 			// 評価値の計算（４方向分繰り返す）
 			score += hitTuke.Evaluate_AdjNode(invColor, adjColor);
@@ -94,8 +91,8 @@ extern "C" {
 
 		PRT(_T("ノード=%x "), node);
 		PRT(_T("スコア=%d "), score);
-		PRT(_T("noHitMouth.adjOppo=%d "), noHitMouth.adjOppo);
-		PRT(_T("noHitMouth.Evaluate=%d "), noHitMouth.Evaluate(suicide.flgCapture));
+		//PRT(_T("noHitMouth.adjOppo=%d "), noHitMouth.adjOppo);
+		//PRT(_T("noHitMouth.Evaluate=%d "), noHitMouth.Evaluate(suicide.flgCapture));
 		PRT(_T("\n"));
 
 	gt_EndMethod:
