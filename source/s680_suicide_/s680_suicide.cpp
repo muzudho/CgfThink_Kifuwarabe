@@ -6,6 +6,7 @@ extern "C" {
 
 	#include "../../header/h190_board___/h190_board.h"
 	#include "../../header/h300_move____/h300_move.h"
+	#include "../../header/h680_suicide_/h680_suicide.h"
 
 	void JudgeSuicide(
 		int&	flgAbort,
@@ -37,5 +38,9 @@ extern "C" {
 			;
 		}
 	}
+
+}
+
+Suicide::Suicide() {
 
 }

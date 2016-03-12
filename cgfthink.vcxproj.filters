@@ -70,6 +70,12 @@
     <Filter Include="Header Files\h680_suicide_">
       <UniqueIdentifier>{0b22252f-3d7b-4799-b071-9f2418e98d3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\s670_noHitEye">
+      <UniqueIdentifier>{4b17c28a-ad00-4ec2-a1db-9559ad68961b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\h670_noHitEye">
+      <UniqueIdentifier>{498a9cb4-0845-414e-b2b9-57c197399749}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\h090_core____\h090_core.h">
@@ -102,6 +108,9 @@
     <ClInclude Include="header\h680_suicide_\h680_suicide.h">
       <Filter>Header Files\h680_suicide_</Filter>
     </ClInclude>
+    <ClInclude Include="header\h670_noHitEye\h670_noHitEye.h">
+      <Filter>Header Files\h670_noHitEye</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\s090_core____\s090_core.cpp">
@@ -130,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="source\s680_suicide_\s680_suicide.cpp">
       <Filter>Source Files\s680_suicide_</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s670_noHitEye\s670_noHitEye.cpp">
+      <Filter>Source Files\s670_noHitEye</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
