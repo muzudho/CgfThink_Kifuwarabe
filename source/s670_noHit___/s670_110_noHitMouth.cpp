@@ -8,17 +8,45 @@ extern "C" {
 }
 
 
+
+
 NoHitMouth::NoHitMouth() {
 };
 
-void NoHitMouth::IsThis(
-	int adjColor,
-	int invClr
+
+
+
+void NoHitMouth::Research(
+	int invColor,
+	int adjColor
 )
 {
 	// 2016-03-12 16:45 Add
 	// 隣が相手の石、または枠ならカウントアップ。
-	if (adjColor == invClr || adjColor == WAKU) {
+	if (adjColor == invColor || adjColor == WAKU) {
 		this->adjOppo++;
 	}
 }
+
+
+
+
+int NoHitMouth::Evaluate(int flgCapture)
+{
+	int score = 0;
+
+	// 2016-03-12 16:45 Add
+	if (this->adjOppo == 3 && ! flgCapture)
+	{
+		// 3方向が相手の石のところで
+		// 駒も取れないところには、打ち込みたくない。
+	}
+	else
+	{
+		// それ以外の点を、大幅に加点。
+		score += 50;
+	}
+
+	return score;
+}
+

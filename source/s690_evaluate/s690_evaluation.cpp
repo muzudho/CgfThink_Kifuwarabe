@@ -5,11 +5,13 @@
 extern "C" {
 
 	#include <windows.h>								// rand() 等を使用するために。
+	#include "../../header/h090_core____/h090_core.h"
 	#include "../../header/h190_board___/h190_board.h"
 	#include "../../header/h300_move____/h300_move.h"
+	#include "../../header/h670_noHit___/h670_050_suicide.h"
 	#include "../../header/h670_noHit___/h670_100_noHitEye.h"
 	#include "../../header/h670_noHit___/h670_110_noHitMouth.h"
-	#include "../../header/h680_suicide_/h680_suicide.h"
+	#include "../../header/h675_hit_____/h675_100_hitTuke.h"
 
 
 	int Evaluate(
@@ -18,19 +20,19 @@ extern "C" {
 		int		node
 	)
 	{
+		int invColor = INVCLR(color);//白黒反転
 		NoHitEye	noHitEye;		// 自分の眼に打たない仕組み。
-		NoHitMouth	noHitMouth;	// 相手の口に打たない仕組み。
-		Suicide		suicide;
-		int score;		// 読んでいる手の評価値
+		NoHitMouth	noHitMouth;		// 相手の口に打たない仕組み。
+		Suicide		suicide;		// 自殺手を打たないようにする仕組み。
+		HitTuke		hitTuke;		// 相手の石に積極的にツケるようにする仕組み。
+		int score = 0;		// 読んでいる手の評価値
 		int iDir;
 		int adjNode;	// 上下左右隣(adjacent)の交点
 		int adjColor;	// 上下左右隣(adjacent)の石の色
-		int invClr = INVCLR(color);//白黒反転
 
 		if (g_board[node]) {
 			// 石があるか、枠なら
 			//PRT(_T("石があるか、枠。 \n"));
-			score		= 0;
 			flgAbort	= 1;
 			goto gt_EndMethod;
 		}
@@ -38,14 +40,12 @@ extern "C" {
 		if (node == g_kouNode) {
 			// コウになる位置なら
 			//PRT(_T("コウ。 \n"));
-			score		= 0;
 			flgAbort	= 1;
 			goto gt_EndMethod;
 		}
 
 		score			= rand() % 100; // 0 ～ 99 のランダムな評価値を与える。
-		noHitEye.safe	= 0;
-		//flgCapture		= 0;
+
 		for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
 			adjNode		= node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
 			adjColor	= g_board[adjNode];		// その色
@@ -56,6 +56,7 @@ extern "C" {
 				noHitEye.safe++;
 			}
 
+			// 眼に打ち込まない処理のあとに
 			if (adjColor == 0 || adjColor == WAKU) {
 				// 空っぽか、枠なら。
 				//PRT(_T("空っぽか、枠。 \n"));
@@ -63,63 +64,34 @@ extern "C" {
 			}
 
 			// 相手の口に石を打ち込む状況でないか調査。
-			noHitMouth.IsThis(adjColor, invClr);
+			noHitMouth.Research(invColor, adjColor);
 
 			// 隣の石（または連）の呼吸点　の数を数えます。
 			CountLiberty(adjNode);
 
 			// 自殺手になる状況でないか調査。
-			suicide.IsThis(adjColor, invClr);
+			suicide.Research(invColor, adjColor);
 
 			// 自分の眼に打ち込む状況か調査
-			noHitEye.IsThis(color, adjColor);
+			noHitEye.Research(color, adjColor);
 
 			// 評価値の計算（４方向分繰り返す）
-			score +=
-				(adjColor == invClr)		// 隣の石
-											//		自分の石: 0
-											//		相手の石: 1
-											//   ×
-				* g_kakondaIshi				// 連の石の数
-											//   ×
-				* (10 / (g_liberty + 1));	// 連の呼吸点の個数
-											//		0個: 10点
-											//		1個:  5点
-											//		2個:  3.3333...点
-											//		3個:  2.5点
-											//		4個:  2点
-											//		...
-											//PRT(_T("スコア=%d \n", score));
+			score += hitTuke.Evaluate_AdjNode(invColor, adjColor);
 		}
 
-		noHitEye.Judge(flgAbort);
-		if (flgAbort) {
-			goto gt_EndMethod;
-		}
-
-		suicide.Judge(flgAbort, color, node);
-		if (flgAbort) {
+		if (
+			noHitEye.DontHit() ||
+			suicide.DontHit(color, node)
+		) {
+			flgAbort = 1;
 			goto gt_EndMethod;
 		}
 
 		// 2016-03-12 16:45 Add
-		if (noHitMouth.adjOppo == 3 && suicide.flgCapture)
-		{
-			// 3方向が相手の石のところで
-			// 駒も取れないところには、打ち込みたくない。
-		}
-		else
-		{
-			// それ以外の点を、大幅に加点。
-			score += 50;
-		}
+		score += noHitMouth.Evaluate(suicide.flgCapture);
 
-		// 2016-03-12 16:45 Add
-		if (score < 0)
-		{
-			// スコアは 0点以下（パス）にはしません。
-			score = 0;
-		}
+		PRT(_T("ノード=%x スコア=%d \n"), node, score);
+		// noHitMouth.adjOppo=%d , noHitMouth.adjOppo
 
 	gt_EndMethod:
 		return score;

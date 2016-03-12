@@ -26,8 +26,13 @@ public:
 	NoHitMouth();
 
 	// 相手の口に石を打ち込む状況でないか調査。
-	void IsThis(
-		int adjColor,
-		int invClr		// 白黒手番を反転させたもの
+	void Research(
+		int invColor,		// 白黒手番を反転させたもの
+		int adjColor
+	);
+
+	// 評価値を出します。
+	int Evaluate(
+		int flgCapture		// suicide.flgCapture
 	);
 };

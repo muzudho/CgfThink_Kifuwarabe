@@ -21,13 +21,13 @@ public:
 	Suicide();
 
 	// 自殺手になる状況でないか調査。
-	void IsThis(
-		int adjColor,
-		int invClr
+	void Research(
+		int invColor,
+		int adjColor
 	);
 
-	void Judge(
-		int&	flgAbort,
+	// この交点には打ち込まないなら真。
+	bool DontHit(
 		int		color,
 		int		node
 	);

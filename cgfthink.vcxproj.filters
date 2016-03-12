@@ -64,17 +64,17 @@
     <Filter Include="Source Files\s690_evaluate">
       <UniqueIdentifier>{e7cbb026-641b-4032-8502-a4615e435190}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\s680_suicide_">
-      <UniqueIdentifier>{ccc6610a-703c-4b88-8202-e80f236192d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\h680_suicide_">
-      <UniqueIdentifier>{0b22252f-3d7b-4799-b071-9f2418e98d3d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\h670_noHit___">
       <UniqueIdentifier>{498a9cb4-0845-414e-b2b9-57c197399749}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\s670_noHit___">
       <UniqueIdentifier>{4b17c28a-ad00-4ec2-a1db-9559ad68961b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\h675_hit_____">
+      <UniqueIdentifier>{5febfd03-799c-4c3c-b4e5-feedbcb30c96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s675_hit_____">
+      <UniqueIdentifier>{5c1b73b4-e4d8-4fdf-8588-dac063718a5e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,13 +105,16 @@
     <ClInclude Include="header\h690_evaluate\h690_evaluation.h">
       <Filter>Header Files\h690_evaluate</Filter>
     </ClInclude>
-    <ClInclude Include="header\h680_suicide_\h680_suicide.h">
-      <Filter>Header Files\h680_suicide_</Filter>
-    </ClInclude>
     <ClInclude Include="header\h670_noHit___\h670_100_noHitEye.h">
       <Filter>Header Files\h670_noHit___</Filter>
     </ClInclude>
     <ClInclude Include="header\h670_noHit___\h670_110_noHitMouth.h">
+      <Filter>Header Files\h670_noHit___</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h675_hit_____\h675_100_hitTuke.h">
+      <Filter>Header Files\h675_hit_____</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h670_noHit___\h670_050_suicide.h">
       <Filter>Header Files\h670_noHit___</Filter>
     </ClInclude>
   </ItemGroup>
@@ -140,13 +143,16 @@
     <ClCompile Include="source\s690_evaluate\s690_evaluation.cpp">
       <Filter>Source Files\s690_evaluate</Filter>
     </ClCompile>
-    <ClCompile Include="source\s680_suicide_\s680_suicide.cpp">
-      <Filter>Source Files\s680_suicide_</Filter>
-    </ClCompile>
     <ClCompile Include="source\s670_noHit___\s670_100_noHitEye.cpp">
       <Filter>Source Files\s670_noHit___</Filter>
     </ClCompile>
     <ClCompile Include="source\s670_noHit___\s670_110_noHitMouth.cpp">
+      <Filter>Source Files\s670_noHit___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s675_hit_____\s675_100_hitTuke.cpp">
+      <Filter>Source Files\s675_hit_____</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s670_noHit___\s670_050_suicide.cpp">
       <Filter>Source Files\s670_noHit___</Filter>
     </ClCompile>
   </ItemGroup>

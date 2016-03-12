@@ -4,10 +4,6 @@
 
 #pragma once
 
-extern "C" {
-
-}
-
 // _____
 // __o__
 // _o1o_
@@ -20,18 +16,18 @@ extern "C" {
 // 自分の眼に打たない仕組み。
 class NoHitEye {
 public:
-	int safe;
+	int safe = 0;
 
 public:
 	NoHitEye();
 
 	// 自分の眼に打ち込む状況か調査
-	void IsThis(
+	void Research(
 		int color,
 		int adjColor
 	);
 
-	void Judge(
-		int& flgAbort
+	// この交点には打ち込まないなら真。
+	bool DontHit(
 	);
 };

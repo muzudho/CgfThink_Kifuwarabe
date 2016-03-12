@@ -6,32 +6,41 @@ extern "C" {
 
 	#include "../../header/h190_board___/h190_board.h"
 	#include "../../header/h300_move____/h300_move.h"
-	#include "../../header/h680_suicide_/h680_suicide.h"
+	#include "../../header/h670_noHit___/h670_050_suicide.h"
 }
+
+
+
 
 Suicide::Suicide() {
 
 }
 
+
+
+
 // 自殺手になる状況でないか調査。
-void Suicide::IsThis(
-	int adjColor,
-	int invClr
+void Suicide::Research(
+	int invColor,
+	int adjColor
 )
 {
 	// 隣に、呼吸点が 1 個の相手の石があれば、それは取ることができます。
-	if (adjColor == invClr && g_liberty == 1) {
+	if (adjColor == invColor && g_liberty == 1) {
 		//PRT(_T("敵石を取った。 \n"));
 		this->flgCapture = 1; 	// 敵石を、取ったフラグ。
 	}
 }
 
-void Suicide::Judge(
-	int&	flgAbort,
+
+
+
+bool Suicide::DontHit(
 	int		color,
 	int		node
 	)
 {
+	bool result = false;
 	int flgMove;	// 移動結果の種類
 
 	if (this->flgCapture == 0) {					// 石が取れない場合
@@ -47,11 +56,11 @@ void Suicide::Judge(
 		if (flgMove == MOVE_SUICIDE) {		// 自殺手なら
 											//PRT(_T("自殺手は打たない。 \n"));
 											// ベストムーブにはなりえない
-			flgAbort = 1;
+			result = true;
 			goto gt_EndMethod;
 		}
 
 	gt_EndMethod:
-		;
+		return result;
 	}
 }

@@ -72,8 +72,8 @@ extern "C" {
 				// 呼吸点がないようなら、石（連）は取れます。
 
 				// 囲んだ石の数を　ハマに加点。
-				g_hama[color - 1] += g_kakondaIshi;
-				tottaIshi += g_kakondaIshi;
+				g_hama[color - 1] += g_renIshi;
+				tottaIshi += g_renIshi;
 				delNode = adjNode;	// 取られた石の座標。コウの判定で使う。
 
 				// 処理が被らないように、囲まれている相手の石（計算済み）を消します。
@@ -112,7 +112,7 @@ extern "C" {
 					continue;
 				}
 				CountLiberty(adjNode);
-				if (g_liberty == 1 && g_kakondaIshi == 1) {
+				if (g_liberty == 1 && g_renIshi == 1) {
 					sum++;
 				}
 			}

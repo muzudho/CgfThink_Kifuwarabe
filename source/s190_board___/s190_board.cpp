@@ -28,8 +28,8 @@ extern "C" {
 	// 盤面のサイズ。19路盤では19、9路盤では9
 	int g_boardSize;
 
-	// 囲んで取れる相手の石の数(再帰関数で使う)
-	int g_kakondaIshi = 0;
+	// 隣接する（１個あるいは連の）石の数(再帰関数で使う)
+	int g_renIshi = 0;
 
 	// 連のリバティ（石の呼吸点）の数(再帰関数で使う)
 	int g_liberty = 0;
@@ -49,7 +49,7 @@ extern "C" {
 	{
 		int i;
 
-		g_liberty = g_kakondaIshi = 0;
+		g_liberty = g_renIshi = 0;
 		for (i = 0; i < BOARD_MAX; i++) {
 			g_checkedBoard[i] = 0; 
 		}
@@ -62,7 +62,7 @@ extern "C" {
 		int iDir;
 
 		g_checkedBoard[tNode] = 1;						// この石は検索済み	
-		g_kakondaIshi++;								// 呼吸点を数えている（もしかすると連の）
+		g_renIshi++;									// 呼吸点を数えている（１個または連の）
 														// 石の数
 		for (iDir = 0; iDir < 4; iDir++) {				// 隣接する四方向
 			adjNode = tNode + g_dir4[iDir];

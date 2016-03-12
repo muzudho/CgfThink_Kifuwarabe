@@ -3,16 +3,21 @@
 //
 
 extern "C" {
-	#include "../../header/h670_noHit___/h670_100_noHitEye.h"
 	#include "../../header/h190_board___/h190_board.h"
+	#include "../../header/h670_noHit___/h670_100_noHitEye.h"
 }
+
+
 
 
 NoHitEye::NoHitEye()
 {
 };
 
-void NoHitEye::IsThis(
+
+
+
+void NoHitEye::Research(
 	int color,
 	int adjColor
 )
@@ -24,17 +29,21 @@ void NoHitEye::IsThis(
 	}
 }
 
-void NoHitEye::Judge(
-	int& flgAbort
+
+
+
+bool NoHitEye::DontHit(
 	)
 {
+	bool result = false;
+
 	if (this->safe == 4) { // 四方が　自分の石や、壁に　囲まれている場所（眼）になるなら
 							  //PRT(_T("眼には打たない。 \n"));
 							  // 眼には打たない。
-		flgAbort = 1;
+		result = 1;
 		goto gt_EndMethod;
 	}
 
 gt_EndMethod:
-	return;
+	return result;
 }
