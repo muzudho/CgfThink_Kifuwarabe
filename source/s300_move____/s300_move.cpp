@@ -90,7 +90,7 @@ extern "C" {
 			// 置いた石に呼吸点がない場合。
 
 			// 操作を弾きます。
-			PRT(_T("move() Err: 自殺手! z=%04x\n"), node);
+			//PRT(_T("move() Err: 自殺手! z=%04x\n"), node);
 			g_board[node] = 0;
 			return MOVE_SUICIDE;
 		}

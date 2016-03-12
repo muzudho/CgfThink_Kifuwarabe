@@ -15,7 +15,7 @@ class Suicide
 {
 public:
 	// “GÎ‚ğæ‚Á‚½ƒtƒ‰ƒO
-	int flgCapture = 0;
+	int flgCapture;
 
 public:
 	Suicide();

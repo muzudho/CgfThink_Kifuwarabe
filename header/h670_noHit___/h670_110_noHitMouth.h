@@ -20,7 +20,7 @@ extern "C" {
 // 相手の石の口の中に打たない仕組み。
 class NoHitMouth {
 public:
-	int adjOppo = 0;	// 上下左右に隣接(adjacent)する相手(opponent)の石の数。
+	int adjOppo;	// 上下左右に隣接(adjacent)する相手(opponent)の石の数。
 
 public:
 	NoHitMouth();

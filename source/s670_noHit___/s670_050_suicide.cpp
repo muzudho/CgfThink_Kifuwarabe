@@ -13,7 +13,7 @@ extern "C" {
 
 
 Suicide::Suicide() {
-
+	this->flgCapture = 0;
 }
 
 

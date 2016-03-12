@@ -11,6 +11,7 @@ extern "C" {
 
 
 NoHitMouth::NoHitMouth() {
+	this->adjOppo = 0;
 };
 
 
@@ -44,7 +45,8 @@ int NoHitMouth::Evaluate(int flgCapture)
 	else
 	{
 		// それ以外の点を、大幅に加点。
-		score += 50;
+		//score += 50;
+		score += 100;
 	}
 
 	return score;

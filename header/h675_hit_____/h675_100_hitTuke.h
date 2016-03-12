@@ -18,7 +18,7 @@
 // ツケようとします。
 class HitTuke {
 public:
-	int safe = 0;
+	int unuse;//使っていません。
 
 public:
 	HitTuke();

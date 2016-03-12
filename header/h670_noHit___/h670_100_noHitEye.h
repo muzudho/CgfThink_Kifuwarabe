@@ -16,7 +16,7 @@
 // ©•ª‚ÌŠá‚É‘Å‚½‚È‚¢d‘g‚İB
 class NoHitEye {
 public:
-	int safe = 0;
+	int safe;
 
 public:
 	NoHitEye();

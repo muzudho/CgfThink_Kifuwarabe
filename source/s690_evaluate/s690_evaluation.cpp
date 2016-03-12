@@ -56,15 +56,17 @@ extern "C" {
 				noHitEye.safe++;
 			}
 
-			// 眼に打ち込まない処理のあとに
+			// 相手の口に石を打ち込む状況でないか調査。
+			noHitMouth.Research(invColor, adjColor);
+
+			// 眼に打ち込まないか、口の中に打ち込まないか、の処理のあとに
 			if (adjColor == 0 || adjColor == WAKU) {
 				// 空っぽか、枠なら。
 				//PRT(_T("空っぽか、枠。 \n"));
 				continue;
 			}
 
-			// 相手の口に石を打ち込む状況でないか調査。
-			noHitMouth.Research(invColor, adjColor);
+			//----------------------------------------
 
 			// 隣の石（または連）の呼吸点　の数を数えます。
 			CountLiberty(adjNode);
@@ -90,8 +92,11 @@ extern "C" {
 		// 2016-03-12 16:45 Add
 		score += noHitMouth.Evaluate(suicide.flgCapture);
 
-		PRT(_T("ノード=%x スコア=%d \n"), node, score);
-		// noHitMouth.adjOppo=%d , noHitMouth.adjOppo
+		PRT(_T("ノード=%x "), node);
+		PRT(_T("スコア=%d "), score);
+		PRT(_T("noHitMouth.adjOppo=%d "), noHitMouth.adjOppo);
+		PRT(_T("noHitMouth.Evaluate=%d "), noHitMouth.Evaluate(suicide.flgCapture));
+		PRT(_T("\n"));
 
 	gt_EndMethod:
 		return score;

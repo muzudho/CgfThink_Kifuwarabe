@@ -12,6 +12,7 @@ extern "C" {
 
 NoHitEye::NoHitEye()
 {
+	this->safe = 0;
 };
 
 
