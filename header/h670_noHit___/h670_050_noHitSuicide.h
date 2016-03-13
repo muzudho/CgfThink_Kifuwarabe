@@ -27,7 +27,7 @@ public:
 	// 自殺手になる状況でないか調査。
 	void Research(
 		int invColor,
-		int adjColor
+		int node
 	);
 
 	// この交点には打ち込まないなら真。

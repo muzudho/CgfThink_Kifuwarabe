@@ -45,15 +45,29 @@ extern "C" {
 	// 関数
 	//--------------------------------------------------------------------------------
 
-	void CountLiberty(int tNode)
+	void CountLiberty(int node)
 	{
+		int thisColor;	// 上下左右隣(adjacent)の石の色
+
+		thisColor = g_board[node];		// その色
+
+		// 眼に打ち込まないか、口の中に打ち込まないか、の処理のあとに
+		if (thisColor == 0 || thisColor == WAKU) {
+			// 空っぽか、枠なら。
+			//PRT(_T("空っぽか、枠。 \n"));
+			goto gt_EndMethod;
+		}
+
 		int i;
 
 		g_liberty = g_renIshi = 0;
 		for (i = 0; i < BOARD_MAX; i++) {
 			g_checkedBoard[i] = 0; 
 		}
-		CountLibertyElement(tNode, g_board[tNode]);
+		CountLibertyElement(node, g_board[node]);
+
+	gt_EndMethod:
+		return;
 	}
 
 	void CountLibertyElement(int tNode, int color)

@@ -22,14 +22,26 @@ NoHitSuicide::NoHitSuicide() {
 // 自殺手になる状況でないか調査。
 void NoHitSuicide::Research(
 	int invColor,
-	int adjColor
+	int node
 )
 {
-	// 隣に、呼吸点が 1 個の相手の石があれば、それは取ることができます。
-	if (adjColor == invColor && g_liberty == 1) {
-		//PRT(_T("敵石を取った。 \n"));
-		this->flgCapture = 1; 	// 敵石を、取ったフラグ。
+	int iDir;
+	int adjNode;	// 上下左右隣(adjacent)の交点
+	int adjColor;	// 上下左右隣(adjacent)の石の色
+
+	for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
+		adjNode = node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
+		adjColor = g_board[adjNode];		// その色
+
+		CountLiberty(adjNode);						// 隣の石（または連）の呼吸点　の数を数えます。
+
+													// 隣に、呼吸点が 1 個の相手の石があれば、それは取ることができます。
+		if (adjColor == invColor && g_liberty == 1) {
+			//PRT(_T("敵石を取った。 \n"));
+			this->flgCapture = 1; 	// 敵石を、取ったフラグ。
+		}
 	}
+
 }
 
 
