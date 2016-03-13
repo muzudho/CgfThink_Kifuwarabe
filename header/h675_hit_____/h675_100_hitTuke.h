@@ -5,6 +5,7 @@
 #pragma once
 
 
+#include "../../header/h200_research/h200_100_Liberty.h"
 #include "../../header/h675_hit_____/h675_000_hit.h"
 
 
@@ -25,9 +26,10 @@ public:
 	HitTuke();
 
 	// •]‰¿’l‚ğo‚µ‚Ü‚·B
-	int Evaluate_AdjNode(
+	int Evaluate(
 		int invColor,
-		int adjColor
+		int node,
+		Liberty liberties[4]
 		);
 
 };

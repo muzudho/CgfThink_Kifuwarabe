@@ -4,6 +4,7 @@
 
 extern "C" {
 	#include "../../header/h190_board___/h190_board.h"
+	#include "../../header/h200_research/h200_100_Liberty.h"
 	#include "../../header/h670_noHit___/h670_100_noHitOwnEye.h"
 }
 
@@ -20,7 +21,8 @@ NoHitOwnEye::NoHitOwnEye()
 
 void NoHitOwnEye::Research(
 	int color,
-	int	node
+	int	node,
+	Liberty liberties[4]
 )
 {
 	int iDir;
@@ -38,7 +40,7 @@ void NoHitOwnEye::Research(
 		if (
 			adjColor == WAKU
 			||
-			(adjColor == color && 2 <= g_liberty)
+			(adjColor == color && 2 <= liberties[iDir].liberty)
 			) {
 			//PRT(_T("ˆÀ‘S‚È—×ÚB \n"));
 			this->safe++;

@@ -5,6 +5,7 @@
 #pragma once
 
 
+#include "../../header/h200_research/h200_100_Liberty.h"
 #include "../../header/h670_noHit___/h670_000_noHit.h"
 
 
@@ -29,7 +30,8 @@ public:
 	// ©•ª‚ÌŠá‚É‘Å‚¿‚Şó‹µ‚©’²¸
 	void Research(
 		int color,
-		int	node
+		int	node,
+		Liberty liberties[4]
 	);
 
 	// ‚±‚ÌŒğ“_‚É‚Í‘Å‚¿‚Ü‚È‚¢‚È‚ç^B

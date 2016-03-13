@@ -5,6 +5,7 @@ extern "C" {
 
 	#include "../../header/h090_core____/h090_core.h"
 	#include "../../header/h190_board___/h190_board.h"
+	#include "../../header/h200_research/h200_100_Liberty.h"
 	#include "../../header/h300_move____/h300_move.h"
 
 	int MoveOne(
@@ -66,14 +67,15 @@ extern "C" {
 			//----------------------------------------
 
 			// 隣接する石（連）の呼吸点を数えます。
-			CountLiberty(adjNode);
+			Liberty liberty;
+			liberty.Count(adjNode);
 
-			if (g_liberty == 0) {
+			if (liberty.liberty == 0) {
 				// 呼吸点がないようなら、石（連）は取れます。
 
 				// 囲んだ石の数を　ハマに加点。
-				g_hama[color - 1] += g_renIshi;
-				tottaIshi += g_renIshi;
+				g_hama[color - 1] += liberty.renIshi;
+				tottaIshi += liberty.renIshi;
 				delNode = adjNode;	// 取られた石の座標。コウの判定で使う。
 
 				// 処理が被らないように、囲まれている相手の石（計算済み）を消します。
@@ -84,13 +86,14 @@ extern "C" {
 		//----------------------------------------
 		// 自殺手になるかを判定
 		//----------------------------------------
-		CountLiberty(node);
+		Liberty liberty;
+		liberty.Count(node);
 
-		if (g_liberty == 0) {
+		if (liberty.liberty == 0) {
 			// 置いた石に呼吸点がない場合。
 
 			// 操作を弾きます。
-			//PRT(_T("move() Err: 自殺手! z=%04x\n"), node);
+			PRT(_T("move() Err: 自殺手! z=%04x\n"), node);
 			g_board[node] = 0;
 			return MOVE_SUICIDE;
 		}
@@ -111,8 +114,9 @@ extern "C" {
 				if (g_board[adjNode] != color) {
 					continue;
 				}
-				CountLiberty(adjNode);
-				if (g_liberty == 1 && g_renIshi == 1) {
+				Liberty liberty;
+				liberty.Count(adjNode);
+				if (liberty.liberty == 1 && liberty.renIshi == 1) {
 					sum++;
 				}
 			}

@@ -14,9 +14,6 @@ extern "C" {
 	// 盤上の石の色。
 	int g_board[BOARD_MAX];
 
-	// 既にこの石を検索した場合は1
-	int g_checkedBoard[BOARD_MAX];
-
 	// 上、右、下、左　に移動するのに使う加減値
 	int g_dir4[4] = {
 		-0x100,	// 上
@@ -28,12 +25,6 @@ extern "C" {
 	// 盤面のサイズ。19路盤では19、9路盤では9
 	int g_boardSize;
 
-	// 隣接する（１個あるいは連の）石の数(再帰関数で使う)
-	int g_renIshi = 0;
-
-	// 連のリバティ（石の呼吸点）の数(再帰関数で使う)
-	int g_liberty = 0;
-
 	// 次にコウになる位置。無ければ 0。
 	int g_kouNode = 0;
 
@@ -44,54 +35,6 @@ extern "C" {
 	//--------------------------------------------------------------------------------
 	// 関数
 	//--------------------------------------------------------------------------------
-
-	void CountLiberty(int node)
-	{
-		int thisColor;	// 上下左右隣(adjacent)の石の色
-
-		thisColor = g_board[node];		// その色
-
-		// 眼に打ち込まないか、口の中に打ち込まないか、の処理のあとに
-		if (thisColor == 0 || thisColor == WAKU) {
-			// 空っぽか、枠なら。
-			//PRT(_T("空っぽか、枠。 \n"));
-			goto gt_EndMethod;
-		}
-
-		int i;
-
-		g_liberty = g_renIshi = 0;
-		for (i = 0; i < BOARD_MAX; i++) {
-			g_checkedBoard[i] = 0; 
-		}
-		CountLibertyElement(node, g_board[node]);
-
-	gt_EndMethod:
-		return;
-	}
-
-	void CountLibertyElement(int tNode, int color)
-	{
-		int adjNode;
-		int iDir;
-
-		g_checkedBoard[tNode] = 1;						// この石は検索済み	
-		g_renIshi++;									// 呼吸点を数えている（１個または連の）
-														// 石の数
-		for (iDir = 0; iDir < 4; iDir++) {				// 隣接する四方向
-			adjNode = tNode + g_dir4[iDir];
-			if (g_checkedBoard[adjNode]) {
-				continue;
-			}
-			if (g_board[adjNode] == 0) {				// 空点
-				g_checkedBoard[adjNode] = 1;			// この空点は検索済みとする
-				g_liberty++;							// リバティの数
-			}
-			if (g_board[adjNode] == color) {
-				CountLibertyElement(adjNode, color);	// 未探索の自分の石
-			}
-		}
-	}
 
 	int ConvertNode(int x, int y)
 	{

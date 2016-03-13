@@ -48,19 +48,22 @@ extern "C" {
 
 		score = hitRandom.Evaluate_AdjNode(); // 0 ～ 99 のランダムな評価値を与える。
 
-		noHitOwnEye.Research(color, node);		// 自分の眼に打ち込む状況か調査
-		noHitMouth.Research(color, node);// 相手の口に石を打ち込む状況でないか調査。
-		noHitSuicide.Research(invColor, node);	// 自殺手になる状況でないか調査。
+		noHitMouth.Research(color, node);		// 相手の口に石を打ち込む状況でないか調査。
 
+
+		Liberty liberties[4];// 上隣 → 右隣 → 下隣 → 左隣
 		for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
-			adjNode		= node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
-			adjColor	= g_board[adjNode];		// その色
+			adjNode = node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
+			adjColor = g_board[adjNode];		// その色
 
-			//----------------------------------------
-
-			// 評価値の計算（４方向分繰り返す）
-			score += hitTuke.Evaluate_AdjNode(invColor, adjColor);
+			liberties[iDir].Count(adjNode);						// 隣の石（または連）の呼吸点　の数を数えます。
 		}
+
+		noHitOwnEye.Research(color, node, liberties);		// 自分の眼に打ち込む状況か調査
+		noHitSuicide.Research(invColor, node, liberties);	// 自殺手になる状況でないか調査。
+
+		// 評価値の計算（４方向分）
+		score += hitTuke.Evaluate(invColor, node, liberties);
 
 		if (
 			noHitOwnEye.DontHit() ||

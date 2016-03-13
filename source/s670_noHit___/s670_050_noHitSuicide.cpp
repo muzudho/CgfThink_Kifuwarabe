@@ -5,6 +5,7 @@
 extern "C" {
 
 	#include "../../header/h190_board___/h190_board.h"
+	#include "../../header/h200_research/h200_100_Liberty.h"
 	#include "../../header/h300_move____/h300_move.h"
 	#include "../../header/h670_noHit___/h670_050_noHitSuicide.h"
 }
@@ -22,7 +23,8 @@ NoHitSuicide::NoHitSuicide() {
 // 自殺手になる状況でないか調査。
 void NoHitSuicide::Research(
 	int invColor,
-	int node
+	int node,
+	Liberty liberties[4]
 )
 {
 	int iDir;
@@ -33,10 +35,8 @@ void NoHitSuicide::Research(
 		adjNode = node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
 		adjColor = g_board[adjNode];		// その色
 
-		CountLiberty(adjNode);						// 隣の石（または連）の呼吸点　の数を数えます。
-
-													// 隣に、呼吸点が 1 個の相手の石があれば、それは取ることができます。
-		if (adjColor == invColor && g_liberty == 1) {
+		// 隣に、呼吸点が 1 個の相手の石があれば、それは取ることができます。
+		if (adjColor == invColor && liberties[iDir].liberty == 1) {
 			//PRT(_T("敵石を取った。 \n"));
 			this->flgCapture = 1; 	// 敵石を、取ったフラグ。
 		}

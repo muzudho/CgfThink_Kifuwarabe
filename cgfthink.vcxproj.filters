@@ -76,6 +76,12 @@
     <Filter Include="Source Files\s675_hit_____">
       <UniqueIdentifier>{5c1b73b4-e4d8-4fdf-8588-dac063718a5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\h200_research">
+      <UniqueIdentifier>{1d392348-5a85-40b0-8264-cf8a6e572273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\s200_research">
+      <UniqueIdentifier>{a6c354b9-f6ae-40e5-8d06-4930e55da08e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\h090_core____\h090_core.h">
@@ -126,6 +132,9 @@
     <ClInclude Include="header\h670_noHit___\h670_100_noHitOwnEye.h">
       <Filter>Header Files\h670_noHit___</Filter>
     </ClInclude>
+    <ClInclude Include="header\h200_research\h200_100_Liberty.h">
+      <Filter>Header Files\h200_research</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\s090_core____\s090_core.cpp">
@@ -172,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="source\s670_noHit___\s670_100_noHitOwnEye.cpp">
       <Filter>Source Files\s670_noHit___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s200_research\s200_100_Liberty.cpp">
+      <Filter>Source Files\s200_research</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

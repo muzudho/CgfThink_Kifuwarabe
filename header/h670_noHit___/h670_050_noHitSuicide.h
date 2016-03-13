@@ -5,6 +5,7 @@
 #pragma once
 
 
+#include "../../header/h200_research/h200_100_Liberty.h"
 #include "../../header/h670_noHit___/h670_000_noHit.h"
 
 
@@ -27,7 +28,8 @@ public:
 	// 自殺手になる状況でないか調査。
 	void Research(
 		int invColor,
-		int node
+		int node,
+		Liberty liberties[4]
 	);
 
 	// この交点には打ち込まないなら真。

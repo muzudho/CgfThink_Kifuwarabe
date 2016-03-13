@@ -5,6 +5,7 @@ extern "C" {
 
 	#include <windows.h> // コンソールへの出力等
 	#include "../../header/h190_board___/h190_board.h"
+	#include "../../header/h200_research/h200_100_Liberty.h"
 	#include "../../header/h390_explain_/h390_explain.h"
 	#include "../../header/h400_endgame_/h400_endgame.h"
 
@@ -43,9 +44,10 @@ extern "C" {
 				}
 				else {
 					*ptr = GTP_ALIVE;
-					CountLiberty(node);
+					Liberty liberty;
+					liberty.Count(node);
 					//			PRT("(%2d,%2d),ishi=%2d,dame=%2d\n",z&0xff,z>>8,ishi,dame);
-					if (g_liberty <= 1) {
+					if (liberty.liberty <= 1) {
 						*ptr = GTP_DEAD;
 					}
 				}

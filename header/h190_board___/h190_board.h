@@ -23,11 +23,8 @@ extern "C" {
 	//--------------------------------------------------------------------------------
 
 	extern int g_board[BOARD_MAX];
-	extern int g_checkedBoard[BOARD_MAX];
 	extern int g_dir4[4];
 	extern int g_boardSize;
-	extern int g_renIshi;
-	extern int g_liberty;
 	extern int g_kouNode;
 	extern int g_hama[2];
 
@@ -35,18 +32,6 @@ extern "C" {
 	//--------------------------------------------------------------------------------
 	// 関数
 	//--------------------------------------------------------------------------------
-
-	// 位置 tNode におけるリバティ（石の呼吸点）の数と石の数を計算。結果はグローバル変数に格納。
-	void	CountLiberty(
-		int node
-	);
-
-	// リバティ（石の呼吸点）と石の数える再帰関数
-	// 4方向を調べて、空白だったら+1、自分の石なら再帰で。相手の石、壁ならそのまま。
-	void	CountLibertyElement(
-		int tNode,
-		int color
-		);
 
 	// (x,y)を1つの座標に変換
 	int	ConvertNode(

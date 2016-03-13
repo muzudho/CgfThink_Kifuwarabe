@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="header\h090_core____\h090_core.h" />
     <ClInclude Include="header\h190_board___\h190_board.h" />
+    <ClInclude Include="header\h200_research\h200_100_Liberty.h" />
     <ClInclude Include="header\h300_move____\h300_move.h" />
     <ClInclude Include="header\h390_explain_\h390_explain.h" />
     <ClInclude Include="header\h400_endgame_\h400_endgame.h" />
@@ -154,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="source\s090_core____\s090_core.cpp" />
     <ClCompile Include="source\s190_board___\s190_board.cpp" />
+    <ClCompile Include="source\s200_research\s200_100_Liberty.cpp" />
     <ClCompile Include="source\s300_move____\s300_move.cpp" />
     <ClCompile Include="source\s400_endgame_\s400_endgame.cpp" />
     <ClCompile Include="source\s500_view____\s500_board.cpp" />
