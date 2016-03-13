@@ -9,7 +9,7 @@ extern "C" {
 	#include "../../header/h190_board___/h190_board.h"
 	#include "../../header/h300_move____/h300_move.h"
 	#include "../../header/h670_noHit___/h670_050_noHitSuicide.h"
-	#include "../../header/h670_noHit___/h670_100_noHitEye.h"
+	#include "../../header/h670_noHit___/h670_100_noHitOwnEye.h"
 	#include "../../header/h670_noHit___/h670_110_noHitMouth.h"
 	#include "../../header/h675_hit_____/h675_050_hitRandom.h"
 	#include "../../header/h675_hit_____/h675_100_hitTuke.h"
@@ -21,13 +21,13 @@ extern "C" {
 		int		node
 	)
 	{
-		int invColor = INVCLR(color);//白黒反転
-		NoHitEye	noHitEye;		// 自分の眼に打たない仕組み。
-		NoHitMouth	noHitMouth;		// 相手の口に打たない仕組み。
-		NoHitSuicide		suicide;		// 自殺手を打たないようにする仕組み。
-		HitRandom	hitRandom;		// 手をばらけさせる仕組み。
-		HitTuke		hitTuke;		// 相手の石に積極的にツケるようにする仕組み。
-		int score = 0;		// 読んでいる手の評価値
+		int invColor = INVCLR(color);	//白黒反転
+		NoHitOwnEye		noHitOwnEye;	// 自分の眼に打たない仕組み。
+		NoHitMouth		noHitMouth;		// 相手の口に打たない仕組み。
+		NoHitSuicide	suicide;		// 自殺手を打たないようにする仕組み。
+		HitRandom		hitRandom;		// 手をばらけさせる仕組み。
+		HitTuke			hitTuke;		// 相手の石に積極的にツケるようにする仕組み。
+		int score = 0;					// 読んでいる手の評価値
 		int iDir;
 		int adjNode;	// 上下左右隣(adjacent)の交点
 		int adjColor;	// 上下左右隣(adjacent)の石の色
@@ -48,15 +48,11 @@ extern "C" {
 
 		score = hitRandom.Evaluate_AdjNode(); // 0 ～ 99 のランダムな評価値を与える。
 
+		noHitOwnEye.Research(color, node);		// 自分の眼に打ち込む状況か調査
+
 		for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
 			adjNode		= node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
 			adjColor	= g_board[adjNode];		// その色
-
-			if (adjColor == WAKU) {
-				// 枠なら
-				//PRT(_T("枠。 \n"));
-				noHitEye.safe++;
-			}
 
 			noHitMouth.Research(invColor, adjColor);// 相手の口に石を打ち込む状況でないか調査。
 
@@ -72,14 +68,13 @@ extern "C" {
 			
 			CountLiberty(adjNode);					// 隣の石（または連）の呼吸点　の数を数えます。
 			suicide.Research(invColor, adjColor);	// 自殺手になる状況でないか調査。
-			noHitEye.Research(color, adjColor);		// 自分の眼に打ち込む状況か調査
 
 			// 評価値の計算（４方向分繰り返す）
 			score += hitTuke.Evaluate_AdjNode(invColor, adjColor);
 		}
 
 		if (
-			noHitEye.DontHit() ||
+			noHitOwnEye.DontHit() ||
 			suicide.DontHit(color, node)
 		) {
 			flgAbort = 1;

@@ -142,7 +142,7 @@
     <ClInclude Include="header\h500_view____\h500_board.h" />
     <ClInclude Include="header\h670_noHit___\h670_000_noHit.h" />
     <ClInclude Include="header\h670_noHit___\h670_050_noHitSuicide.h" />
-    <ClInclude Include="header\h670_noHit___\h670_100_noHitEye.h" />
+    <ClInclude Include="header\h670_noHit___\h670_100_noHitOwnEye.h" />
     <ClInclude Include="header\h670_noHit___\h670_110_noHitMouth.h" />
     <ClInclude Include="header\h675_hit_____\h675_000_hit.h" />
     <ClInclude Include="header\h675_hit_____\h675_050_hitRandom.h" />
@@ -159,7 +159,7 @@
     <ClCompile Include="source\s500_view____\s500_board.cpp" />
     <ClCompile Include="source\s670_noHit___\s670_000_noHit.cpp" />
     <ClCompile Include="source\s670_noHit___\s670_050_noHitSuicide.cpp" />
-    <ClCompile Include="source\s670_noHit___\s670_100_noHitEye.cpp" />
+    <ClCompile Include="source\s670_noHit___\s670_100_noHitOwnEye.cpp" />
     <ClCompile Include="source\s670_noHit___\s670_110_noHitMouth.cpp" />
     <ClCompile Include="source\s675_hit_____\s675_000_hit.cpp" />
     <ClCompile Include="source\s675_hit_____\s675_050_hitRandom.cpp" />
