@@ -49,12 +49,11 @@ extern "C" {
 		score = hitRandom.Evaluate_AdjNode(); // 0 ～ 99 のランダムな評価値を与える。
 
 		noHitOwnEye.Research(color, node);		// 自分の眼に打ち込む状況か調査
+		noHitMouth.Research(color, node);// 相手の口に石を打ち込む状況でないか調査。
 
 		for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
 			adjNode		= node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
 			adjColor	= g_board[adjNode];		// その色
-
-			noHitMouth.Research(invColor, adjColor);// 相手の口に石を打ち込む状況でないか調査。
 
 			// 眼に打ち込まないか、口の中に打ち込まないか、の処理のあとに
 			if (adjColor == 0 || adjColor == WAKU) {
@@ -64,7 +63,6 @@ extern "C" {
 			}
 
 			//----------------------------------------
-
 			
 			CountLiberty(adjNode);					// 隣の石（または連）の呼吸点　の数を数えます。
 			suicide.Research(invColor, adjColor);	// 自殺手になる状況でないか調査。

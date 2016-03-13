@@ -27,8 +27,8 @@ public:
 
 	// 相手の口に石を打ち込む状況でないか調査。
 	void Research(
-		int invColor,		// 白黒手番を反転させたもの
-		int adjColor
+		int color,
+		int node
 	);
 
 	// 評価値を出します。
