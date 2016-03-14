@@ -16,10 +16,11 @@ extern "C" {
 	#include <windows.h> // コンソールへの出力等
 	#include <tchar.h> // Unicode対応の _T() 関数を使用するために。
 	#include "../../header/h090_core____/h090_core.h"
+	#include "../../header/h190_board___/h190_board.h"
 	#include "../../header/h300_move____/h300_move.h"
 	#include "../../header/h390_explain_/h390_explain.h"
-	#include "../../header/h400_endgame_/h400_endgame.h"
-	#include "../../header/h500_view____/h500_board.h"
+	#include "../../header/h480_view____/h480_board.h"
+	#include "../../header/h490_endgame_/h490_endgame.h"
 	#include "../../header/h700_think___/h700_think.h"
 	#include "../../header/h800_cgfthink/h800_cgfthink.h"
 
@@ -74,6 +75,19 @@ DLL_EXPORT int cgfgui_thinking(
 	outputfile << _T("called: cgfgui_thinking") << endl;
 
 	PRT(_T("cgfgui_thinking 開始☆！ boardSize=%d \n"), boardSize);
+
+	/* for debug
+	int tnode, tx, ty;
+	for (int x = 0; x < 9; x++)
+	{
+		for (int y = 0; y < 9; y++)
+		{
+			tnode = ConvertToNode(x, y);
+			ConvertToXy(tx, ty, tnode);
+			PRT(_T("(%d,%d)= %d =(%d %d) \n"), x, y, tnode, tx, ty);
+		}
+	}
+	// */
 
 	int node;			// 囲碁盤上の交点（将棋盤でいうマス目）
 	int bestmoveNode;	// コンピューターが打つ交点。

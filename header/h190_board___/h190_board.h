@@ -10,6 +10,7 @@ extern "C" {
 	//--------------------------------------------------------------------------------
 
 	// 碁石
+	#define EMPTY 0		// 空きスペース
 	#define BLACK 1
 	#define WHITE 2
 	#define WAKU  3		// 盤外
@@ -34,9 +35,16 @@ extern "C" {
 	//--------------------------------------------------------------------------------
 
 	// (x,y)を1つの座標に変換
-	int	ConvertNode(
+	int	ConvertToNode(
 		int x,
 		int y
+		);
+
+	// (node)を(x,y)座標に変換
+	void ConvertToXy(
+		int& x,
+		int& y,
+		int node
 		);
 
 	// 1手進める。

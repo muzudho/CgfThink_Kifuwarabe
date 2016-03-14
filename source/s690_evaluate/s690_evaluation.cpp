@@ -11,6 +11,7 @@ extern "C" {
 	#include "../../header/h670_noHit___/h670_050_noHitSuicide.h"
 	#include "../../header/h670_noHit___/h670_100_noHitOwnEye.h"
 	#include "../../header/h670_noHit___/h670_110_noHitMouth.h"
+	#include "../../header/h670_noHit___/h670_120_noHitHasinohoBocchi.h"
 	#include "../../header/h675_hit_____/h675_050_hitRandom.h"
 	#include "../../header/h675_hit_____/h675_100_hitTuke.h"
 
@@ -22,11 +23,12 @@ extern "C" {
 	)
 	{
 		int invColor = INVCLR(color);	//白黒反転
-		NoHitOwnEye		noHitOwnEye;	// 自分の眼に打たない仕組み。
-		NoHitMouth		noHitMouth;		// 相手の口に打たない仕組み。
-		NoHitSuicide	noHitSuicide;	// 自殺手を打たないようにする仕組み。
-		HitRandom		hitRandom;		// 手をばらけさせる仕組み。
-		HitTuke			hitTuke;		// 相手の石に積極的にツケるようにする仕組み。
+		NoHitSuicide			noHitSuicide;	// 自殺手を打たないようにする仕組み。
+		NoHitOwnEye				noHitOwnEye;	// 自分の眼に打たない仕組み。
+		NoHitMouth				noHitMouth;		// 相手の口に打たない仕組み。
+		NoHitHasinohoBocchi		noHitHasinoho;	// 端の方には、ぼっち石　を、あまり打たないようにする仕組み。
+		HitRandom				hitRandom;		// 手をばらけさせる仕組み。
+		HitTuke					hitTuke;		// 相手の石に積極的にツケるようにする仕組み。
 		int score = 0;					// 読んでいる手の評価値
 		int iDir;
 		int adjNode;	// 上下左右隣(adjacent)の交点
@@ -59,15 +61,12 @@ extern "C" {
 			liberties[iDir].Count(adjNode);						// 隣の石（または連）の呼吸点　の数を数えます。
 		}
 
-		noHitOwnEye.Research(color, node, liberties);		// 自分の眼に打ち込む状況か調査
-		noHitSuicide.Research(invColor, node, liberties);	// 自殺手になる状況でないか調査。
-
 		// 評価値の計算（４方向分）
 		score += hitTuke.Evaluate(invColor, node, liberties);
 
 		if (
-			noHitOwnEye.DontHit() ||
-			noHitSuicide.DontHit(color, node)
+			noHitOwnEye.IsThis(color, node, liberties)		||		// 自分の眼に打ち込む状況か調査
+			noHitSuicide.IsThis(color, node, liberties)			// 自殺手になる状況でないか調査。
 		) {
 			flgAbort = 1;
 			goto gt_EndMethod;
@@ -75,6 +74,10 @@ extern "C" {
 
 		// 2016-03-12 16:45 Add
 		score += noHitMouth.Evaluate(noHitSuicide.flgCapture);
+
+		// 2016-03-15 00:57 Add
+		noHitHasinoho.Research(node);
+		score += noHitHasinoho.Evaluate();
 
 		PRT(_T("ノード=%x "), node);
 		PRT(_T("スコア=%d "), score);

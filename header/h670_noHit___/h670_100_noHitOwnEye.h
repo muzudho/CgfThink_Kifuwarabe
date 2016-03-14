@@ -28,13 +28,9 @@ public:
 	NoHitOwnEye();
 
 	// ©•ª‚ÌŠá‚É‘Å‚¿‚Şó‹µ‚©’²¸
-	void Research(
+	bool IsThis(
 		int color,
 		int	node,
 		Liberty liberties[4]
-	);
-
-	// ‚±‚ÌŒğ“_‚É‚Í‘Å‚¿‚Ü‚È‚¢‚È‚ç^B
-	bool DontHit(
 	);
 };

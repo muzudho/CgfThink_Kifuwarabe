@@ -21,12 +21,14 @@ NoHitSuicide::NoHitSuicide() {
 
 
 // 自殺手になる状況でないか調査。
-void NoHitSuicide::Research(
-	int invColor,
+bool NoHitSuicide::IsThis(
+	int		color,
 	int node,
 	Liberty liberties[4]
 )
 {
+	bool result = false;
+	int invColor = INVCLR(color);	//白黒反転
 	int iDir;
 	int adjNode;	// 上下左右隣(adjacent)の交点
 	int adjColor;	// 上下左右隣(adjacent)の石の色
@@ -42,21 +44,10 @@ void NoHitSuicide::Research(
 		}
 	}
 
-}
-
-
-
-
-bool NoHitSuicide::DontHit(
-	int		color,
-	int		node
-	)
-{
-	bool result = false;
 	int flgMove;	// 移動結果の種類
 
 	if (this->flgCapture == 0) {					// 石が取れない場合
-											// 実際に置いてみて　自殺手かどうか判定
+													// 実際に置いてみて　自殺手かどうか判定
 		int temp_kouNode = g_kouNode;		// コウの位置を退避
 
 		flgMove = MoveOne(node, color);		// 石を置きます。コウの位置が変わるかも。

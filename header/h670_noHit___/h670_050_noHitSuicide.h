@@ -26,15 +26,9 @@ public:
 	NoHitSuicide();
 
 	// 自殺手になる状況でないか調査。
-	void Research(
-		int invColor,
-		int node,
-		Liberty liberties[4]
-	);
-
-	// この交点には打ち込まないなら真。
-	bool DontHit(
+	bool IsThis(
 		int		color,
-		int		node
+		int		node,
+		Liberty liberties[4]
 	);
 };

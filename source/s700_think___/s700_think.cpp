@@ -15,7 +15,7 @@ extern "C" {
 	#include "../../header/h190_board___/h190_board.h"
 	#include "../../header/h300_move____/h300_move.h"
 	#include "../../header/h390_explain_/h390_explain.h"
-	#include "../../header/h400_endgame_/h400_endgame.h"
+	#include "../../header/h490_endgame_/h490_endgame.h"
 	#include "../../header/h690_evaluate/h690_evaluation.h"
 	#include "../../header/h700_think___/h700_think.h"
 
@@ -49,7 +49,7 @@ extern "C" {
 
 		for (y = 0; y < g_boardSize; y++) {
 			for (x = 0; x < g_boardSize; x++) {
-				node = ConvertNode(x, y);
+				node = ConvertToNode(x, y);
 				//PRT(_T("node=%d \n"));
 
 				// ‚±‚Ì‹Ç–Ê‚ÅAÎ‚ð’u‚¢‚½‚Æ‚«‚Ì•]‰¿’l

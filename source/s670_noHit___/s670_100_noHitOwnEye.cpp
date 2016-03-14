@@ -19,12 +19,14 @@ NoHitOwnEye::NoHitOwnEye()
 
 
 
-void NoHitOwnEye::Research(
+bool NoHitOwnEye::IsThis(
 	int color,
 	int	node,
 	Liberty liberties[4]
 )
 {
+	bool result = false;
+
 	int iDir;
 	int adjNode;	// 上下左右隣(adjacent)の交点
 	int adjColor;	// 上下左右隣(adjacent)の石の色
@@ -46,19 +48,11 @@ void NoHitOwnEye::Research(
 			this->safe++;
 		}
 	}
-}
 
-
-
-
-bool NoHitOwnEye::DontHit(
-	)
-{
-	bool result = false;
 
 	if (this->safe == 4) { // 四方が　自分の石や、壁に　囲まれている場所（眼）になるなら
-							  //PRT(_T("眼には打たない。 \n"));
-							  // 眼には打たない。
+						   //PRT(_T("眼には打たない。 \n"));
+						   // 眼には打たない。
 		result = 1;
 		goto gt_EndMethod;
 	}

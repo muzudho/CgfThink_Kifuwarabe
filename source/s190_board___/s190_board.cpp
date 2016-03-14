@@ -36,9 +36,15 @@ extern "C" {
 	// ä÷êî
 	//--------------------------------------------------------------------------------
 
-	int ConvertNode(int x, int y)
+	int ConvertToNode(int x, int y)
 	{
 		return (y + 1) * 256 + (x + 1);
+	}
+
+	void ConvertToXy(int& x, int& y, int node)
+	{
+		y = (node - 256) / 256;
+		x = (node - 1) % 256;
 	}
 
 	void DeleteRenStones(
