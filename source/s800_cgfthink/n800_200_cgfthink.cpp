@@ -12,12 +12,9 @@
 using namespace std;
 
 
-	#include <windows.h> // コンソールへの出力等
-	#include <tchar.h> // Unicode対応の _T() 関数を使用するために。
+#include <windows.h> // コンソールへの出力等
+#include <tchar.h> // Unicode対応の _T() 関数を使用するために。
 
-extern "C" {
-	#include "../../header/h800_cgfthink/n800_200_cgfthink.h"
-}
 #include "../../header/h090_core____/n090_100_core.h"
 #include "../../header/h190_board___/n190_100_board.h"
 #include "../../header/h300_move____/n300_100_move.h"
@@ -26,6 +23,7 @@ extern "C" {
 #include "../../header/h490_endgame_/n490_100_endgame.h"
 #include "../../header/h700_think___/n700_200_think.h"
 //#include "../../header/h800_cgfthink/n800_100_cppBoard.h"
+#include "../../header/h800_cgfthink/n800_200_cgfthink.h"
 
 
 
@@ -38,10 +36,13 @@ extern "C" {
 Cgfthink g_cgfthink;
 
 
+//--------------------------------------------------------------------------------
+// 関数宣言まとめ　別のアプリケーションから呼び出されるもの
+//--------------------------------------------------------------------------------
 
-
-DLL_EXPORT void cgfgui_thinking_init(
-	int* pThinkStoped
+// 対局開始時に一度だけ呼ばれます。
+extern "C" DLL_EXPORT void cgfgui_thinking_init(
+	int* pThinkStoped	// 普段は0。中止ボタンが押されたときに 1 になります。この値が1になった場合は思考を終了してください。
 )
 {
 	// ログ： 動いていることの確認。
@@ -65,15 +66,21 @@ DLL_EXPORT void cgfgui_thinking_init(
 	// この下に、メモリの確保など必要な場合のコードを記述してください。
 }
 
-DLL_EXPORT int cgfgui_thinking(
-	int		initBoard[]		,
-	int		kifu[][3]		,
-	int		curTesuu		,
-	int		blackTurn		,
-	int		boardSize		,
-	double	komi			,
-	int		endgameType		,
-	int		endgameBoard[]
+// 思考ルーチン。次の1手の座標を返す。PASSの場合0。
+// GUIから現在の局面の情報が渡される。
+// また、終局処理の場合は、終局判断の結果を返す。
+extern "C" DLL_EXPORT int cgfgui_thinking(
+	int		initBoard[]		,	// 初期盤面（置碁の場合は、ここに置石が入る）
+	int		kifu[][3]		,	// 棋譜	[手数][0]...座標
+								//		[手数][1]...石の色
+								//		[手数][2]...消費時間（秒)
+								// 手数は 0 から始まり、curTesuu の1つ手前まである。
+	int		curTesuu		,	// 現在の手数
+	int		flgBlackTurn	,	// 黒手番フラグ(黒番...1、白番...0)。ここだけ定数と違ってややこしい。
+	int		boardSize		,	// 盤面のサイズ
+	double	komi			,	// コミ
+	int		endgameType		,	// 0...通常の思考、1...終局処理、2...図形を表示、3...数値を表示。
+	int		endgameBoard[]		// 終局処理の結果を代入する。
 )
 {
 	// デバッグ用の窓です。PRT()関数で出力できます。
@@ -172,7 +179,7 @@ DLL_EXPORT int cgfgui_thinking(
 	// 思考ルーチン
 	//--------------------------------------------------------------------------------
 
-	if (blackTurn) {
+	if (flgBlackTurn) {
 		color = BLACK;
 	} else {
 		color = WHITE;
@@ -181,7 +188,7 @@ DLL_EXPORT int cgfgui_thinking(
 	bestmoveNode = Think::Bestmove(hConsoleWindow, color, pBoard);
 
 	Core::PRT(hConsoleWindow, _T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
-	Core::PRT(hConsoleWindow, _T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,blackTurn,boardSize,komi);
+	Core::PRT(hConsoleWindow, _T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,flgBlackTurn,boardSize,komi);
 	//PrintBoard();
 
 	//PRT(_T("a"));
@@ -202,7 +209,9 @@ DLL_EXPORT int cgfgui_thinking(
 	return bestmoveNode;
 }
 
-DLL_EXPORT void cgfgui_thinking_close(
+// 対局終了時に一度だけ呼ばれます。
+// メモリの解放などが必要な場合にここに記述してください。
+extern "C" DLL_EXPORT void cgfgui_thinking_close(
 	void
 )
 {
