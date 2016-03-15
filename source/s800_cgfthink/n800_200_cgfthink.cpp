@@ -16,19 +16,16 @@ using namespace std;
 	#include <tchar.h> // Unicode対応の _T() 関数を使用するために。
 
 extern "C" {
-
 	#include "../../header/h090_core____/n090_100_core.h"
-	#include "../../header/h190_board___/n190_100_board.h"
-	#include "../../header/h300_move____/n300_100_move.h"
-	#include "../../header/h390_explain_/n390_100_explain.h"
-	#include "../../header/h480_view____/n480_100_boardView.h"
-	#include "../../header/h490_endgame_/n490_100_endgame.h"
-	#include "../../header/h700_think___/n700_200_think.h"
-	//#include "../../header/h800_cgfthink/n800_100_cppBoard.h"
 	#include "../../header/h800_cgfthink/n800_200_cgfthink.h"
-
-
 }
+#include "../../header/h190_board___/n190_100_board.h"
+#include "../../header/h300_move____/n300_100_move.h"
+#include "../../header/h390_explain_/n390_100_explain.h"
+#include "../../header/h480_view____/n480_100_boardView.h"
+#include "../../header/h490_endgame_/n490_100_endgame.h"
+#include "../../header/h700_think___/n700_200_think.h"
+//#include "../../header/h800_cgfthink/n800_100_cppBoard.h"
 
 
 //--------------------------------------------------------------------------------
@@ -133,7 +130,7 @@ DLL_EXPORT int cgfgui_thinking(
 		color	= kifu[iTesuu][1];	// 石の色
 		time	= kifu[iTesuu][2];	// 消費時間
 		g_thoughtTime[iTesuu & 1] += time; // 手数の下1桁を見て [0]先手、[1]後手。
-		if (MoveOne(node, color, pBoard) != MOVE_SUCCESS) {
+		if (Move::MoveOne(node, color, pBoard) != MOVE_SUCCESS) {
 			// 動かせなければそこで止める。（エラーがあった？？）
 			PRT(_T("棋譜を進められなかったので止めた☆ \n"));
 			break;
@@ -153,13 +150,13 @@ DLL_EXPORT int cgfgui_thinking(
 	{
 	// 「終局処理」なら
 	case GAME_END_STATUS:
-							return EndgameStatus		(endgameBoard, pBoard);
+							return Endgame::EndgameStatus		(endgameBoard, pBoard);
 	// 「図形を描く」なら
 	case GAME_DRAW_FIGURE:
-							return EndgameDrawFigure	(endgameBoard, pBoard);
+							return Endgame::EndgameDrawFigure	(endgameBoard, pBoard);
 	// 「数値を書く」なら
 	case GAME_DRAW_NUMBER:	
-							return EndgameDrawNumber	(endgameBoard, pBoard);
+							return Endgame::EndgameDrawNumber	(endgameBoard, pBoard);
 	// 通常の指し手
 	default:				
 							break;

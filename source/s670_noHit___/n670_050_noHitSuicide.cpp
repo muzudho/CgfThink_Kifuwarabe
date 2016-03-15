@@ -1,11 +1,7 @@
-
-extern "C" {
-
-	#include "../../header/h190_board___/n190_100_board.h"
-	#include "../../header/h190_board___/n190_150_liberty.h"
-	#include "../../header/h300_move____/n300_100_move.h"
-	#include "../../header/h670_noHit___/n670_050_noHitSuicide.h"
-}
+#include "../../header/h190_board___/n190_100_board.h"
+#include "../../header/h190_board___/n190_150_liberty.h"
+#include "../../header/h300_move____/n300_100_move.h"
+#include "../../header/h670_noHit___/n670_050_noHitSuicide.h"
 
 
 
@@ -48,7 +44,7 @@ bool NoHitSuicide::IsThis(
 													// 実際に置いてみて　自殺手かどうか判定
 		int temp_kouNode = pBoard->kouNode;		// コウの位置を退避
 
-		flgMove = MoveOne(node, color, pBoard);		// 石を置きます。コウの位置が変わるかも。
+		flgMove = Move::MoveOne(node, color, pBoard);		// 石を置きます。コウの位置が変わるかも。
 
 											// 石を置く前の状態に戻します。
 		pBoard->table[node] = 0;					// 置いた石を消します。

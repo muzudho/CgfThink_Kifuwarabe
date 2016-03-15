@@ -1,17 +1,5 @@
 #pragma once
 
-extern "C" {
-
-
-	// 1手進める。
-	int	MoveOne(
-		int node,	// 座標
-		int color,		// 石の色
-		Board* pBoard
-	);
-
-}
-
 
 //--------------------------------------------------------------------------------
 // enum
@@ -28,3 +16,15 @@ enum MoveResult {
 	MOVE_EXIST,				// 既に石が存在
 	MOVE_FATAL				// エラーなど。
 };
+
+
+class Move {
+public:
+	// 1手進める。
+	static int	MoveOne(
+		int node,	// 座標
+		int color,		// 石の色
+		Board* pBoard
+		);
+};
+

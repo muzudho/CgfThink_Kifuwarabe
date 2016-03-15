@@ -1,10 +1,6 @@
-extern "C" {
-
-	#include "../../header/h190_board___/n190_100_board.h"
-	#include "../../header/h190_board___/n190_150_Liberty.h"
-	#include "../../header/h675_hit_____/n675_100_hitTuke.h"
-
-}
+#include "../../header/h190_board___/n190_100_board.h"
+#include "../../header/h190_board___/n190_150_Liberty.h"
+#include "../../header/h675_hit_____/n675_100_hitTuke.h"
 
 
 

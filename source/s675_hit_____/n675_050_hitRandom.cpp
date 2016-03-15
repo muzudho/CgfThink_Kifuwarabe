@@ -1,11 +1,6 @@
 #include <windows.h>								// rand() “™‚ğg—p‚·‚é‚½‚ß‚ÉB
 
-
-extern "C" {
-
-	#include "../../header/h675_hit_____/n675_050_hitRandom.h"
-
-}
+#include "../../header/h675_hit_____/n675_050_hitRandom.h"
 
 
 

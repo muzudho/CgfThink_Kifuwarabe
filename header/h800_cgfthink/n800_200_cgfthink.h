@@ -4,12 +4,8 @@
 #pragma once
 
 
-	#include <windows.h>	// HANDLE 等を使用するために。
-
-extern "C" {
-
-	#include "../h190_board___/n190_100_board.h"
-}
+#include <windows.h>	// HANDLE 等を使用するために。
+#include "../h190_board___/n190_100_board.h"
 
 
 //--------------------------------------------------------------------------------

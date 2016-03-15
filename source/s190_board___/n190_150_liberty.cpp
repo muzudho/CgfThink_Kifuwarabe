@@ -1,7 +1,3 @@
-//
-// /source/s600_research/s600_100_adjLiberty.cpp
-//
-
 #include "../../header/h190_board___/n190_150_liberty.h"
 
 
