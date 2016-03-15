@@ -34,10 +34,7 @@ extern "C" {
 
 // 思考中断フラグ。0で初期化されています。
 // GUIの「思考中断ボタン」を押された場合に1になります。
-int* g_pThinkStoped = NULL;
-
-// 累計思考時間 [0]先手 [1]後手。　黒白とは限らない？
-int g_thoughtTime[2];
+Cgfthink g_cgfthink;
 
 
 DLL_EXPORT void cgfgui_thinking_init(
@@ -51,7 +48,7 @@ DLL_EXPORT void cgfgui_thinking_init(
 	//--------------------
 	// ポインタの受け渡し
 	//--------------------
-	g_pThinkStoped = pThinkStoped;
+	g_cgfthink.pThinkStoped = pThinkStoped;
 
 	// PRT()情報を表示するためのコンソールを起動する。
 	AllocConsole();		// この行をコメントアウトすればコンソールは表示されません。
@@ -121,15 +118,15 @@ DLL_EXPORT int cgfgui_thinking(
 	int time;			// 消費時間
 	int iTesuu;
 
-	g_thoughtTime[BLACK]	= 0;	// 累計思考時間
-	g_thoughtTime[WHITE]	= 0;	
+	// 累計思考時間 [0]先手 [1]後手。　黒白とは限らない？
+	int thoughtTime[2] = { 0, 0 };
 
 	// 棋譜を進めていくぜ☆
 	for (iTesuu =0; iTesuu<curTesuu; iTesuu++) {
 		node	= kifu[iTesuu][0];	// 座標、y*256 + x の形で入っている
 		color	= kifu[iTesuu][1];	// 石の色
 		time	= kifu[iTesuu][2];	// 消費時間
-		g_thoughtTime[iTesuu & 1] += time; // 手数の下1桁を見て [0]先手、[1]後手。
+		thoughtTime[iTesuu & 1] += time; // 手数の下1桁を見て [0]先手、[1]後手。
 		if (Move::MoveOne(node, color, pBoard) != MOVE_SUCCESS) {
 			// 動かせなければそこで止める。（エラーがあった？？）
 			PRT(_T("棋譜を進められなかったので止めた☆ \n"));
@@ -174,7 +171,7 @@ DLL_EXPORT int cgfgui_thinking(
 	// １手指します。
 	bestmoveNode = Think::Bestmove(color, pBoard);
 
-	PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"), g_thoughtTime[0], g_thoughtTime[1]);
+	PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
 	PRT(_T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,blackTurn,boardSize,komi);
 	//PrintBoard();
 
