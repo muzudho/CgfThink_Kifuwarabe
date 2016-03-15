@@ -21,5 +21,12 @@ extern "C" {
 		MOVE_FATAL				// エラーなど。
 	};
 
+	// 1手進める。
+	int	MoveOne(
+		int node,	// 座標
+		int color,		// 石の色
+		int board[]
+		);
 
 }
+

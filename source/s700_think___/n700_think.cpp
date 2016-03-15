@@ -25,7 +25,9 @@ extern "C" {
 	//--------------------------------------------------------------------------------
 
 	int Bestmove(
-		int color
+		int color,
+		int board[],
+		int boardSize
 	)
 	{
 		PRT(_T("Bestmove開始☆！ \n"));
@@ -47,14 +49,14 @@ extern "C" {
 		maxScore = -1;
 		bestmoveNode = 0; // 0 ならパス。
 
-		for (y = 0; y < g_boardSize; y++) {
-			for (x = 0; x < g_boardSize; x++) {
+		for (y = 0; y < boardSize; y++) {
+			for (x = 0; x < boardSize; x++) {
 				node = ConvertToNode(x, y);
 				//PRT(_T("node=%d \n"));
 
 				// この局面で、石を置いたときの評価値
 				int flgAbort = 0;
-				score = Evaluate( flgAbort, color, node);
+				score = Evaluate( flgAbort, color, node, board, boardSize);
 				if (flgAbort)
 				{
 					continue;

@@ -21,7 +21,9 @@ public:
 
 	// どのような状況か調査。
 	void Research(
-		int node
+		int node,
+		int board[],
+		int boardSize
 		);
 
 	// 評価値を出します。

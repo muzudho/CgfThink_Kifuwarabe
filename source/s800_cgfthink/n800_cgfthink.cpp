@@ -121,7 +121,7 @@ DLL_EXPORT int cgfgui_thinking(
 		color	= kifu[iTesuu][1];	// 石の色
 		time	= kifu[iTesuu][2];	// 消費時間
 		g_thoughtTime[iTesuu & 1] += time; // 手数の下1桁を見て [0]先手、[1]後手。
-		if (MoveOne(node, color) != MOVE_SUCCESS) {
+		if (MoveOne(node, color, g_board) != MOVE_SUCCESS) {
 			// 動かせなければそこで止める。（エラーがあった？？）
 			PRT(_T("棋譜を進められなかったので止めた☆ \n"));
 			break;
@@ -141,13 +141,13 @@ DLL_EXPORT int cgfgui_thinking(
 	{
 	// 「終局処理」なら
 	case GAME_END_STATUS:
-							return EndgameStatus		(endgameBoard);
+							return EndgameStatus		(endgameBoard, g_board, g_boardSize );
 	// 「図形を描く」なら
 	case GAME_DRAW_FIGURE:
-							return EndgameDrawFigure	(endgameBoard);
+							return EndgameDrawFigure	(endgameBoard, g_boardSize);
 	// 「数値を書く」なら
 	case GAME_DRAW_NUMBER:	
-							return EndgameDrawNumber	(endgameBoard);
+							return EndgameDrawNumber	(endgameBoard, g_boardSize);
 	// 通常の指し手
 	default:				
 							break;
@@ -163,7 +163,7 @@ DLL_EXPORT int cgfgui_thinking(
 		color = WHITE;
 	}
 	// １手指します。
-	bestmoveNode = Bestmove(color);
+	bestmoveNode = Bestmove(color, g_board, g_boardSize);
 
 	PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"), g_thoughtTime[0], g_thoughtTime[1]);
 	PRT(_T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,blackTurn,boardSize,komi);

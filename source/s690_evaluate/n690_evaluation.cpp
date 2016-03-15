@@ -19,7 +19,9 @@ extern "C" {
 	int Evaluate(
 		int&	flgAbort	,
 		int		color		,
-		int		node
+		int		node        ,
+		int     board[]		,
+		int		boardSize
 	)
 	{
 		int invColor = INVCLR(color);	//白黒反転
@@ -34,7 +36,7 @@ extern "C" {
 		int adjNode;	// 上下左右隣(adjacent)の交点
 		int adjColor;	// 上下左右隣(adjacent)の石の色
 
-		if (g_board[node]) {
+		if (board[node]) {
 			// 石があるか、枠なら
 			//PRT(_T("石があるか、枠。 \n"));
 			flgAbort	= 1;
@@ -50,23 +52,23 @@ extern "C" {
 
 		score = hitRandom.Evaluate_AdjNode(); // 0 ～ 99 のランダムな評価値を与える。
 
-		noHitMouth.Research(color, node);		// 相手の口に石を打ち込む状況でないか調査。
+		noHitMouth.Research(color, node, board);		// 相手の口に石を打ち込む状況でないか調査。
 
 
 		Liberty liberties[4];// 上隣 → 右隣 → 下隣 → 左隣
 		for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
 			adjNode = node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
-			adjColor = g_board[adjNode];		// その色
+			adjColor = board[adjNode];		// その色
 
-			liberties[iDir].Count(adjNode);						// 隣の石（または連）の呼吸点　の数を数えます。
+			liberties[iDir].Count(adjNode, board);						// 隣の石（または連）の呼吸点　の数を数えます。
 		}
 
 		// 評価値の計算（４方向分）
-		score += hitTuke.Evaluate(invColor, node, liberties);
+		score += hitTuke.Evaluate(invColor, node, liberties, board);
 
 		if (
-			noHitOwnEye.IsThis(color, node, liberties)		||		// 自分の眼に打ち込む状況か調査
-			noHitSuicide.IsThis(color, node, liberties)			// 自殺手になる状況でないか調査。
+			noHitOwnEye.IsThis(color, node, liberties, board)		||		// 自分の眼に打ち込む状況か調査
+			noHitSuicide.IsThis(color, node, liberties, board)			// 自殺手になる状況でないか調査。
 		) {
 			flgAbort = 1;
 			goto gt_EndMethod;
@@ -76,7 +78,7 @@ extern "C" {
 		score += noHitMouth.Evaluate(noHitSuicide.flgCapture);
 
 		// 2016-03-15 00:57 Add
-		noHitHasinoho.Research(node);
+		noHitHasinoho.Research(node, board, boardSize);
 		score += noHitHasinoho.Evaluate();
 
 		PRT(_T("ノード=%x "), node);

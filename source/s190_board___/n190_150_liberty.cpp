@@ -9,7 +9,6 @@
 
 Liberty::Liberty()
 {
-	//this->checkedBoard[BOARD_MAX];
 	this->liberty = 0;
 	this->renIshi = 0;
 };
@@ -17,11 +16,11 @@ Liberty::Liberty()
 
 
 
-void Liberty::Count(int node)
+void Liberty::Count(int node, int board[])
 {
 	int thisColor;	// 上下左右隣(adjacent)の石の色
 
-	thisColor = g_board[node];		// その色
+	thisColor = board[node];		// その色
 
 									// 眼に打ち込まないか、口の中に打ち込まないか、の処理のあとに
 	if (thisColor == 0 || thisColor == WAKU) {
@@ -38,7 +37,7 @@ void Liberty::Count(int node)
 		this->checkedBoard[i] = 0;
 	}
 
-	this->CountElement(node, g_board[node]);
+	this->CountElement(node, board[node], board);
 
 gt_EndMethod:
 	return;
@@ -47,7 +46,7 @@ gt_EndMethod:
 
 
 
-void Liberty::CountElement(int tNode, int color)
+void Liberty::CountElement(int tNode, int color, int board[])
 {
 	int adjNode;
 	int iDir;
@@ -60,12 +59,12 @@ void Liberty::CountElement(int tNode, int color)
 		if (this->checkedBoard[adjNode]) {
 			continue;
 		}
-		if (g_board[adjNode] == 0) {				// 空点
+		if (board[adjNode] == 0) {				// 空点
 			this->checkedBoard[adjNode] = 1;			// この空点は検索済みとする
 			this->liberty++;							// リバティの数
 		}
-		if (g_board[adjNode] == color) {
-			this->CountElement(adjNode, color);	// 未探索の自分の石
+		if (board[adjNode] == color) {
+			this->CountElement(adjNode, color, board);	// 未探索の自分の石
 		}
 	}
 }

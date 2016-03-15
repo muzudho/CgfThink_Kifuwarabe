@@ -20,9 +20,10 @@ NoHitOwnEye::NoHitOwnEye()
 
 
 bool NoHitOwnEye::IsThis(
-	int color,
-	int	node,
-	Liberty liberties[4]
+	int color			,
+	int	node			,
+	Liberty liberties[4],
+	int		board[]
 )
 {
 	bool result = false;
@@ -33,7 +34,7 @@ bool NoHitOwnEye::IsThis(
 
 	for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
 		adjNode = node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
-		adjColor = g_board[adjNode];		// その色
+		adjColor = board[adjNode];		// その色
 
 		// 次の２つは　安全なつながり方です。
 		// (１)枠につなげる。

@@ -1,7 +1,3 @@
-//
-// /header/h600_research/h600_100_adjLiberty.h
-//
-
 #pragma once
 
 
@@ -25,15 +21,17 @@ public:
 	Liberty();
 
 
-	// 位置 tNode におけるリバティ（石の呼吸点）の数と石の数を計算。結果はグローバル変数に格納。
+	// 位置 tNode におけるリバティ（石の呼吸点）の数と石の数を計算。結果は liberty 変数に格納。
 	void	Count(
-		int node
+		int node,
+		int board[]
 		);
 
 	// リバティ（石の呼吸点）と石の数える再帰関数
 	// 4方向を調べて、空白だったら+1、自分の石なら再帰で。相手の石、壁ならそのまま。
 	void	CountElement(
 		int tNode,
-		int color
+		int color,
+		int board[]
 		);
 };

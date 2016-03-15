@@ -10,7 +10,8 @@ extern "C" {
 
 	int MoveOne(
 		int node,
-		int color
+		int color,
+		int board[]
 		)
 	{
 		int i;
@@ -41,13 +42,13 @@ extern "C" {
 		//----------------------------------------
 		// 空点でないところに置こうとした場合
 		//----------------------------------------
-		if (g_board[node] != 0) {
+		if (board[node] != 0) {
 			PRT(_T("move() Err: 空点ではない！z=%04x\n"), node);
 			// 操作を弾きます。
 			return MOVE_EXIST;
 		}
 
-		g_board[node] = color;	// とりあえず置いてみる
+		board[node] = color;	// とりあえず置いてみる
 
 		// ここから下は、石を置いたあとの盤面です。
 
@@ -57,7 +58,7 @@ extern "C" {
 		for (i = 0; i < 4; i++) {
 			adjNode = node + g_dir4[i];
 
-			if (g_board[adjNode] != invClr) {
+			if (board[adjNode] != invClr) {
 				// 隣接する石が　相手の石　でないなら無視。
 				continue;
 			}
@@ -68,7 +69,7 @@ extern "C" {
 
 			// 隣接する石（連）の呼吸点を数えます。
 			Liberty liberty;
-			liberty.Count(adjNode);
+			liberty.Count(adjNode, board);
 
 			if (liberty.liberty == 0) {
 				// 呼吸点がないようなら、石（連）は取れます。
@@ -87,14 +88,14 @@ extern "C" {
 		// 自殺手になるかを判定
 		//----------------------------------------
 		Liberty liberty;
-		liberty.Count(node);
+		liberty.Count(node, board);
 
 		if (liberty.liberty == 0) {
 			// 置いた石に呼吸点がない場合。
 
 			// 操作を弾きます。
 			PRT(_T("move() Err: 自殺手! z=%04x\n"), node);
-			g_board[node] = 0;
+			board[node] = 0;
 			return MOVE_SUICIDE;
 		}
 
@@ -111,11 +112,11 @@ extern "C" {
 			sum = 0;
 			for (i = 0; i < 4; i++) {
 				adjNode = delNode + g_dir4[i];
-				if (g_board[adjNode] != color) {
+				if (board[adjNode] != color) {
 					continue;
 				}
 				Liberty liberty;
-				liberty.Count(adjNode);
+				liberty.Count(adjNode, board);
 				if (liberty.liberty == 1 && liberty.renIshi == 1) {
 					sum++;
 				}

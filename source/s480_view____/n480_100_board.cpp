@@ -8,7 +8,7 @@ extern "C" {
 	#include "../../header/h090_core____/n090_100_core.h"
 	#include "../../header/h480_view____/n480_100_board.h"
 
-	void PrintBoard(void)
+	void PrintBoard(int board[], int boardSize)
 	{
 		int x;
 		int y;
@@ -20,11 +20,11 @@ extern "C" {
 			_T("Å{")		// òg
 		};
 
-		for (y = 0; y < g_boardSize + 2; y++) {
-			for (x = 0; x < g_boardSize + 2; x++) {
+		for (y = 0; y < boardSize + 2; y++) {
+			for (x = 0; x < boardSize + 2; x++) {
 				node = (y + 0) * 256 + (x + 0);
-				PRT(_T("%s"), str[g_board[node]]);
-				if (x == g_boardSize + 1) {
+				PRT(_T("%s"), str[board[node]]);
+				if (x == boardSize + 1) {
 					PRT(_T("\n"));
 				}
 			}

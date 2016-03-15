@@ -29,7 +29,8 @@ public:
 	int Evaluate(
 		int invColor,
 		int node,
-		Liberty liberties[4]
+		Liberty liberties[4],
+		int board[]
 		);
 
 };

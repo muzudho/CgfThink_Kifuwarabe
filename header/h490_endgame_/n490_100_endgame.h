@@ -41,16 +41,20 @@ extern "C" {
 
 	// 終局処理（サンプルでは簡単な判断で死石と地の判定をしています）
 	int EndgameStatus	(
-		int arr_endgameBoard[]	// 終局図の盤上の石の色
+		int arr_endgameBoard[]	,	// 終局図の盤上の石の色
+		int board[]				,
+		int baordSize
 	);
 
 	// 図形を描く
 	int EndgameDrawFigure(
-		int arr_endgameBoard[]
+		int arr_endgameBoard[],
+		int boardSize
 	);
 
 	// 数値を書く(0は表示されない)
 	int EndgameDrawNumber(
-		int arr_endgameBoard[]
+		int arr_endgameBoard[],
+		int boardSize
 	);
 }

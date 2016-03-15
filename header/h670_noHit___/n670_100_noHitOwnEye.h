@@ -29,8 +29,9 @@ public:
 
 	// ©•ª‚ÌŠá‚É‘Å‚¿‚Şó‹µ‚©’²¸
 	bool IsThis(
-		int color,
-		int	node,
-		Liberty liberties[4]
+		int		color		,
+		int		node		,
+		Liberty liberties[4],
+		int		board[]
 	);
 };

@@ -18,7 +18,7 @@ extern "C" {
 	//--------------------------------------------------------------------------------
 
 	// åªç›ÇÃî’ñ Çï\é¶
-	extern void PrintBoard(void);
+	extern void PrintBoard(int board[], int boardSize);
 
 
 }

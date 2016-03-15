@@ -47,12 +47,6 @@ extern "C" {
 		int node
 		);
 
-	// 1手進める。
-	int	MoveOne(
-		int node,	// 座標
-		int color		// 石の色
-		);
-
 	// 連になっている石を消す。１個の石でも消す。
 	void	DeleteRenStones(
 		int tNode,
