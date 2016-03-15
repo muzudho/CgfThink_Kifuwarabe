@@ -56,8 +56,11 @@ DLL_EXPORT void cgfgui_thinking_init(
 	// PRT()情報を表示するためのコンソールを起動する。
 	AllocConsole();		// この行をコメントアウトすればコンソールは表示されません。
 	SetConsoleTitle(_T("CgfgobanDLL Infomation Window"));
+
+	// コンソールに出力するためのハンドル
+	//HANDLE hConsoleWindow = INVALID_HANDLE_VALUE; //static HANDLE hOutput;
 	HANDLE hConsoleWindow = GetStdHandle(STD_OUTPUT_HANDLE);
-	PRT(hConsoleWindow, _T("デバッグ用の窓です。PRT()関数で出力できます。\n"));
+	Core::PRT(hConsoleWindow, _T("デバッグ用の窓です。PRT()関数で出力できます。\n"));
 
 	// この下に、メモリの確保など必要な場合のコードを記述してください。
 }
@@ -80,7 +83,7 @@ DLL_EXPORT int cgfgui_thinking(
 	ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
 	outputfile << _T("called: cgfgui_thinking") << endl;
 
-	PRT(hConsoleWindow, _T("cgfgui_thinking 開始☆！ boardSize=%d \n"), boardSize);
+	Core::PRT(hConsoleWindow, _T("cgfgui_thinking 開始☆！ boardSize=%d \n"), boardSize);
 
 	//--------------------
 	// 何路盤
@@ -109,7 +112,7 @@ DLL_EXPORT int cgfgui_thinking(
 		{
 			tnode = Board::ConvertToNode(x, y);
 			Board::ConvertToXy(tx, ty, tnode);
-			PRT(hConsoleWindow, _T("(%d,%d)= %d =(%d %d) \n"), x, y, tnode, tx, ty);
+			Core::PRT(hConsoleWindow, _T("(%d,%d)= %d =(%d %d) \n"), x, y, tnode, tx, ty);
 		}
 	}
 	// */
@@ -135,7 +138,7 @@ DLL_EXPORT int cgfgui_thinking(
 		thoughtTime[iTesuu & 1] += time; // 手数の下1桁を見て [0]先手、[1]後手。
 		if (Move::MoveOne(hConsoleWindow, node, color, pBoard) != MOVE_SUCCESS) {
 			// 動かせなければそこで止める。（エラーがあった？？）
-			PRT(hConsoleWindow, _T("棋譜を進められなかったので止めた☆ \n"));
+			Core::PRT(hConsoleWindow, _T("棋譜を進められなかったので止めた☆ \n"));
 			break;
 		}
 	}
@@ -177,8 +180,8 @@ DLL_EXPORT int cgfgui_thinking(
 	// １手指します。
 	bestmoveNode = Think::Bestmove(hConsoleWindow, color, pBoard);
 
-	PRT(hConsoleWindow, _T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
-	PRT(hConsoleWindow, _T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,blackTurn,boardSize,komi);
+	Core::PRT(hConsoleWindow, _T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
+	Core::PRT(hConsoleWindow, _T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,blackTurn,boardSize,komi);
 	//PrintBoard();
 
 	//PRT(_T("a"));

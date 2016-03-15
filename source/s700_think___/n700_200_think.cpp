@@ -22,7 +22,7 @@ int Think::Bestmove(
 	Board*	pBoard
 )
 {
-	PRT(hConsoleWindow, _T("Bestmove開始☆！ \n"));
+	Core::PRT(hConsoleWindow, _T("Bestmove開始☆！ \n"));
 	//PRT(_T("color=%d invClr=%d \n", color, invClr));
 
 	int x;

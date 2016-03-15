@@ -75,11 +75,11 @@ int Evaluation::Evaluate(
 	noHitHasinoho.Research(node, pBoard);
 	score += noHitHasinoho.Evaluate();
 
-	PRT(hConsoleWindow, _T("ノード=%x "), node);
-	PRT(hConsoleWindow, _T("スコア=%d "), score);
+	Core::PRT(hConsoleWindow, _T("ノード=%x "), node);
+	Core::PRT(hConsoleWindow, _T("スコア=%d "), score);
 	//PRT(_T("noHitMouth.adjOppo=%d "), noHitMouth.adjOppo);
 	//PRT(_T("noHitMouth.Evaluate=%d "), noHitMouth.Evaluate(noHitSuicide.flgCapture));
-	PRT(hConsoleWindow, _T("\n"));
+	Core::PRT(hConsoleWindow, _T("\n"));
 
 gt_EndMethod:
 	return score;

@@ -18,9 +18,9 @@
 		for (y = 0; y < pBoard->size + 2; y++) {
 			for (x = 0; x < pBoard->size + 2; x++) {
 				node = (y + 0) * 256 + (x + 0);
-				PRT(hConsoleWindow, _T("%s"), str[pBoard->table[node]]);
+				Core::PRT(hConsoleWindow, _T("%s"), str[pBoard->table[node]]);
 				if (x == pBoard->size + 1) {
-					PRT(hConsoleWindow, _T("\n"));
+					Core::PRT(hConsoleWindow, _T("\n"));
 				}
 			}
 		}
