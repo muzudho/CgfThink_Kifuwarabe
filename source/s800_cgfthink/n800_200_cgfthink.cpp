@@ -21,7 +21,7 @@ extern "C" {
 	#include "../../header/h190_board___/n190_100_board.h"
 	#include "../../header/h300_move____/n300_100_move.h"
 	#include "../../header/h390_explain_/n390_100_explain.h"
-	#include "../../header/h480_view____/n480_100_board.h"
+	#include "../../header/h480_view____/n480_100_boardView.h"
 	#include "../../header/h490_endgame_/n490_100_endgame.h"
 	#include "../../header/h700_think___/n700_100_think.h"
 	//#include "../../header/h800_cgfthink/n800_100_cppBoard.h"

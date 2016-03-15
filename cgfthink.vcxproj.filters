@@ -96,9 +96,6 @@
     <ClInclude Include="header\h390_explain_\n390_100_explain.h">
       <Filter>Header Files\h390_explain_</Filter>
     </ClInclude>
-    <ClInclude Include="header\h480_view____\n480_100_board.h">
-      <Filter>Header Files\h480_view____</Filter>
-    </ClInclude>
     <ClInclude Include="header\h490_endgame_\n490_100_endgame.h">
       <Filter>Header Files\h490_endgame_</Filter>
     </ClInclude>
@@ -138,6 +135,9 @@
     <ClInclude Include="header\h800_cgfthink\n800_100_cppBoard.h">
       <Filter>Header Files\h800_cgfthink</Filter>
     </ClInclude>
+    <ClInclude Include="header\h480_view____\n480_100_boardView.h">
+      <Filter>Header Files\h480_view____</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\s190_board___\n190_200_libertyOfNodes.cpp">
@@ -154,9 +154,6 @@
     </ClCompile>
     <ClCompile Include="source\s300_move____\n300_100_move.cpp">
       <Filter>Source Files\s300_move____</Filter>
-    </ClCompile>
-    <ClCompile Include="source\s480_view____\n480_100_board.cpp">
-      <Filter>Source Files\s480_view____</Filter>
     </ClCompile>
     <ClCompile Include="source\s490_endgame_\n490_100_endgame.cpp">
       <Filter>Source Files\s490_endgame_</Filter>
@@ -193,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="source\s800_cgfthink\n800_200_cgfthink.cpp">
       <Filter>Source Files\s800_cgfthink</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s480_view____\n480_100_boardView.cpp">
+      <Filter>Source Files\s480_view____</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
