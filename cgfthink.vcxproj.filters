@@ -46,12 +46,6 @@
     <Filter Include="Header Files\h390_explain_">
       <UniqueIdentifier>{b8266ef4-eb77-447a-8d79-d1ac692ca964}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\h690_evaluate">
-      <UniqueIdentifier>{e51103b3-5202-42c4-8b16-d11531c90d02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\s690_evaluate">
-      <UniqueIdentifier>{e7cbb026-641b-4032-8502-a4615e435190}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\h670_noHit___">
       <UniqueIdentifier>{498a9cb4-0845-414e-b2b9-57c197399749}</UniqueIdentifier>
     </Filter>
@@ -108,12 +102,6 @@
     <ClInclude Include="header\h675_hit_____\n675_100_hitTuke.h">
       <Filter>Header Files\h675_hit_____</Filter>
     </ClInclude>
-    <ClInclude Include="header\h690_evaluate\n690_100_evaluation.h">
-      <Filter>Header Files\h690_evaluate</Filter>
-    </ClInclude>
-    <ClInclude Include="header\h700_think___\n700_100_think.h">
-      <Filter>Header Files\h700_think___</Filter>
-    </ClInclude>
     <ClInclude Include="header\h670_noHit___\n670_000_noHit.h">
       <Filter>Header Files\h670_noHit___</Filter>
     </ClInclude>
@@ -137,6 +125,12 @@
     </ClInclude>
     <ClInclude Include="header\h480_view____\n480_100_boardView.h">
       <Filter>Header Files\h480_view____</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h700_think___\n700_200_think.h">
+      <Filter>Header Files\h700_think___</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h700_think___\n700_100_evaluation.h">
+      <Filter>Header Files\h700_think___</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,17 +176,17 @@
     <ClCompile Include="source\s675_hit_____\n675_100_hitTuke.cpp">
       <Filter>Source Files\s675_hit_____</Filter>
     </ClCompile>
-    <ClCompile Include="source\s690_evaluate\n690_evaluation.cpp">
-      <Filter>Source Files\s690_evaluate</Filter>
-    </ClCompile>
-    <ClCompile Include="source\s700_think___\n700_think.cpp">
-      <Filter>Source Files\s700_think___</Filter>
-    </ClCompile>
     <ClCompile Include="source\s800_cgfthink\n800_200_cgfthink.cpp">
       <Filter>Source Files\s800_cgfthink</Filter>
     </ClCompile>
     <ClCompile Include="source\s480_view____\n480_100_boardView.cpp">
       <Filter>Source Files\s480_view____</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s700_think___\n700_200_think.cpp">
+      <Filter>Source Files\s700_think___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s700_think___\n700_100_evaluation.cpp">
+      <Filter>Source Files\s700_think___</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

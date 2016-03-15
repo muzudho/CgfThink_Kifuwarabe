@@ -23,7 +23,7 @@ extern "C" {
 	#include "../../header/h390_explain_/n390_100_explain.h"
 	#include "../../header/h480_view____/n480_100_boardView.h"
 	#include "../../header/h490_endgame_/n490_100_endgame.h"
-	#include "../../header/h700_think___/n700_100_think.h"
+	#include "../../header/h700_think___/n700_200_think.h"
 	//#include "../../header/h800_cgfthink/n800_100_cppBoard.h"
 	#include "../../header/h800_cgfthink/n800_200_cgfthink.h"
 
@@ -175,7 +175,7 @@ DLL_EXPORT int cgfgui_thinking(
 		color = WHITE;
 	}
 	// ‚PŽèŽw‚µ‚Ü‚·B
-	bestmoveNode = Bestmove(color, pBoard);
+	bestmoveNode = Think::Bestmove(color, pBoard);
 
 	PRT(_T("ŽvlŽžŠÔFæŽè=%d•bAŒãŽè=%d•b\n"), g_thoughtTime[0], g_thoughtTime[1]);
 	PRT(_T("’…Žè=(%2d,%2d)(%04x), Žè”=%d,Žè”Ô=%d,”Õsize=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,blackTurn,boardSize,komi);
