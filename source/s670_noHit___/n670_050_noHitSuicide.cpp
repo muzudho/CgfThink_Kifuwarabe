@@ -25,7 +25,7 @@ bool NoHitSuicide::IsThis(
 	int		color		,
 	int		node		,
 	Liberty liberties[4],
-	int		board[]
+	Board*	pBoard
 )
 {
 	bool result = false;
@@ -35,8 +35,8 @@ bool NoHitSuicide::IsThis(
 	int adjColor;	// 上下左右隣(adjacent)の石の色
 
 	for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
-		adjNode = node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
-		adjColor = board[adjNode];		// その色
+		adjNode = node + pBoard->dir4[iDir];	// 隣接(adjacent)する交点と、
+		adjColor = pBoard->table[adjNode];		// その色
 
 		// 隣に、呼吸点が 1 個の相手の石があれば、それは取ることができます。
 		if (adjColor == invColor && liberties[iDir].liberty == 1) {
@@ -49,13 +49,13 @@ bool NoHitSuicide::IsThis(
 
 	if (this->flgCapture == 0) {					// 石が取れない場合
 													// 実際に置いてみて　自殺手かどうか判定
-		int temp_kouNode = g_kouNode;		// コウの位置を退避
+		int temp_kouNode = pBoard->kouNode;		// コウの位置を退避
 
-		flgMove = MoveOne(node, color, board);		// 石を置きます。コウの位置が変わるかも。
+		flgMove = MoveOne(node, color, pBoard);		// 石を置きます。コウの位置が変わるかも。
 
 											// 石を置く前の状態に戻します。
-		board[node] = 0;					// 置いた石を消します。
-		g_kouNode = temp_kouNode;			// コウの位置を元に戻します。
+		pBoard->table[node] = 0;					// 置いた石を消します。
+		pBoard->kouNode = temp_kouNode;			// コウの位置を元に戻します。
 
 		if (flgMove == MOVE_SUICIDE) {		// 自殺手なら
 											//PRT(_T("自殺手は打たない。 \n"));
@@ -63,8 +63,8 @@ bool NoHitSuicide::IsThis(
 			result = true;
 			goto gt_EndMethod;
 		}
-
-	gt_EndMethod:
-		return result;
 	}
+
+gt_EndMethod:
+	return result;
 }

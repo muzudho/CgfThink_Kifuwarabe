@@ -11,7 +11,7 @@ extern "C" {
 	int MoveOne(
 		int node,
 		int color,
-		int board[]
+		Board* pBoard
 		)
 	{
 		int i;
@@ -26,14 +26,14 @@ extern "C" {
 		//----------------------------------------
 		if (node == 0) {
 			// 操作を受け付けます。
-			g_kouNode = 0;
+			pBoard->kouNode = 0;
 			return MOVE_SUCCESS;
 		}
 
 		//----------------------------------------
 		// コウに置こうとした場合
 		//----------------------------------------
-		if (node == g_kouNode) {
+		if (node == pBoard->kouNode) {
 			PRT(_T("move() Err: コウ！z=%04x\n"), node);
 			// 操作を弾きます。
 			return MOVE_KOU;
@@ -42,13 +42,13 @@ extern "C" {
 		//----------------------------------------
 		// 空点でないところに置こうとした場合
 		//----------------------------------------
-		if (board[node] != 0) {
+		if (pBoard->table[node] != 0) {
 			PRT(_T("move() Err: 空点ではない！z=%04x\n"), node);
 			// 操作を弾きます。
 			return MOVE_EXIST;
 		}
 
-		board[node] = color;	// とりあえず置いてみる
+		pBoard->table[node] = color;	// とりあえず置いてみる
 
 		// ここから下は、石を置いたあとの盤面です。
 
@@ -56,9 +56,9 @@ extern "C" {
 		// また、新しい　コウ　を作るかどうか判定するために、
 		// 相手の石を取るところまで進めます。
 		for (i = 0; i < 4; i++) {
-			adjNode = node + g_dir4[i];
+			adjNode = node + pBoard->dir4[i];
 
-			if (board[adjNode] != invClr) {
+			if (pBoard->table[adjNode] != invClr) {
 				// 隣接する石が　相手の石　でないなら無視。
 				continue;
 			}
@@ -69,18 +69,18 @@ extern "C" {
 
 			// 隣接する石（連）の呼吸点を数えます。
 			Liberty liberty;
-			liberty.Count(adjNode, board);
+			liberty.Count(adjNode, pBoard);
 
 			if (liberty.liberty == 0) {
 				// 呼吸点がないようなら、石（連）は取れます。
 
 				// 囲んだ石の数を　ハマに加点。
-				g_hama[color - 1] += liberty.renIshi;
+				pBoard->hama[color - 1] += liberty.renIshi;
 				tottaIshi += liberty.renIshi;
 				delNode = adjNode;	// 取られた石の座標。コウの判定で使う。
 
 				// 処理が被らないように、囲まれている相手の石（計算済み）を消します。
-				DeleteRenStones(adjNode, invClr);
+				pBoard->DeleteRenStones(adjNode, invClr);
 			}
 		}
 
@@ -88,14 +88,14 @@ extern "C" {
 		// 自殺手になるかを判定
 		//----------------------------------------
 		Liberty liberty;
-		liberty.Count(node, board);
+		liberty.Count(node, pBoard);
 
 		if (liberty.liberty == 0) {
 			// 置いた石に呼吸点がない場合。
 
 			// 操作を弾きます。
 			PRT(_T("move() Err: 自殺手! z=%04x\n"), node);
-			board[node] = 0;
+			pBoard->table[node] = 0;
 			return MOVE_SUICIDE;
 		}
 
@@ -103,20 +103,20 @@ extern "C" {
 		// 次にコウになる位置を判定しておく。
 		//----------------------------------------
 
-		g_kouNode = 0;	// コウではない
+		pBoard->kouNode = 0;	// コウではない
 
 		// コウになるのは、石を1つだけ取った場合です。
 		if (tottaIshi == 1) {
 			// 取られた石の4方向に、自分の呼吸点が1個の連が1つだけある場合、その位置はコウ。
-			g_kouNode = delNode;	// 取り合えず取られた石の場所をコウの位置とする
+			pBoard->kouNode = delNode;	// 取り合えず取られた石の場所をコウの位置とする
 			sum = 0;
 			for (i = 0; i < 4; i++) {
-				adjNode = delNode + g_dir4[i];
-				if (board[adjNode] != color) {
+				adjNode = delNode + pBoard->dir4[i];
+				if (pBoard->table[adjNode] != color) {
 					continue;
 				}
 				Liberty liberty;
-				liberty.Count(adjNode, board);
+				liberty.Count(adjNode, pBoard);
 				if (liberty.liberty == 1 && liberty.renIshi == 1) {
 					sum++;
 				}
@@ -129,7 +129,7 @@ extern "C" {
 				return MOVE_FATAL;
 			}
 			if (sum == 0) {
-				g_kouNode = 0;	// コウにはならない。
+				pBoard->kouNode = 0;	// コウにはならない。
 			}
 		}
 

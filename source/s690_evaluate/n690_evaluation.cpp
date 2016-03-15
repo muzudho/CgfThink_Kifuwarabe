@@ -4,7 +4,6 @@
 
 extern "C" {
 
-	//#include <windows.h>								// rand() 等を使用するために。
 	#include "../../header/h090_core____/n090_100_core.h"
 	#include "../../header/h190_board___/n190_100_board.h"
 	#include "../../header/h300_move____/n300_100_move.h"
@@ -20,8 +19,7 @@ extern "C" {
 		int&	flgAbort	,
 		int		color		,
 		int		node        ,
-		int     board[]		,
-		int		boardSize
+		Board*  pBoard
 	)
 	{
 		int invColor = INVCLR(color);	//白黒反転
@@ -36,14 +34,14 @@ extern "C" {
 		int adjNode;	// 上下左右隣(adjacent)の交点
 		int adjColor;	// 上下左右隣(adjacent)の石の色
 
-		if (board[node]) {
+		if (pBoard->table[node]) {
 			// 石があるか、枠なら
 			//PRT(_T("石があるか、枠。 \n"));
 			flgAbort	= 1;
 			goto gt_EndMethod;
 		}
 
-		if (node == g_kouNode) {
+		if (node == pBoard->kouNode) {
 			// コウになる位置なら
 			//PRT(_T("コウ。 \n"));
 			flgAbort	= 1;
@@ -52,23 +50,23 @@ extern "C" {
 
 		score = hitRandom.Evaluate_AdjNode(); // 0 ～ 99 のランダムな評価値を与える。
 
-		noHitMouth.Research(color, node, board);		// 相手の口に石を打ち込む状況でないか調査。
+		noHitMouth.Research(color, node, pBoard);		// 相手の口に石を打ち込む状況でないか調査。
 
 
 		Liberty liberties[4];// 上隣 → 右隣 → 下隣 → 左隣
 		for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
-			adjNode = node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
-			adjColor = board[adjNode];		// その色
+			adjNode = node + pBoard->dir4[iDir];	// 隣接(adjacent)する交点と、
+			adjColor = pBoard->table[adjNode];		// その色
 
-			liberties[iDir].Count(adjNode, board);						// 隣の石（または連）の呼吸点　の数を数えます。
+			liberties[iDir].Count(adjNode, pBoard);						// 隣の石（または連）の呼吸点　の数を数えます。
 		}
 
 		// 評価値の計算（４方向分）
-		score += hitTuke.Evaluate(invColor, node, liberties, board);
+		score += hitTuke.Evaluate(invColor, node, liberties, pBoard);
 
 		if (
-			noHitOwnEye.IsThis(color, node, liberties, board)		||		// 自分の眼に打ち込む状況か調査
-			noHitSuicide.IsThis(color, node, liberties, board)			// 自殺手になる状況でないか調査。
+			noHitOwnEye.IsThis(color, node, liberties, pBoard)		||		// 自分の眼に打ち込む状況か調査
+			noHitSuicide.IsThis(color, node, liberties, pBoard)			// 自殺手になる状況でないか調査。
 		) {
 			flgAbort = 1;
 			goto gt_EndMethod;
@@ -78,7 +76,7 @@ extern "C" {
 		score += noHitMouth.Evaluate(noHitSuicide.flgCapture);
 
 		// 2016-03-15 00:57 Add
-		noHitHasinoho.Research(node, board, boardSize);
+		noHitHasinoho.Research(node, pBoard);
 		score += noHitHasinoho.Evaluate();
 
 		PRT(_T("ノード=%x "), node);

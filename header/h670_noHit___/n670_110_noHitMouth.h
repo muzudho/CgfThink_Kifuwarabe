@@ -27,9 +27,9 @@ public:
 
 	// 相手の口に石を打ち込む状況でないか調査。
 	void Research(
-		int color	,
-		int node	,
-		int board[]
+		int		color	,
+		int		node	,
+		Board*	pBoard
 	);
 
 	// 評価値を出します。

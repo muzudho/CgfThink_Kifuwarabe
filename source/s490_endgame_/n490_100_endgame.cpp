@@ -10,7 +10,7 @@ extern "C" {
 	#include "../../header/h490_endgame_/n490_100_endgame.h"
 
 
-	int EndgameStatus(int arr_endgameBoard[], int board[], int boardSize)
+	int EndgameStatus(int arr_endgameBoard[], Board* pBoard)
 	{
 		int		x;
 		int		y;
@@ -20,16 +20,16 @@ extern "C" {
 		int		adjColor;	// —×Ú(adjacent)‚·‚éÎ‚ÌF
 		int*	ptr;
 
-		for (y = 0; y < boardSize; y++) {
-			for (x = 0; x< boardSize; x++) {
-				node = ConvertToNode(x, y);
+		for (y = 0; y < pBoard->size; y++) {
+			for (x = 0; x< pBoard->size; x++) {
+				node = Board::ConvertToNode(x, y);
 
 				ptr = arr_endgameBoard + node;
-				if (board[node] == 0) {
+				if (pBoard->table[node] == 0) {
 					*ptr = GTP_DAME;
 					sum = 0;
 					for (i = 0; i<4; i++) {
-						adjColor = board[node + g_dir4[i]];
+						adjColor = pBoard->table[node + pBoard->dir4[i]];
 						if (adjColor == WAKU) {
 							continue;
 						}
@@ -45,7 +45,7 @@ extern "C" {
 				else {
 					*ptr = GTP_ALIVE;
 					Liberty liberty;
-					liberty.Count(node, board);
+					liberty.Count(node, pBoard);
 					//			PRT("(%2d,%2d),ishi=%2d,dame=%2d\n",z&0xff,z>>8,ishi,dame);
 					if (liberty.liberty <= 1) {
 						*ptr = GTP_DEAD;
@@ -56,16 +56,16 @@ extern "C" {
 		return 0;
 	}
 
-	int EndgameDrawFigure(int arr_endgameBoard[], int boardSize)
+	int EndgameDrawFigure(int arr_endgameBoard[], Board* pBoard)
 	{
 		int		x;
 		int		y;
 		int		node;
 		int*	ptr;
 
-		for (y = 0; y < boardSize; y++) {
-			for (x = 0; x < boardSize; x++) {
-				node = ConvertToNode(x, y);
+		for (y = 0; y < pBoard->size; y++) {
+			for (x = 0; x < pBoard->size; x++) {
+				node = Board::ConvertToNode(x, y);
 				ptr = arr_endgameBoard + node;
 				if ((rand() % 2) == 0) {
 					*ptr = FIGURE_NONE;
@@ -82,16 +82,16 @@ extern "C" {
 		return 0;
 	}
 
-	int EndgameDrawNumber(int arr_endgameBoard[], int boardSize)
+	int EndgameDrawNumber(int arr_endgameBoard[], Board* pBoard)
 	{
 		int		x;
 		int		y;
 		int		node;
 		int*	ptr;
 
-		for (y = 0; y < boardSize; y++) {
-			for (x = 0; x < boardSize; x++) {
-				node = ConvertToNode(x, y);
+		for (y = 0; y < pBoard->size; y++) {
+			for (x = 0; x < pBoard->size; x++) {
+				node = Board::ConvertToNode(x, y);
 				ptr = arr_endgameBoard + node;
 				*ptr = (rand() % 110) - 55;
 			}

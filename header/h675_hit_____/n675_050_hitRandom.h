@@ -17,5 +17,5 @@ public:
 
 	// •]‰¿’l‚ğo‚µ‚Ü‚·B
 	int Evaluate_AdjNode(
-		);
+	);
 };

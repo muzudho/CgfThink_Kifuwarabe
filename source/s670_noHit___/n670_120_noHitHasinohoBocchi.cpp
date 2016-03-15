@@ -20,9 +20,8 @@ NoHitHasinohoBocchi::NoHitHasinohoBocchi()
 
 
 void NoHitHasinohoBocchi::Research(
-	int node,
-	int board[],
-	int boardSize
+	int		node,
+	Board*	pBoard
 	) {
 
 	this->isSoto		= false;
@@ -33,8 +32,8 @@ void NoHitHasinohoBocchi::Research(
 
 	this->isBocchi = true;
 	for (int iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
-		int adjNode = node + g_dir4[iDir];		// 隣接(adjacent)する交点と、
-		int adjColor = board[adjNode];		// その色
+		int adjNode = node + pBoard->dir4[iDir];		// 隣接(adjacent)する交点と、
+		int adjColor = pBoard->table[adjNode];		// その色
 
 		if (adjColor==BLACK || adjColor==WHITE)
 		{
@@ -47,10 +46,10 @@ void NoHitHasinohoBocchi::Research(
 
 
 	int x, y;
-	ConvertToXy(x, y, node);
+	Board::ConvertToXy(x, y, node);
 
-	if (x < 0 || (boardSize - 1) < x ||
-		y < 0 || (boardSize - 1) < y
+	if (x < 0 || (pBoard->size - 1) < x ||
+		y < 0 || (pBoard->size - 1) < y
 		) {
 		// 盤外
 		//PRT(_T("(%d,%d) ban=%d ; Soto \n"), x, y, boardSize);
@@ -58,8 +57,8 @@ void NoHitHasinohoBocchi::Research(
 		goto gt_EndMethod;
 	}
 
-	if (x == 0 || (boardSize-1) == x ||
-		y == 0 || (boardSize-1) == y
+	if (x == 0 || (pBoard->size-1) == x ||
+		y == 0 || (pBoard->size-1) == y
 	) {
 		// 辺
 		//PRT(_T("(%d,%d) ban=%d ; EDGE \n"), x, y, boardSize);
@@ -71,8 +70,8 @@ void NoHitHasinohoBocchi::Research(
 		goto gt_EndMethod;
 	}
 
-	if ( (x == 0 || (boardSize - 1) == x) &&
-		(y == 0 || (boardSize - 1) == y)
+	if ( (x == 0 || (pBoard->size - 1) == x) &&
+		(y == 0 || (pBoard->size - 1) == y)
 	) {
 		// 角
 		//PRT(_T("(%d,%d) ban=%d ; CORNER \n"), x, y, boardSize);

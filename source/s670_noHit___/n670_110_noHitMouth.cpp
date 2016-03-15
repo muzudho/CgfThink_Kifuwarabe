@@ -18,9 +18,9 @@ NoHitMouth::NoHitMouth() {
 
 
 void NoHitMouth::Research(
-	int color	,
-	int node	,
-	int board[]
+	int		color	,
+	int		node	,
+	Board*	pBoard
 )
 {
 	int invColor = INVCLR(color);	//白黒反転
@@ -29,8 +29,8 @@ void NoHitMouth::Research(
 	int adjColor;	// 上下左右隣(adjacent)の石の色
 
 	for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
-		adjNode = node + g_dir4[iDir];		// 隣接(adjacent)する交点と、
-		adjColor = board[adjNode];		// その色
+		adjNode = node + pBoard->dir4[iDir];		// 隣接(adjacent)する交点と、
+		adjColor = pBoard->table[adjNode];		// その色
 
 		// 2016-03-12 16:45 Add
 		// 隣が相手の石、または枠ならカウントアップ。

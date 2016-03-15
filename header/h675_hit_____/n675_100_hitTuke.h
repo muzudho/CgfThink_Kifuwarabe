@@ -27,10 +27,10 @@ public:
 
 	// •]‰¿’l‚ğo‚µ‚Ü‚·B
 	int Evaluate(
-		int invColor,
-		int node,
+		int		invColor,
+		int		node,
 		Liberty liberties[4],
-		int board[]
+		Board*	pBoard
 		);
 
 };

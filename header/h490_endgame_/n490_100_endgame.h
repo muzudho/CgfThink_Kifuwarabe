@@ -26,35 +26,24 @@ extern "C" {
 
 
 	//--------------------------------------------------------------------------------
-	// .cpp ファイルで定義されている グローバル変数
-	//--------------------------------------------------------------------------------
-
-
-	//--------------------------------------------------------------------------------
 	// 関数宣言まとめ
 	//--------------------------------------------------------------------------------
-
-	int ConvertToNode		(
-		int x,
-		int y
-	);
 
 	// 終局処理（サンプルでは簡単な判断で死石と地の判定をしています）
 	int EndgameStatus	(
 		int arr_endgameBoard[]	,	// 終局図の盤上の石の色
-		int board[]				,
-		int baordSize
+		Board* pBoard
 	);
 
 	// 図形を描く
 	int EndgameDrawFigure(
 		int arr_endgameBoard[],
-		int boardSize
+		Board* pBoard
 	);
 
 	// 数値を書く(0は表示されない)
 	int EndgameDrawNumber(
 		int arr_endgameBoard[],
-		int boardSize
+		Board* pBoard
 	);
 }

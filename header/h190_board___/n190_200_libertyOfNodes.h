@@ -5,7 +5,7 @@
 
 class LibertyOfNodes{
 public:
-	int board[BOARD_MAX];
+	int table[BOARD_MAX];
 
-	void Initialize(int board[], int boardSize);
+	void Initialize( Board* pBoard);
 };

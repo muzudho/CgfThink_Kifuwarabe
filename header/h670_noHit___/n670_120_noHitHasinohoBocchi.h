@@ -1,7 +1,8 @@
 #pragma once
 
 
-#include "../../header/h670_noHit___/n670_000_noHit.h"
+#include "../h190_board___/n190_100_board.h"
+#include "../h670_noHit___/n670_000_noHit.h"
 
 
 // 盤上の端の方に　ぼっちの石（隣接する石がない石）　を打たない仕組み。
@@ -21,12 +22,11 @@ public:
 
 	// どのような状況か調査。
 	void Research(
-		int node,
-		int board[],
-		int boardSize
-		);
+		int		node,
+		Board*	pBoard
+	);
 
 	// 評価値を出します。
 	int Evaluate(
-		);
+	);
 };

@@ -32,6 +32,6 @@ public:
 		int		color		,
 		int		node		,
 		Liberty liberties[4],
-		int		board[]
+		Board*	pBoard
 	);
 };

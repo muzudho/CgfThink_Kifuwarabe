@@ -25,8 +25,8 @@ extern "C" {
 	int	MoveOne(
 		int node,	// À•W
 		int color,		// Î‚ÌF
-		int board[]
-		);
+		Board* pBoard
+	);
 
 }
 

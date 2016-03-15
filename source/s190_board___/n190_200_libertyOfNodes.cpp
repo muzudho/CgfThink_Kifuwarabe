@@ -2,18 +2,19 @@
 #include "../../header/h190_board___/n190_150_liberty.h"
 #include "../../header/h190_board___/n190_200_libertyOfNodes.h"
 
-void LibertyOfNodes::Initialize(int board[], int boardSize)
+void LibertyOfNodes::Initialize( Board* pBoard)
 {
-	for (int x = 0; x < boardSize; x++)
+	for (int x = 0; x < pBoard->size; x++)
 	{
-		for (int y = 0; y < boardSize; y++)
+		for (int y = 0; y < pBoard->size; y++)
 		{
-			int node = ConvertToNode(x, y);
+			int node = Board::ConvertToNode(x, y);
 
 			Liberty liberty;
-			liberty.Count(node, board);
+			liberty.Count(node, pBoard);
 
-			this->board[node] = liberty.liberty;
+			// ŒÄ‹z“_‚ðŠo‚¦‚Ä‚¨‚­Œé”Õ‚Å‚·B
+			this->table[node] = liberty.liberty;
 		}
 	}
 }

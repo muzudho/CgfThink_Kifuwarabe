@@ -21,10 +21,10 @@ HitTuke::HitTuke()
 
 
 int HitTuke::Evaluate(
-	int invColor,
-	int node,
+	int		invColor,
+	int		node,
 	Liberty liberties[4],
-	int board[]
+	Board*	pBoard
 	)
 {
 	int score = 0;
@@ -33,8 +33,8 @@ int HitTuke::Evaluate(
 	int adjColor;
 
 	for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
-		adjNode	 = node + g_dir4[iDir];	// 隣接(adjacent)する交点と、
-		adjColor = board[adjNode];		// その色
+		adjNode	 = node + pBoard->dir4[iDir];	// 隣接(adjacent)する交点と、
+		adjColor = pBoard->table[adjNode];		// その色
 
 		// 評価値の計算（４方向分繰り返す）
 		score +=
