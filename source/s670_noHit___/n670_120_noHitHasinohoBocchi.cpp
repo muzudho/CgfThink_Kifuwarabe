@@ -1,6 +1,4 @@
-extern "C" {
-	#include "../../header/h090_core____/n090_100_core.h"
-}
+#include "../../header/h090_core____/n090_100_core.h"
 #include "../../header/h190_board___/n190_100_board.h"
 #include "../../header/h670_noHit___/n670_120_noHitHasinohoBocchi.h"
 

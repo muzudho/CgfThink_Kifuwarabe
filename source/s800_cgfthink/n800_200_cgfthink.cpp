@@ -16,9 +16,9 @@ using namespace std;
 	#include <tchar.h> // Unicode‘Î‰‚Ì _T() ŠÖ”‚ğg—p‚·‚é‚½‚ß‚ÉB
 
 extern "C" {
-	#include "../../header/h090_core____/n090_100_core.h"
 	#include "../../header/h800_cgfthink/n800_200_cgfthink.h"
 }
+#include "../../header/h090_core____/n090_100_core.h"
 #include "../../header/h190_board___/n190_100_board.h"
 #include "../../header/h300_move____/n300_100_move.h"
 #include "../../header/h390_explain_/n390_100_explain.h"
