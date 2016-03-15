@@ -48,8 +48,8 @@ extern "C" {
 		maxScore = -1;
 		bestmoveNode = 0; // 0 Ç»ÇÁÉpÉXÅB
 
-		for (y = 0; y < pBoard->size; y++) {
-			for (x = 0; x < pBoard->size; x++) {
+		for (y = 1; y < pBoard->size+1; y++) {
+			for (x = 1; x < pBoard->size+1; x++) {
 				node = Board::ConvertToNode(x, y);
 				//PRT(_T("node=%d \n"));
 

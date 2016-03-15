@@ -76,27 +76,40 @@ DLL_EXPORT int cgfgui_thinking(
 
 	PRT(_T("cgfgui_thinking 開始☆！ boardSize=%d \n"), boardSize);
 
-	Board* pBoard = new Board();
-	int node;			// 囲碁盤上の交点（将棋盤でいうマス目）
-	int bestmoveNode;	// コンピューターが打つ交点。
-	int color;			// 石の色
-	int time;			// 消費時間
-	int iNode;
-	int iTesuu;
-
-	// 現在局面を棋譜と初期盤面から作る
-	for (iNode = 0; iNode < BOARD_MAX; iNode++) {
-		pBoard->table[iNode] = initBoard[iNode];	// 初期盤面をコピー
-	}
-
 	//--------------------
 	// 何路盤
 	//--------------------
-	pBoard->size		= boardSize;
+	Board* pBoard = new Board();
+	pBoard->size = boardSize;
+
+	// 現在局面を棋譜と初期盤面から作る
+	for (int iNode = 0; iNode < BOARD_MAX; iNode++) {
+		pBoard->table[iNode] = initBoard[iNode];	// 初期盤面をコピー
+	}
+
+	//* for debug
+	int tnode, tx, ty;
+	for (int x = 0; x < (pBoard->size + 2); x++)
+	{
+		for (int y = 0; y < (pBoard->size + 2); y++)
+		{
+			tnode = Board::ConvertToNode(x, y);
+			Board::ConvertToXy(tx, ty, tnode);
+			PRT(_T("(%d,%d)= %d =(%d %d) \n"), x, y, tnode, tx, ty);
+		}
+	}
+	// */
+
 
 	//--------------------
 	// 初期化
 	//--------------------
+	int node;			// 囲碁盤上の交点（将棋盤でいうマス目）
+	int bestmoveNode;	// コンピューターが打つ交点。
+	int color;			// 石の色
+	int time;			// 消費時間
+	int iTesuu;
+
 	g_thoughtTime[BLACK]	= 0;	// 累計思考時間
 	g_thoughtTime[WHITE]	= 0;	
 

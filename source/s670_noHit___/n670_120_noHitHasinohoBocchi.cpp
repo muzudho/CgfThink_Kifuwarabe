@@ -48,8 +48,8 @@ void NoHitHasinohoBocchi::Research(
 	int x, y;
 	Board::ConvertToXy(x, y, node);
 
-	if (x < 0 || (pBoard->size - 1) < x ||
-		y < 0 || (pBoard->size - 1) < y
+	if (x < 1 || pBoard->size < x ||
+		y < 1 || pBoard->size < y
 		) {
 		// ”ÕŠO
 		//PRT(_T("(%d,%d) ban=%d ; Soto \n"), x, y, boardSize);
@@ -57,8 +57,8 @@ void NoHitHasinohoBocchi::Research(
 		goto gt_EndMethod;
 	}
 
-	if (x == 0 || (pBoard->size-1) == x ||
-		y == 0 || (pBoard->size-1) == y
+	if (x == 1 || pBoard->size == x ||
+		y == 1 || pBoard->size == y
 	) {
 		// •Ó
 		//PRT(_T("(%d,%d) ban=%d ; EDGE \n"), x, y, boardSize);
@@ -70,8 +70,8 @@ void NoHitHasinohoBocchi::Research(
 		goto gt_EndMethod;
 	}
 
-	if ( (x == 0 || (pBoard->size - 1) == x) &&
-		(y == 0 || (pBoard->size - 1) == y)
+	if ( (x == 1 || pBoard->size == x) &&
+		(y == 1 || pBoard->size == y)
 	) {
 		// Šp
 		//PRT(_T("(%d,%d) ban=%d ; CORNER \n"), x, y, boardSize);

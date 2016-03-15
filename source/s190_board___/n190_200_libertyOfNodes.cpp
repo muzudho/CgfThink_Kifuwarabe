@@ -4,9 +4,9 @@
 
 void LibertyOfNodes::Initialize( Board* pBoard)
 {
-	for (int x = 0; x < pBoard->size; x++)
+	for (int x = 1; x < pBoard->size+1; x++)
 	{
-		for (int y = 0; y < pBoard->size; y++)
+		for (int y = 1; y < pBoard->size+1; y++)
 		{
 			int node = Board::ConvertToNode(x, y);
 

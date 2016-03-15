@@ -9,7 +9,8 @@ extern "C" {
 
 int Board::ConvertToNode(int x, int y)
 {
-	return (y + 1) * 256 + (x + 1);
+	//return (y + 1) * 256 + (x + 1);
+	return y * 256 + x;
 }
 
 
@@ -17,8 +18,11 @@ int Board::ConvertToNode(int x, int y)
 
 void Board::ConvertToXy(int& x, int& y, int node)
 {
-	y = (node - 256) / 256;
-	x = (node - 1) % 256;
+	//y = (node - 256) / 256;
+	//x = (node - 1) % 256;
+
+	y = node / 256;
+	x = node % 256;
 }
 
 

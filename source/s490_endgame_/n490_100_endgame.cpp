@@ -20,8 +20,8 @@ extern "C" {
 		int		adjColor;	// ó◊ê⁄(adjacent)Ç∑ÇÈêŒÇÃêF
 		int*	ptr;
 
-		for (y = 0; y < pBoard->size; y++) {
-			for (x = 0; x< pBoard->size; x++) {
+		for (y = 1; y < pBoard->size+1; y++) {
+			for (x = 1; x< pBoard->size+1; x++) {
 				node = Board::ConvertToNode(x, y);
 
 				ptr = arr_endgameBoard + node;
@@ -63,8 +63,8 @@ extern "C" {
 		int		node;
 		int*	ptr;
 
-		for (y = 0; y < pBoard->size; y++) {
-			for (x = 0; x < pBoard->size; x++) {
+		for (y = 1; y < pBoard->size+1; y++) {
+			for (x = 1; x < pBoard->size+1; x++) {
 				node = Board::ConvertToNode(x, y);
 				ptr = arr_endgameBoard + node;
 				if ((rand() % 2) == 0) {
@@ -89,8 +89,8 @@ extern "C" {
 		int		node;
 		int*	ptr;
 
-		for (y = 0; y < pBoard->size; y++) {
-			for (x = 0; x < pBoard->size; x++) {
+		for (y = 1; y < pBoard->size+1; y++) {
+			for (x = 1; x < pBoard->size+1; x++) {
 				node = Board::ConvertToNode(x, y);
 				ptr = arr_endgameBoard + node;
 				*ptr = (rand() % 110) - 55;
