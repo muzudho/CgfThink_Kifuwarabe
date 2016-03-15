@@ -1,6 +1,3 @@
-//
-// /header/h390_explain/h390_explain.h
-//
 #pragma once
 
 extern "C" {

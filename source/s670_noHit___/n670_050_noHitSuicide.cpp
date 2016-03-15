@@ -1,6 +1,3 @@
-//
-// /source/s670_noHit___/s670_050_suicide.cpp
-//
 
 extern "C" {
 

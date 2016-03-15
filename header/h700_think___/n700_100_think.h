@@ -1,9 +1,7 @@
-//
-// /header/h700_think/h700_think.h
-//
 #pragma once
 
 #include <tchar.h> // Unicode対応の _T() 関数を使用するために。
+#include "../h190_board___/n190_100_board.h"
 
 
 extern "C" {
@@ -19,6 +17,7 @@ extern "C" {
 		GAME_DRAW_FIGURE,		// 図形を描く
 		GAME_DRAW_NUMBER 		// 数値を書く
 	};
+
 
 
 	//--------------------------------------------------------------------------------

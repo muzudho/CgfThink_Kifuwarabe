@@ -1,7 +1,6 @@
-//
-// /header/h690_evaluate/h690_evaluation.h
-//
 #pragma once
+
+#include "../h190_board___/n190_100_board.h"
 
 extern "C" {
 

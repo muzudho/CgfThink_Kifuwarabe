@@ -1,9 +1,3 @@
-//
-// /source/s690_evaluate/s690_evaluation.cpp
-//
-
-extern "C" {
-
 	#include "../../header/h090_core____/n090_100_core.h"
 	#include "../../header/h190_board___/n190_100_board.h"
 	#include "../../header/h300_move____/n300_100_move.h"
@@ -14,6 +8,8 @@ extern "C" {
 	#include "../../header/h675_hit_____/n675_050_hitRandom.h"
 	#include "../../header/h675_hit_____/n675_100_hitTuke.h"
 
+
+extern "C" {
 
 	int Evaluate(
 		int&	flgAbort	,

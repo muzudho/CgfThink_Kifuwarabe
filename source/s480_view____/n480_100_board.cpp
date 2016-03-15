@@ -1,10 +1,7 @@
-//
-// /source/s500_board/s500_board.cpp
-//
+	#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
 
 extern "C" {
 
-	#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
 	#include "../../header/h090_core____/n090_100_core.h"
 	#include "../../header/h480_view____/n480_100_board.h"
 

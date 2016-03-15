@@ -1,7 +1,3 @@
-//
-// /source/s675_hit_____/s675_100_hitTuke.cpp
-//
-
 extern "C" {
 
 	#include "../../header/h190_board___/n190_100_board.h"

@@ -1,16 +1,15 @@
-//
-// /source/s700_think___/s700_think.cpp
-//
-
 // muzudho: ログ出力のために。
 #include <iostream>
 #include <fstream>
 using namespace std;
 
-extern "C" {
 
 	#include <time.h>		// clock() を使用するために。
 	#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
+
+
+extern "C" {
+
 	#include "../../header/h090_core____/n090_100_core.h"
 	#include "../../header/h190_board___/n190_100_board.h"
 	#include "../../header/h300_move____/n300_100_move.h"

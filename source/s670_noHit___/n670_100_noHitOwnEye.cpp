@@ -1,7 +1,3 @@
-//
-// /source/s670_noHitEye/s670_noHitEye.cpp
-//
-
 extern "C" {
 	#include "../../header/h190_board___/n190_100_board.h"
 	#include "../../header/h190_board___/n190_150_liberty.h"

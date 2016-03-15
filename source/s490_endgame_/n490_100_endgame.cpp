@@ -1,9 +1,8 @@
-//
-// /source/s490_endgame/s490_endgame.cpp
-//
+	#include <windows.h> // コンソールへの出力等
+
+
 extern "C" {
 
-	#include <windows.h> // コンソールへの出力等
 	#include "../../header/h190_board___/n190_100_board.h"
 	#include "../../header/h190_board___/n190_150_liberty.h"
 	#include "../../header/h390_explain_/n390_100_explain.h"

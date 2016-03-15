@@ -1,10 +1,8 @@
-//
-// /source/s675_hit_____/s675_050_hitRandom.cpp
-//
+#include <windows.h>								// rand() 等を使用するために。
+
 
 extern "C" {
 
-	#include <windows.h>								// rand() 等を使用するために。
 	#include "../../header/h675_hit_____/n675_050_hitRandom.h"
 
 }

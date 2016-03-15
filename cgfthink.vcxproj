@@ -152,7 +152,8 @@
     <ClInclude Include="header\h675_hit_____\n675_100_hitTuke.h" />
     <ClInclude Include="header\h690_evaluate\n690_100_evaluation.h" />
     <ClInclude Include="header\h700_think___\n700_100_think.h" />
-    <ClInclude Include="header\h800_cgfthink\n800_100_cgfthink.h" />
+    <ClInclude Include="header\h800_cgfthink\n800_100_cppBoard.h" />
+    <ClInclude Include="header\h800_cgfthink\n800_200_cgfthink.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\s090_core____\n090_100_core.cpp" />
@@ -172,7 +173,7 @@
     <ClCompile Include="source\s675_hit_____\n675_100_hitTuke.cpp" />
     <ClCompile Include="source\s690_evaluate\n690_evaluation.cpp" />
     <ClCompile Include="source\s700_think___\n700_think.cpp" />
-    <ClCompile Include="source\s800_cgfthink\n800_cgfthink.cpp" />
+    <ClCompile Include="source\s800_cgfthink\n800_200_cgfthink.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

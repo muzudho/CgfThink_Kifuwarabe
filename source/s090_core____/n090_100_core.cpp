@@ -1,12 +1,9 @@
-//
-// /source/s090_core/s090_core.cpp
-//
-extern "C" {
-
 	#include <windows.h>	// rand() 等を使用するために。
 	#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
-	#include "../../header/h090_core____/n090_100_core.h"
 
+extern "C" {
+
+	#include "../../header/h090_core____/n090_100_core.h"
 
 	//--------------------------------------------------------------------------------
 	// グローバル変数

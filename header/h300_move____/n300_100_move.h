@@ -1,6 +1,3 @@
-//
-// /header/h300_move/h300_move.h
-//
 #pragma once
 
 extern "C" {
@@ -20,6 +17,7 @@ extern "C" {
 		MOVE_EXIST,				// 既に石が存在
 		MOVE_FATAL				// エラーなど。
 	};
+
 
 	// 1手進める。
 	int	MoveOne(
