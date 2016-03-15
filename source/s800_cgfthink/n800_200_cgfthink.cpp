@@ -28,6 +28,7 @@ extern "C" {
 //#include "../../header/h800_cgfthink/n800_100_cppBoard.h"
 
 
+
 //--------------------------------------------------------------------------------
 // グローバル変数
 //--------------------------------------------------------------------------------
@@ -35,6 +36,8 @@ extern "C" {
 // 思考中断フラグ。0で初期化されています。
 // GUIの「思考中断ボタン」を押された場合に1になります。
 Cgfthink g_cgfthink;
+
+
 
 
 DLL_EXPORT void cgfgui_thinking_init(
@@ -53,8 +56,8 @@ DLL_EXPORT void cgfgui_thinking_init(
 	// PRT()情報を表示するためのコンソールを起動する。
 	AllocConsole();		// この行をコメントアウトすればコンソールは表示されません。
 	SetConsoleTitle(_T("CgfgobanDLL Infomation Window"));
-	g_hConsoleWindow = GetStdHandle(STD_OUTPUT_HANDLE);
-	PRT(_T("デバッグ用の窓です。PRT()関数で出力できます。\n"));
+	HANDLE hConsoleWindow = GetStdHandle(STD_OUTPUT_HANDLE);
+	PRT(hConsoleWindow, _T("デバッグ用の窓です。PRT()関数で出力できます。\n"));
 
 	// この下に、メモリの確保など必要な場合のコードを記述してください。
 }
@@ -70,11 +73,14 @@ DLL_EXPORT int cgfgui_thinking(
 	int		endgameBoard[]
 )
 {
+	// デバッグ用の窓です。PRT()関数で出力できます。
+	HANDLE hConsoleWindow = GetStdHandle(STD_OUTPUT_HANDLE);
+
 	// ログ： 動いていることの確認。
 	ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
 	outputfile << _T("called: cgfgui_thinking") << endl;
 
-	PRT(_T("cgfgui_thinking 開始☆！ boardSize=%d \n"), boardSize);
+	PRT(hConsoleWindow, _T("cgfgui_thinking 開始☆！ boardSize=%d \n"), boardSize);
 
 	//--------------------
 	// 何路盤
@@ -103,7 +109,7 @@ DLL_EXPORT int cgfgui_thinking(
 		{
 			tnode = Board::ConvertToNode(x, y);
 			Board::ConvertToXy(tx, ty, tnode);
-			PRT(_T("(%d,%d)= %d =(%d %d) \n"), x, y, tnode, tx, ty);
+			PRT(hConsoleWindow, _T("(%d,%d)= %d =(%d %d) \n"), x, y, tnode, tx, ty);
 		}
 	}
 	// */
@@ -127,9 +133,9 @@ DLL_EXPORT int cgfgui_thinking(
 		color	= kifu[iTesuu][1];	// 石の色
 		time	= kifu[iTesuu][2];	// 消費時間
 		thoughtTime[iTesuu & 1] += time; // 手数の下1桁を見て [0]先手、[1]後手。
-		if (Move::MoveOne(node, color, pBoard) != MOVE_SUCCESS) {
+		if (Move::MoveOne(hConsoleWindow, node, color, pBoard) != MOVE_SUCCESS) {
 			// 動かせなければそこで止める。（エラーがあった？？）
-			PRT(_T("棋譜を進められなかったので止めた☆ \n"));
+			PRT(hConsoleWindow, _T("棋譜を進められなかったので止めた☆ \n"));
 			break;
 		}
 	}
@@ -169,10 +175,10 @@ DLL_EXPORT int cgfgui_thinking(
 		color = WHITE;
 	}
 	// １手指します。
-	bestmoveNode = Think::Bestmove(color, pBoard);
+	bestmoveNode = Think::Bestmove(hConsoleWindow, color, pBoard);
 
-	PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
-	PRT(_T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,blackTurn,boardSize,komi);
+	PRT(hConsoleWindow, _T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
+	PRT(hConsoleWindow, _T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,blackTurn,boardSize,komi);
 	//PrintBoard();
 
 	//PRT(_T("a"));

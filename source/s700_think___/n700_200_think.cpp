@@ -17,11 +17,12 @@ using namespace std;
 
 
 int Think::Bestmove(
+	HANDLE	hConsoleWindow,
 	int		color,
 	Board*	pBoard
 )
 {
-	PRT(_T("Bestmove開始☆！ \n"));
+	PRT(hConsoleWindow, _T("Bestmove開始☆！ \n"));
 	//PRT(_T("color=%d invClr=%d \n", color, invClr));
 
 	int x;
@@ -47,7 +48,7 @@ int Think::Bestmove(
 
 			// この局面で、石を置いたときの評価値
 			int flgAbort = 0;
-			score = Evaluation::Evaluate( flgAbort, color, node, pBoard);
+			score = Evaluation::Evaluate(hConsoleWindow, flgAbort, color, node, pBoard);
 			if (flgAbort)
 			{
 				continue;

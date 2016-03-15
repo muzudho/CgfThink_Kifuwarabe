@@ -11,6 +11,7 @@
 
 
 int Evaluation::Evaluate(
+	HANDLE	hConsoleWindow,
 	int&	flgAbort	,
 	int		color		,
 	int		node        ,
@@ -61,7 +62,7 @@ int Evaluation::Evaluate(
 
 	if (
 		noHitOwnEye.IsThis(color, node, liberties, pBoard)		||		// 自分の眼に打ち込む状況か調査
-		noHitSuicide.IsThis(color, node, liberties, pBoard)			// 自殺手になる状況でないか調査。
+		noHitSuicide.IsThis(hConsoleWindow, color, node, liberties, pBoard)			// 自殺手になる状況でないか調査。
 	) {
 		flgAbort = 1;
 		goto gt_EndMethod;
@@ -74,11 +75,11 @@ int Evaluation::Evaluate(
 	noHitHasinoho.Research(node, pBoard);
 	score += noHitHasinoho.Evaluate();
 
-	PRT(_T("ノード=%x "), node);
-	PRT(_T("スコア=%d "), score);
+	PRT(hConsoleWindow, _T("ノード=%x "), node);
+	PRT(hConsoleWindow, _T("スコア=%d "), score);
 	//PRT(_T("noHitMouth.adjOppo=%d "), noHitMouth.adjOppo);
 	//PRT(_T("noHitMouth.Evaluate=%d "), noHitMouth.Evaluate(noHitSuicide.flgCapture));
-	PRT(_T("\n"));
+	PRT(hConsoleWindow, _T("\n"));
 
 gt_EndMethod:
 	return score;

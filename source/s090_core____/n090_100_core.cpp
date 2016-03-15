@@ -11,14 +11,14 @@ extern "C" {
 	//--------------------------------------------------------------------------------
 
 	// printf()ÇÃë„ópä÷êîÅB
-	void PRT(const _TCHAR* format, ...)
+	void PRT(HANDLE hConsoleWindow, const _TCHAR* format, ...)
 	{
 		va_list			argList;
 		int				len;
 		static _TCHAR	text[PRT_LEN_MAX];
 		DWORD			nw;
 
-		if (g_hConsoleWindow == INVALID_HANDLE_VALUE) {
+		if (hConsoleWindow == INVALID_HANDLE_VALUE) {
 			return;
 		}
 		va_start(argList, format);
@@ -28,7 +28,7 @@ extern "C" {
 		if (len < 0 || len >= PRT_LEN_MAX) {
 			return;
 		}
-		WriteConsole(g_hConsoleWindow, text, (DWORD)wcslen(text), &nw, NULL);
+		WriteConsole(hConsoleWindow, text, (DWORD)wcslen(text), &nw, NULL);
 	}
 
 	void YieldWindowsSystem(void)

@@ -9,6 +9,7 @@ extern "C" {
 
 
 int Move::MoveOne(
+	HANDLE hConsoleWindow,
 	int node,
 	int color,
 	Board* pBoard
@@ -34,7 +35,7 @@ int Move::MoveOne(
 	// コウに置こうとした場合
 	//----------------------------------------
 	if (node == pBoard->kouNode) {
-		PRT(_T("move() Err: コウ！z=%04x\n"), node);
+		PRT(hConsoleWindow, _T("move() Err: コウ！z=%04x\n"), node);
 		// 操作を弾きます。
 		return MOVE_KOU;
 	}
@@ -43,7 +44,7 @@ int Move::MoveOne(
 	// 空点でないところに置こうとした場合
 	//----------------------------------------
 	if (pBoard->table[node] != 0) {
-		PRT(_T("move() Err: 空点ではない！z=%04x\n"), node);
+		PRT(hConsoleWindow, _T("move() Err: 空点ではない！z=%04x\n"), node);
 		// 操作を弾きます。
 		return MOVE_EXIST;
 	}
@@ -94,7 +95,7 @@ int Move::MoveOne(
 		// 置いた石に呼吸点がない場合。
 
 		// 操作を弾きます。
-		PRT(_T("move() Err: 自殺手! z=%04x\n"), node);
+		PRT(hConsoleWindow, _T("move() Err: 自殺手! z=%04x\n"), node);
 		pBoard->table[node] = 0;
 		return MOVE_SUICIDE;
 	}
@@ -122,7 +123,7 @@ int Move::MoveOne(
 			}
 		}
 		if (sum >= 2) {
-			PRT(_T("１つ取られて、コウの位置へ打つと、１つの石を2つ以上取れる？node=%04x\n"), node);
+			PRT(hConsoleWindow, _T("１つ取られて、コウの位置へ打つと、１つの石を2つ以上取れる？node=%04x\n"), node);
 			// これはエラー。
 
 			// 操作を弾きます。

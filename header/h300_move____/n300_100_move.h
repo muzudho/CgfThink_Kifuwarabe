@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include <windows.h> // コンソールへの出力等
+
+
 //--------------------------------------------------------------------------------
 // enum
 //--------------------------------------------------------------------------------
@@ -22,6 +25,7 @@ class Move {
 public:
 	// 1手進める。
 	static int	MoveOne(
+		HANDLE hConsoleWindow,
 		int node,	// 座標
 		int color,		// 石の色
 		Board* pBoard

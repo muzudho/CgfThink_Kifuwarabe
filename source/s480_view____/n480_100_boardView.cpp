@@ -3,7 +3,7 @@
 	#include "../../header/h090_core____/n090_100_core.h"
 	#include "../../header/h480_view____/n480_100_boardView.h"
 
-	void BoardView::PrintBoard(Board* pBoard)
+	void BoardView::PrintBoard(HANDLE hConsoleWindow, Board* pBoard)
 	{
 		int x;
 		int y;
@@ -18,9 +18,9 @@
 		for (y = 0; y < pBoard->size + 2; y++) {
 			for (x = 0; x < pBoard->size + 2; x++) {
 				node = (y + 0) * 256 + (x + 0);
-				PRT(_T("%s"), str[pBoard->table[node]]);
+				PRT(hConsoleWindow, _T("%s"), str[pBoard->table[node]]);
 				if (x == pBoard->size + 1) {
-					PRT(_T("\n"));
+					PRT(hConsoleWindow, _T("\n"));
 				}
 			}
 		}
