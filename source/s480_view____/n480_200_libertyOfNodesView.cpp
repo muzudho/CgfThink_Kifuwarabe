@@ -5,15 +5,15 @@
 
 
 
-void LibertyOfNodesView::PrintBoard(HANDLE hConsoleWindow, LibertyOfNodes * pLibertyOfNodes)
+void LibertyOfNodesView::PrintBoard(Core core, LibertyOfNodes * pLibertyOfNodes)
 {
-	pLibertyOfNodes->ForeachAllXyWithWaku([&hConsoleWindow, &pLibertyOfNodes](int x, int y, bool& isBreak) {
+	pLibertyOfNodes->ForeachAllXyWithWaku([&core, &pLibertyOfNodes](int x, int y, bool& isBreak) {
 		int node = Board::ConvertToNode(x, y);
 
-		Core::PRT(hConsoleWindow, _T("%2d"), pLibertyOfNodes->ValueOf(node));
+		core.PRT(_T("%2d"), pLibertyOfNodes->ValueOf(node));
 
 		if (x == pLibertyOfNodes->GetSize() + 1) {
-			Core::PRT(hConsoleWindow, _T("\n"));
+			core.PRT(_T("\n"));
 		}
 	});
 }

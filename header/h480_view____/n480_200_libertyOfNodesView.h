@@ -10,5 +10,5 @@
 class LibertyOfNodesView {
 public:
 	// åªç›ÇÃî’ñ Çï\é¶
-	static void PrintBoard(HANDLE hConsoleWindow, LibertyOfNodes* pLibertyOfNodes);
+	static void PrintBoard(Core core, LibertyOfNodes* pLibertyOfNodes);
 };

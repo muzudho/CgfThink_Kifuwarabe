@@ -35,7 +35,7 @@ int Endgame::EndgameStatus(int arr_endgameBoard[], Board* pBoard)
 			*ptr = GTP_ALIVE;
 			Liberty liberty;
 			liberty.Count(node, pBoard);
-			//			PRT("(%2d,%2d),ishi=%2d,dame=%2d\n",z&0xff,z>>8,ishi,dame);
+			//	core.PRT( "(%2d,%2d),ishi=%2d,dame=%2d\n",z&0xff,z>>8,ishi,dame);
 			if (liberty.liberty <= 1) {
 				*ptr = GTP_DEAD;
 			}

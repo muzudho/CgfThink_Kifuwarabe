@@ -14,10 +14,11 @@
 
 class Core {
 public:
+	HANDLE hConsoleWindow;
+public:
 
 	// printf()の代用関数。コンソールに出力。
-	static void PRT(
-		HANDLE hConsoleWindow,
+	void PRT(		
 		const _TCHAR* format,
 		...
 		);
@@ -25,7 +26,7 @@ public:
 	// 一時的にWindowsに制御を渡します。
 	// 思考中にこの関数を呼ぶと思考中断ボタンが有効になります。
 	// 毎秒30回以上呼ばれるようにするとスムーズに中断できます。
-	void YieldWindowsSystem(
+	static void YieldWindowsSystem(
 		void
 		);
 

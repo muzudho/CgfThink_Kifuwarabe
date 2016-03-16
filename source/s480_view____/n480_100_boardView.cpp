@@ -3,7 +3,7 @@
 #include "../../header/h480_view____/n480_100_boardView.h"
 
 
-void BoardView::PrintBoard(HANDLE hConsoleWindow, Board* pBoard)
+void BoardView::PrintBoard(Core core, Board* pBoard)
 {
 	_TCHAR* str[4] = {
 		_T("E"),	// ‹ó‚«
@@ -12,11 +12,11 @@ void BoardView::PrintBoard(HANDLE hConsoleWindow, Board* pBoard)
 		_T("{")		// ˜g
 	};
 
-	pBoard->ForeachAllXyWithWaku([&pBoard,&hConsoleWindow,&str](int x,int y, bool& isBreak) {
+	pBoard->ForeachAllXyWithWaku([&pBoard,&core,&str](int x,int y, bool& isBreak) {
 		int node = Board::ConvertToNode(x, y);
-		Core::PRT(hConsoleWindow, _T("%s"), str[pBoard->ValueOf(node)]);
+		core.PRT(_T("%s"), str[pBoard->ValueOf(node)]);
 		if (x == pBoard->GetSize() + 1) {
-			Core::PRT(hConsoleWindow, _T("\n"));
+			core.PRT(_T("\n"));
 		}
 	});
 }

@@ -22,7 +22,7 @@ class Think {
 public:
 	// 乱数に近い評価関数。少し石を取りに行くように。
 	static int	Bestmove(
-		HANDLE			hConsoleWindow	,
+		Core			core			,
 		int				coler			,		// 石の色
 		Board*			pBoard			,
 		LibertyOfNodes*	pLibertyOfNodes

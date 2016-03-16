@@ -13,7 +13,7 @@
 
 
 int Evaluation::Evaluate(
-	HANDLE			hConsoleWindow	,
+	Core			core			,
 	int&			flgAbort		,
 	int				color			,
 	int				node			,
@@ -65,7 +65,7 @@ int Evaluation::Evaluate(
 
 	if (
 		noHitOwnEye.IsThis(color, node, liberties, pBoard)		||		// 自分の眼に打ち込む状況か調査
-		noHitSuicide.IsThis(hConsoleWindow, color, node, liberties, pBoard)			// 自殺手になる状況でないか調査。
+		noHitSuicide.IsThis(core, color, node, liberties, pBoard)			// 自殺手になる状況でないか調査。
 	) {
 		flgAbort = 1;
 		goto gt_EndMethod;
@@ -81,30 +81,30 @@ int Evaluation::Evaluate(
 	//----------------------------------------
 	// 集計
 	//----------------------------------------
-	Core::PRT(hConsoleWindow, _T("ノード=%x スコア="), node);
+	core.PRT(_T("ノード=%x スコア="), node);
 
 
 	// ばらしたい
-	Core::PRT(hConsoleWindow, _T("%d,"), nHitRandom);
+	core.PRT(_T("%d,"), nHitRandom);
 	score += nHitRandom;
 
 	// マウスに打ちたくない
-	Core::PRT(hConsoleWindow, _T("%d,"), nNoHitMouth);
+	core.PRT(_T("%d,"), nNoHitMouth);
 	score += nNoHitMouth;
 
 	// ツケたい
-	Core::PRT(hConsoleWindow, _T("%d,"), nTuke);
+	core.PRT(_T("%d,"), nTuke);
 	score += nTuke;
 
 	// アテたい
-	Core::PRT(hConsoleWindow, _T("%d,"), nAte);
+	core.PRT(_T("%d,"), nAte);
 	score += nAte;
 
 	// 端の方に打ちたくない
-	Core::PRT(hConsoleWindow, _T("%d,"), nNoHitHasinoho);
+	core.PRT(_T("%d,"), nNoHitHasinoho);
 	score += nNoHitHasinoho;
 
-	Core::PRT(hConsoleWindow, _T("[%d] \n"), score);
+	core.PRT(_T("[%d] \n"), score);
 
 gt_EndMethod:
 	return score;

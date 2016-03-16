@@ -2,6 +2,7 @@
 
 
 #include <windows.h> // コンソールへの出力等
+#include "../h090_core____/n090_100_core.h"
 #include "../h190_board___/n190_150_liberty.h"
 #include "../h670_noHit___/n670_000_noHit.h"
 
@@ -24,7 +25,7 @@ public:
 
 	// 自殺手になる状況でないか調査。
 	bool IsThis(
-		HANDLE hConsoleWindow,
+		Core	core		,
 		int		color		,
 		int		node		,
 		Liberty liberties[4],

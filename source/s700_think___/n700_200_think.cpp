@@ -16,13 +16,13 @@ using namespace std;
 
 
 int Think::Bestmove(
-	HANDLE			hConsoleWindow	,
+	Core			core			,
 	int				color			,
 	Board*			pBoard			,
 	LibertyOfNodes*	pLibertyOfNodes
 )
 {
-	Core::PRT(hConsoleWindow, _T("Bestmove開始☆！ \n"));
+	core.PRT( _T("Bestmove開始☆！ \n"));
 
 	int maxScore;	// 今まで読んだ手で一番高かった評価値
 	int bestmoveNode;
@@ -36,17 +36,17 @@ int Think::Bestmove(
 	maxScore = -1;
 	bestmoveNode = 0; // 0 ならパス。
 
-	Core::PRT(hConsoleWindow, _T("aa \n"));
+	core.PRT(_T("aa \n"));
 
-	pBoard->ForeachAllNodesWithoutWaku([color,&maxScore,&bestmoveNode,&pBoard,&pLibertyOfNodes, &hConsoleWindow](int node, bool& isBreak) {
+	pBoard->ForeachAllNodesWithoutWaku([color,&maxScore,&bestmoveNode,&pBoard,&pLibertyOfNodes, &core](int node, bool& isBreak) {
 		//PRT(_T("node=%d \n"));
 
-		Core::PRT(hConsoleWindow, _T("bb \n"));
+		core.PRT(_T("bb \n"));
 
 		// この局面で、石を置いたときの評価値
 		int flgAbort = 0;
 		int score;		// 読んでいる手の評価値
-		score = Evaluation::Evaluate(hConsoleWindow, flgAbort, color, node, pBoard, pLibertyOfNodes);
+		score = Evaluation::Evaluate(core, flgAbort, color, node, pBoard, pLibertyOfNodes);
 		if (flgAbort)
 		{
 			goto gt_Next;
@@ -62,7 +62,7 @@ int Think::Bestmove(
 		;
 	});
 
-	Core::PRT(hConsoleWindow, _T("cc \n"));
+	core.PRT(_T("cc \n"));
 
 	return bestmoveNode;
 }

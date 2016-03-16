@@ -61,7 +61,9 @@ DLL_EXPORT void cgfgui_thinking_init(
 
 	// デバッグ用の窓です。PRT()関数で出力できます。
 	g_hConsoleWindow = GetStdHandle(STD_OUTPUT_HANDLE);
-	Core::PRT(g_hConsoleWindow, _T("デバッグ用の窓だぜ☆（＾ｑ＾）　PRT()関数で出力できるんだぜ☆\n"));
+	Core core;
+	core.hConsoleWindow = g_hConsoleWindow;
+	core.PRT( _T("デバッグ用の窓だぜ☆（＾ｑ＾）　PRT()関数で出力できるんだぜ☆\n"));
 
 	// この下に、メモリの確保など必要な場合のコードを記述してください。
 }
@@ -90,7 +92,9 @@ DLL_EXPORT int cgfgui_thinking(
 	ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
 	outputfile << _T("called: cgfgui_thinking") << endl;
 
-	Core::PRT(g_hConsoleWindow, _T("cgfgui_thinking 開始☆！ boardSize=%d \n"), boardSize);
+	Core core;
+	core.hConsoleWindow = g_hConsoleWindow;
+	core.PRT( _T("cgfgui_thinking 開始☆！ boardSize=%d \n"), boardSize);
 
 
 	//--------------------
@@ -101,18 +105,6 @@ DLL_EXPORT int cgfgui_thinking(
 
 	// 現在局面を棋譜と初期盤面から作る
 	board.Initialize(initBoard);
-	/*
-	for (int iNode = 0; iNode < BOARD_MAX; iNode++) {
-		board.table[iNode] = initBoard[iNode];	// 初期盤面をコピー
-	}
-	 */
-
-	//// [&hConsoleWindow]を付けておくと、ブロックの外側の hConsoleWindow 変数を参照できるぜ☆（＾ｑ＾）
-	//pBoard->ForeachAllNodesWithWaku( [&hConsoleWindow](int node, bool& isBreak) {
-	//	int x, y;
-	//	Board::ConvertToXy(x, y, node);
-	//	Core::PRT(hConsoleWindow, _T("(^q^) %d =(%d %d) \n"), node, x, y);
-	//});
 
 
 	//--------------------
@@ -132,9 +124,9 @@ DLL_EXPORT int cgfgui_thinking(
 		color	= kifu[iTesuu][1];	// 石の色
 		time	= kifu[iTesuu][2];	// 消費時間
 		thoughtTime[iTesuu & 1] += time; // 手数の下1桁を見て [0]先手、[1]後手。
-		if (Move::MoveOne(g_hConsoleWindow, node, color, &board) != MOVE_SUCCESS) {
+		if (Move::MoveOne(core, node, color, &board) != MOVE_SUCCESS) {
 			// 動かせなければそこで止める。（エラーがあった？？）
-			Core::PRT(g_hConsoleWindow, _T("棋譜を進められなかったので止めた☆ \n"));
+			core.PRT(_T("棋譜を進められなかったので止めた☆ \n"));
 			break;
 		}
 	}
@@ -179,10 +171,10 @@ DLL_EXPORT int cgfgui_thinking(
 	libertyOfNodes.Initialize(&board);
 
 	// １手指します。
-	bestmoveNode = Think::Bestmove(g_hConsoleWindow, color, &board, &libertyOfNodes);
+	bestmoveNode = Think::Bestmove(core, color, &board, &libertyOfNodes);
 
-	Core::PRT(g_hConsoleWindow, _T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
-	Core::PRT(g_hConsoleWindow, _T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,flgBlackTurn,boardSize,komi);
+	core.PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
+	core.PRT(_T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,flgBlackTurn,boardSize,komi);
 	
 	/*
 	BoardView boardView;
@@ -190,7 +182,7 @@ DLL_EXPORT int cgfgui_thinking(
 	 */
 
 	LibertyOfNodesView libertyOfNodesView;
-	libertyOfNodesView.PrintBoard(g_hConsoleWindow, &libertyOfNodes);
+	libertyOfNodesView.PrintBoard(core, &libertyOfNodes);
 
 	return bestmoveNode;
 }

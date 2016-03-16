@@ -4,14 +4,14 @@
 
 
 // printf()‚Ì‘ã—pŠÖ”B
-void Core::PRT(HANDLE hConsoleWindow, const _TCHAR* format, ...)
+void Core::PRT(const _TCHAR* format, ...)
 {
 	va_list			argList;
 	int				len;
 	static _TCHAR	text[PRT_LEN_MAX];
 	DWORD			nw;
 
-	if (hConsoleWindow == INVALID_HANDLE_VALUE) {
+	if (this->hConsoleWindow == INVALID_HANDLE_VALUE) {
 		return;
 	}
 	va_start(argList, format);
@@ -21,7 +21,7 @@ void Core::PRT(HANDLE hConsoleWindow, const _TCHAR* format, ...)
 	if (len < 0 || len >= PRT_LEN_MAX) {
 		return;
 	}
-	WriteConsole(hConsoleWindow, text, (DWORD)wcslen(text), &nw, NULL);
+	WriteConsole(this->hConsoleWindow, text, (DWORD)wcslen(text), &nw, NULL);
 }
 
 void Core::YieldWindowsSystem(void)

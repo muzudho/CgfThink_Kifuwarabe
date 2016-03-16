@@ -9,5 +9,5 @@
 class BoardView {
 public:
 	// Œ»İ‚Ì”Õ–Ê‚ğ•\¦
-	static void PrintBoard(HANDLE hConsoleWindow, Board* pBoard);
+	static void PrintBoard(Core core, Board* pBoard);
 };
