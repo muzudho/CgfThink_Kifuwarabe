@@ -152,7 +152,6 @@
     <ClInclude Include="header\h675_hit_____\n675_100_hitTuke.h" />
     <ClInclude Include="header\h700_think___\n700_100_evaluation.h" />
     <ClInclude Include="header\h700_think___\n700_200_think.h" />
-    <ClInclude Include="header\h800_cgfthink\n800_100_cppBoard.h" />
     <ClInclude Include="header\h800_cgfthink\n800_200_cgfthink.h" />
   </ItemGroup>
   <ItemGroup>

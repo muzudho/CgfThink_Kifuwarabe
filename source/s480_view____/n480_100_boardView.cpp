@@ -5,9 +5,6 @@
 
 	void BoardView::PrintBoard(HANDLE hConsoleWindow, Board* pBoard)
 	{
-		int x;
-		int y;
-		int node;
 		_TCHAR* str[4] = {
 			_T("ÅE"),	// ãÛÇ´
 			_T("Åú"),	// çïêŒ
@@ -22,16 +19,5 @@
 				Core::PRT(hConsoleWindow, _T("\n"));
 			}
 		});
-		/*
-		for (y = 0; y < pBoard->size + 2; y++) {
-			for (x = 0; x < pBoard->size + 2; x++) {
-				node = (y + 0) * 256 + (x + 0);
-				Core::PRT(hConsoleWindow, _T("%s"), str[pBoard->table[node]]);
-				if (x == pBoard->size + 1) {
-					Core::PRT(hConsoleWindow, _T("\n"));
-				}
-			}
-		}
-		*/
 	}
 

@@ -44,12 +44,28 @@ gt_EndMethod:
 
 void Liberty::CountElement(int tNode, int color, Board* pBoard)
 {
-	int adjNode;
-	int iDir;
 
 	this->checkedBoard[tNode] = 1;					// この石は検索済み	
 	this->renIshi++;								// 呼吸点を数えている（１個または連の）
 													// 石の数
+
+	pBoard->ForeachArroundNodes(tNode, [this, color,&pBoard](int adjNode, bool& isBreak) {
+		if (this->checkedBoard[adjNode]) {
+			goto gt_Next;
+		}
+		if (pBoard->table[adjNode] == 0) {				// 空点
+			this->checkedBoard[adjNode] = 1;			// この空点は検索済みとする
+			this->liberty++;							// リバティの数
+		}
+		if (pBoard->table[adjNode] == color) {
+			this->CountElement(adjNode, color, pBoard);	// 未探索の自分の石
+		}
+	gt_Next:
+		;
+	});
+	/*
+	int adjNode;
+	int iDir;
 	for (iDir = 0; iDir < 4; iDir++) {				// 隣接する四方向
 		adjNode = tNode + pBoard->dir4[iDir];
 		if (this->checkedBoard[adjNode]) {
@@ -63,4 +79,5 @@ void Liberty::CountElement(int tNode, int color, Board* pBoard)
 			this->CountElement(adjNode, color, pBoard);	// 未探索の自分の石
 		}
 	}
+	*/
 }

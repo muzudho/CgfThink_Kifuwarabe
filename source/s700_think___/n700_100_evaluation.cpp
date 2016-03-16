@@ -26,9 +26,6 @@ int Evaluation::Evaluate(
 	HitRandom				hitRandom;		// 手をばらけさせる仕組み。
 	HitTuke					hitTuke;		// 相手の石に積極的にツケるようにする仕組み。
 	int score = 0;					// 読んでいる手の評価値
-	int iDir;
-	int adjNode;	// 上下左右隣(adjacent)の交点
-	int adjColor;	// 上下左右隣(adjacent)の石の色
 
 	if (pBoard->table[node]) {
 		// 石があるか、枠なら
@@ -50,12 +47,22 @@ int Evaluation::Evaluate(
 
 
 	Liberty liberties[4];// 上隣 → 右隣 → 下隣 → 左隣
+	pBoard->ForeachArroundDirAndNodes(node, [&pBoard, &liberties](int iDir, int adjNode, bool& isBreak) {
+		int adjColor = pBoard->table[adjNode];		// 上下左右隣(adjacent)の石の色
+
+		liberties[iDir].Count(adjNode, pBoard);						// 隣の石（または連）の呼吸点　の数を数えます。
+	});
+	/*
+	int iDir;
+	int adjNode;	// 上下左右隣(adjacent)の交点
+	int adjColor;	// 上下左右隣(adjacent)の石の色
 	for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
 		adjNode = node + pBoard->dir4[iDir];	// 隣接(adjacent)する交点と、
 		adjColor = pBoard->table[adjNode];		// その色
 
 		liberties[iDir].Count(adjNode, pBoard);						// 隣の石（または連）の呼吸点　の数を数えます。
 	}
+	*/
 
 	// 評価値の計算（４方向分）
 	score += hitTuke.Evaluate(invColor, node, liberties, pBoard);

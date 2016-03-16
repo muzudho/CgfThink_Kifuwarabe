@@ -58,33 +58,6 @@ int Think::Bestmove(
 	gt_Next:
 		;
 	});
-	/*
-	int x;
-	int y;
-	int score;
-	int node;
-	for (y = 1; y < pBoard->size+1; y++) {
-		for (x = 1; x < pBoard->size+1; x++) {
-			node = Board::ConvertToNode(x, y);
-			//PRT(_T("node=%d \n"));
-
-			// この局面で、石を置いたときの評価値
-			int flgAbort = 0;
-			score = Evaluation::Evaluate(hConsoleWindow, flgAbort, color, node, pBoard);
-			if (flgAbort)
-			{
-				continue;
-			}
-
-			// ベストムーブを更新します。
-			// PRT("x,y=(%d,%d)=%d\n",x,y,score);
-			if (maxScore < score) {
-				maxScore = score;
-				bestmoveNode = node;
-			}
-		}
-	}
-	*/
 
 	return bestmoveNode;
 }

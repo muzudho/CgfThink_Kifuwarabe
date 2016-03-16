@@ -6,7 +6,6 @@
 
 int Board::ConvertToNode(int x, int y)
 {
-	//return (y + 1) * 256 + (x + 1);
 	return y * 256 + x;
 }
 
@@ -15,9 +14,6 @@ int Board::ConvertToNode(int x, int y)
 
 void Board::ConvertToXy(int& x, int& y, int node)
 {
-	//y = (node - 256) / 256;
-	//x = (node - 1) % 256;
-
 	y = node / 256;
 	x = node % 256;
 }
@@ -45,18 +41,23 @@ void Board::DeleteRenStones(
 	int color
 	)
 {
-	int adjNode;	// 上下左右に隣接する交点
-	int i;
-
 	// 指定した位置の石を削除。
 	this->table[tNode] = 0;
 
 	// ４方向の石にも同じ処理を行います。
-	for (i = 0; i < 4; i++) {
-		adjNode = tNode + this->dir4[i];
+	this->ForeachArroundNodes(tNode, [this,color]( int adjNode,	bool& isBreak) {
+		if (this->table[adjNode] == color) {
+			this->DeleteRenStones(adjNode, color);
+		}
+	});
+	/*
+	int adjNode;	// 上下左右に隣接する交点
+	for (int iDir = 0; iDir < 4; iDir++) {
+		adjNode = tNode + this->dir4[iDir];
 		if (this->table[adjNode] == color) {
 			this->DeleteRenStones(adjNode, color);
 		}
 	}
+	*/
 }
 

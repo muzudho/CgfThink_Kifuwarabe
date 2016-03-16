@@ -99,4 +99,31 @@ public:
 			}
 		}
 	}
+
+	// 指定のノードに隣接する上、右、下、左のノードを走査。
+	template<typename Func> void ForeachArroundNodes(int node, Func func)
+	{
+		for (int iDir = 0; iDir < 4; iDir++) {
+			bool isBreak = false;
+			func(node + this->dir4[iDir], isBreak);
+			if (isBreak)
+			{
+				break;
+			}
+		}
+	}
+
+	// 指定のノードに隣接する上、右、下、左のノードを走査。
+	template<typename Func> void ForeachArroundDirAndNodes(int node, Func func)
+	{
+		for (int iDir = 0; iDir < 4; iDir++) {
+			bool isBreak = false;
+			func(iDir, node + this->dir4[iDir], isBreak);
+			if (isBreak)
+			{
+				break;
+			}
+		}
+	}
+
 };

@@ -113,18 +113,6 @@ DLL_EXPORT int cgfgui_thinking(
 		Core::PRT(hConsoleWindow, _T("(^q^) %d =(%d %d) \n"), node, x, y);
 	});
 	// */
-	/* for debug
-	int tnode, tx, ty;
-	for (int x = 0; x < (pBoard->size + 2); x++)
-	{
-		for (int y = 0; y < (pBoard->size + 2); y++)
-		{
-			tnode = Board::ConvertToNode(x, y);
-			Board::ConvertToXy(tx, ty, tnode);
-			Core::PRT(hConsoleWindow, _T("(%d,%d)= %d =(%d %d) \n"), x, y, tnode, tx, ty);
-		}
-	}
-	// */
 
 
 	//--------------------

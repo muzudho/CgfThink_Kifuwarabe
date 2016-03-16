@@ -11,8 +11,6 @@ int Move::MoveOne(
 	Board* pBoard
 	)
 {
-	int i;
-	int adjNode;						// 四方に隣接する交点
 	int sum;
 	int delNode		= 0;
 	int tottaIshi	= 0;				// 取った石の合計
@@ -52,8 +50,41 @@ int Move::MoveOne(
 	// 自殺手になるかどうか判定するために、
 	// また、新しい　コウ　を作るかどうか判定するために、
 	// 相手の石を取るところまで進めます。
-	for (i = 0; i < 4; i++) {
-		adjNode = node + pBoard->dir4[i];
+	pBoard->ForeachArroundNodes(node, [&pBoard, &tottaIshi, &delNode, color, invClr](int adjNode, bool& isBreak) {
+		Liberty liberty1;
+
+		if (pBoard->table[adjNode] != invClr) {
+			// 隣接する石が　相手の石　でないなら無視。
+			goto gt_Next1;
+		}
+
+		//----------------------------------------
+		// 相手の石が取れるか判定します。
+		//----------------------------------------
+
+		// 隣接する石（連）の呼吸点を数えます。
+		liberty1.Count(adjNode, pBoard);
+
+		if (liberty1.liberty == 0) {
+			// 呼吸点がないようなら、石（連）は取れます。
+
+			// 囲んだ石の数を　ハマに加点。
+			pBoard->hama[color - 1] += liberty1.renIshi;
+			tottaIshi += liberty1.renIshi;
+			delNode = adjNode;	// 取られた石の座標。コウの判定で使う。
+
+								// 処理が被らないように、囲まれている相手の石（計算済み）を消します。
+			pBoard->DeleteRenStones(adjNode, invClr);
+		}
+
+	gt_Next1:
+		;
+	});
+	/*
+	int iDir;
+	int adjNode;						// 四方に隣接する交点
+	for (iDir = 0; iDir < 4; iDir++) {
+		adjNode = node + pBoard->dir4[iDir];
 
 		if (pBoard->table[adjNode] != invClr) {
 			// 隣接する石が　相手の石　でないなら無視。
@@ -80,6 +111,7 @@ int Move::MoveOne(
 			pBoard->DeleteRenStones(adjNode, invClr);
 		}
 	}
+	*/
 
 	//----------------------------------------
 	// 自殺手になるかを判定
@@ -107,8 +139,24 @@ int Move::MoveOne(
 		// 取られた石の4方向に、自分の呼吸点が1個の連が1つだけある場合、その位置はコウ。
 		pBoard->kouNode = delNode;	// 取り合えず取られた石の場所をコウの位置とする
 		sum = 0;
-		for (i = 0; i < 4; i++) {
-			adjNode = delNode + pBoard->dir4[i];
+		pBoard->ForeachArroundNodes(delNode, [&pBoard, &sum, color](int adjNode, bool& isBreak) {
+			Liberty liberty2;
+
+			if (pBoard->table[adjNode] != color) {
+				goto gt_Next2;
+			}
+
+			liberty2.Count(adjNode, pBoard);
+			if (liberty2.liberty == 1 && liberty2.renIshi == 1) {
+				sum++;
+			}
+
+		gt_Next2:
+			;
+		});
+		/*
+		for (iDir = 0; iDir < 4; iDir++) {
+			adjNode = delNode + pBoard->dir4[iDir];
 			if (pBoard->table[adjNode] != color) {
 				continue;
 			}
@@ -118,6 +166,7 @@ int Move::MoveOne(
 				sum++;
 			}
 		}
+		*/
 		if (sum >= 2) {
 			Core::PRT(hConsoleWindow, _T("１つ取られて、コウの位置へ打つと、１つの石を2つ以上取れる？node=%04x\n"), node);
 			// これはエラー。

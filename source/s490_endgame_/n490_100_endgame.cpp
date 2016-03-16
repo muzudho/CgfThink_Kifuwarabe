@@ -12,6 +12,18 @@ int Endgame::EndgameStatus(int arr_endgameBoard[], Board* pBoard)
 		if (pBoard->table[node] == 0) {
 			*ptr = GTP_DAME;
 			int sum = 0;
+			pBoard->ForeachArroundNodes(node, [&pBoard,&sum](int adjNode, bool& isBreak) {
+				int		adjColor;	// —×Ú(adjacent)‚·‚éÎ‚ÌF
+				adjColor = pBoard->table[adjNode];
+				if (adjColor == WAKU) {
+					goto gt_Next;
+				}
+				sum |= adjColor;
+
+			gt_Next:
+				;
+			});
+			/*
 			for (int i = 0; i<4; i++) {
 				int		adjColor;	// —×Ú(adjacent)‚·‚éÎ‚ÌF
 				adjColor = pBoard->table[node + pBoard->dir4[i]];
@@ -20,6 +32,7 @@ int Endgame::EndgameStatus(int arr_endgameBoard[], Board* pBoard)
 				}
 				sum |= adjColor;
 			}
+			*/
 			if (sum == BLACK) {
 				*ptr = GTP_BLACK_TERRITORY;
 			}

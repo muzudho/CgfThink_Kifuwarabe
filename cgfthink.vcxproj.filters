@@ -120,9 +120,6 @@
     <ClInclude Include="header\h800_cgfthink\n800_200_cgfthink.h">
       <Filter>Header Files\h800_cgfthink</Filter>
     </ClInclude>
-    <ClInclude Include="header\h800_cgfthink\n800_100_cppBoard.h">
-      <Filter>Header Files\h800_cgfthink</Filter>
-    </ClInclude>
     <ClInclude Include="header\h480_view____\n480_100_boardView.h">
       <Filter>Header Files\h480_view____</Filter>
     </ClInclude>

@@ -29,6 +29,21 @@ void NoHitHasinohoBocchi::Research(
 
 
 	this->isBocchi = true;
+	pBoard->ForeachArroundNodes(node, [this,&pBoard](int adjNode, bool& isBreak) {
+		int adjColor = pBoard->table[adjNode];		// その色
+
+		if (adjColor == BLACK || adjColor == WHITE)
+		{
+			// ぼっちではない。
+			this->isBocchi = false;
+			isBreak = true;
+			goto gt_Next;
+		}
+
+	gt_Next:
+		;
+	});
+	/*
 	for (int iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
 		int adjNode = node + pBoard->dir4[iDir];		// 隣接(adjacent)する交点と、
 		int adjColor = pBoard->table[adjNode];		// その色
@@ -40,7 +55,7 @@ void NoHitHasinohoBocchi::Research(
 			break;
 		}
 	}
-
+	*/
 
 
 	int x, y;
