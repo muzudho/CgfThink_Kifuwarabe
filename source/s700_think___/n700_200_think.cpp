@@ -25,10 +25,6 @@ int Think::Bestmove(
 	Core::PRT(hConsoleWindow, _T("Bestmove開始☆！ \n"));
 	//PRT(_T("color=%d invClr=%d \n", color, invClr));
 
-	int x;
-	int y;
-	int node;
-	int score;		// 読んでいる手の評価値
 	int maxScore;	// 今まで読んだ手で一番高かった評価値
 	int bestmoveNode;
 
@@ -41,6 +37,32 @@ int Think::Bestmove(
 	maxScore = -1;
 	bestmoveNode = 0; // 0 ならパス。
 
+	pBoard->ForeachAllNodesWithoutWaku([color,&maxScore,&bestmoveNode,&pBoard,&hConsoleWindow](int node) {
+		//PRT(_T("node=%d \n"));
+
+		// この局面で、石を置いたときの評価値
+		int flgAbort = 0;
+		int score;		// 読んでいる手の評価値
+		score = Evaluation::Evaluate(hConsoleWindow, flgAbort, color, node, pBoard);
+		if (flgAbort)
+		{
+			goto gt_Next;
+		}
+
+		// ベストムーブを更新します。
+		// PRT("x,y=(%d,%d)=%d\n",x,y,score);
+		if (maxScore < score) {
+			maxScore = score;
+			bestmoveNode = node;
+		}
+	gt_Next:
+		;
+	});
+	/*
+	int x;
+	int y;
+	int score;
+	int node;
 	for (y = 1; y < pBoard->size+1; y++) {
 		for (x = 1; x < pBoard->size+1; x++) {
 			node = Board::ConvertToNode(x, y);
@@ -62,6 +84,7 @@ int Think::Bestmove(
 			}
 		}
 	}
+	*/
 
 	return bestmoveNode;
 }

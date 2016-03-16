@@ -62,7 +62,7 @@ DLL_EXPORT void cgfgui_thinking_init(
 	// コンソールに出力するためのハンドル
 	//HANDLE hConsoleWindow = INVALID_HANDLE_VALUE; //static HANDLE hOutput;
 	HANDLE hConsoleWindow = GetStdHandle(STD_OUTPUT_HANDLE);
-	Core::PRT(hConsoleWindow, _T("デバッグ用の窓です。PRT()関数で出力できます。\n"));
+	Core::PRT(hConsoleWindow, _T("デバッグ用の窓だぜ☆（＾ｑ＾）　PRT()関数で出力できるんだぜ☆\n"));
 
 	// この下に、メモリの確保など必要な場合のコードを記述してください。
 }
@@ -105,7 +105,7 @@ DLL_EXPORT int cgfgui_thinking(
 		pBoard->table[iNode] = initBoard[iNode];	// 初期盤面をコピー
 	}
 
-	//*
+	/*
 	// [&hConsoleWindow]を付けておくと、ブロックの外側の hConsoleWindow 変数を参照できるぜ☆（＾ｑ＾）
 	pBoard->ForeachAllNodesWithWaku( [&hConsoleWindow](int node) {
 		int x, y;

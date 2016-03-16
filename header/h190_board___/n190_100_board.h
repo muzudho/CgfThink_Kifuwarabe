@@ -73,6 +73,19 @@ public:
 		}
 	}
 
+	// 枠も含めて碁盤を全走査
+	// .cpp に本体を書くとなんかエラーが出たので、.h に書いているんだぜ☆（＾ｑ＾）
+	template<typename Func> void ForeachAllXyWithWaku(Func func)
+	{
+		for (int x = 0; x < this->size + 2; x++)
+		{
+			for (int y = 0; y < this->size + 2; y++)
+			{
+				func(x,y);
+			}
+		}
+	}
+
 	// 枠を含めない碁盤を全走査
 	// .cpp に本体を書くとなんかエラーが出たので、.h に書いているんだぜ☆（＾ｑ＾）
 	template<typename Func> void ForeachAllNodesWithoutWaku( Func func)

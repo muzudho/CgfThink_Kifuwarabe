@@ -7,6 +7,37 @@
 
 int Endgame::EndgameStatus(int arr_endgameBoard[], Board* pBoard)
 {
+	pBoard->ForeachAllNodesWithoutWaku([&arr_endgameBoard,&pBoard](int node) {
+		int* ptr = arr_endgameBoard + node;
+		if (pBoard->table[node] == 0) {
+			*ptr = GTP_DAME;
+			int sum = 0;
+			for (int i = 0; i<4; i++) {
+				int		adjColor;	// —×Ú(adjacent)‚·‚éÎ‚ÌF
+				adjColor = pBoard->table[node + pBoard->dir4[i]];
+				if (adjColor == WAKU) {
+					continue;
+				}
+				sum |= adjColor;
+			}
+			if (sum == BLACK) {
+				*ptr = GTP_BLACK_TERRITORY;
+			}
+			if (sum == WHITE) {
+				*ptr = GTP_WHITE_TERRITORY;
+			}
+		}
+		else {
+			*ptr = GTP_ALIVE;
+			Liberty liberty;
+			liberty.Count(node, pBoard);
+			//			PRT("(%2d,%2d),ishi=%2d,dame=%2d\n",z&0xff,z>>8,ishi,dame);
+			if (liberty.liberty <= 1) {
+				*ptr = GTP_DEAD;
+			}
+		}
+	});
+	/*
 	int		x;
 	int		y;
 	int		node;
@@ -14,7 +45,6 @@ int Endgame::EndgameStatus(int arr_endgameBoard[], Board* pBoard)
 	int		i;
 	int		adjColor;	// —×Ú(adjacent)‚·‚éÎ‚ÌF
 	int*	ptr;
-
 	for (y = 1; y < pBoard->size + 1; y++) {
 		for (x = 1; x< pBoard->size + 1; x++) {
 			node = Board::ConvertToNode(x, y);
@@ -48,6 +78,8 @@ int Endgame::EndgameStatus(int arr_endgameBoard[], Board* pBoard)
 			}
 		}
 	}
+	*/
+
 	return 0;
 }
 
