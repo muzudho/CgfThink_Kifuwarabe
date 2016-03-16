@@ -58,4 +58,32 @@ public:
 		int tNode,
 		int color
 	);
+
+	// 枠も含めて碁盤を全走査
+	// .cpp に本体を書くとなんかエラーが出たので、.h に書いているんだぜ☆（＾ｑ＾）
+	template<typename Func> void ForeachAllNodesWithWaku(Func func)
+	{
+		for (int x = 0; x < this->size + 2; x++)
+		{
+			for (int y = 0; y < this->size + 2; y++)
+			{
+				int node = Board::ConvertToNode(x, y);
+				func(node);
+			}
+		}
+	}
+
+	// 枠を含めない碁盤を全走査
+	// .cpp に本体を書くとなんかエラーが出たので、.h に書いているんだぜ☆（＾ｑ＾）
+	template<typename Func> void ForeachAllNodesWithoutWaku( Func func)
+	{
+		for (int x = 1; x < this->size + 1; x++)
+		{
+			for (int y = 1; y < this->size + 1; y++)
+			{
+				int node = Board::ConvertToNode(x, y);
+				func(node);
+			}
+		}
+	}
 };

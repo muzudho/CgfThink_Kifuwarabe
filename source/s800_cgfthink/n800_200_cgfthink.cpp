@@ -41,7 +41,8 @@ Cgfthink g_cgfthink;
 //--------------------------------------------------------------------------------
 
 // 対局開始時に一度だけ呼ばれます。
-extern "C" DLL_EXPORT void cgfgui_thinking_init(
+//extern "C"
+DLL_EXPORT void cgfgui_thinking_init(
 	int* pThinkStoped	// 普段は0。中止ボタンが押されたときに 1 になります。この値が1になった場合は思考を終了してください。
 )
 {
@@ -69,7 +70,8 @@ extern "C" DLL_EXPORT void cgfgui_thinking_init(
 // 思考ルーチン。次の1手の座標を返す。PASSの場合0。
 // GUIから現在の局面の情報が渡される。
 // また、終局処理の場合は、終局判断の結果を返す。
-extern "C" DLL_EXPORT int cgfgui_thinking(
+//extern "C"
+DLL_EXPORT int cgfgui_thinking(
 	int		initBoard[]		,	// 初期盤面（置碁の場合は、ここに置石が入る）
 	int		kifu[][3]		,	// 棋譜	[手数][0]...座標
 								//		[手数][1]...石の色
@@ -103,15 +105,15 @@ extern "C" DLL_EXPORT int cgfgui_thinking(
 		pBoard->table[iNode] = initBoard[iNode];	// 初期盤面をコピー
 	}
 
-	/*
-	CppBoard::ForeachAllNodesWithWaku( pBoard, [](int x, int y) {
-		int tnode, tx, ty;
-		tnode = Board::ConvertToNode(x, y);
-		Board::ConvertToXy(tx, ty, tnode);
-		PRT(_T("(%d,%d)= %d =(%d %d) \n"), x, y, tnode, tx, ty);
+	//*
+	// [&hConsoleWindow]を付けておくと、ブロックの外側の hConsoleWindow 変数を参照できるぜ☆（＾ｑ＾）
+	pBoard->ForeachAllNodesWithWaku( [&hConsoleWindow](int node) {
+		int x, y;
+		Board::ConvertToXy(x, y, node);
+		Core::PRT(hConsoleWindow, _T("(^q^) %d =(%d %d) \n"), node, x, y);
 	});
 	// */
-	//* for debug
+	/* for debug
 	int tnode, tx, ty;
 	for (int x = 0; x < (pBoard->size + 2); x++)
 	{
@@ -211,7 +213,8 @@ extern "C" DLL_EXPORT int cgfgui_thinking(
 
 // 対局終了時に一度だけ呼ばれます。
 // メモリの解放などが必要な場合にここに記述してください。
-extern "C" DLL_EXPORT void cgfgui_thinking_close(
+//extern "C"
+DLL_EXPORT void cgfgui_thinking_close(
 	void
 )
 {

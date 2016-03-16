@@ -27,6 +27,7 @@ void Board::ConvertToXy(int& x, int& y, int node)
 
 Board::Board()
 {
+	this->size = 0;
 	this->kouNode = 0;		// コウになる位置。
 	this->hama[BLACK] = 0;	// 取った石の数
 	this->hama[WHITE] = 0;
@@ -58,3 +59,4 @@ void Board::DeleteRenStones(
 		}
 	}
 }
+
