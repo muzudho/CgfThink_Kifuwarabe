@@ -16,9 +16,11 @@ using namespace std;
 #include <tchar.h> // Unicode対応の _T() 関数を使用するために。
 #include "../../header/h090_core____/n090_100_core.h"
 #include "../../header/h190_board___/n190_100_board.h"
+#include "../../header/h190_board___/n190_200_libertyOfNodes.h"
 #include "../../header/h300_move____/n300_100_move.h"
 #include "../../header/h390_explain_/n390_100_explain.h"
 #include "../../header/h480_view____/n480_100_boardView.h"
+#include "../../header/h480_view____/n480_200_libertyOfNodesView.h"
 #include "../../header/h490_endgame_/n490_100_endgame.h"
 #include "../../header/h700_think___/n700_200_think.h"
 #include "../../header/h800_cgfthink/n800_200_cgfthink.h"
@@ -95,12 +97,15 @@ DLL_EXPORT int cgfgui_thinking(
 	// 何路盤
 	//--------------------
 	Board board;
-	board.size = boardSize;
+	board.SetSize( boardSize);
 
 	// 現在局面を棋譜と初期盤面から作る
+	board.Initialize(initBoard);
+	/*
 	for (int iNode = 0; iNode < BOARD_MAX; iNode++) {
 		board.table[iNode] = initBoard[iNode];	// 初期盤面をコピー
 	}
+	 */
 
 	//// [&hConsoleWindow]を付けておくと、ブロックの外側の hConsoleWindow 変数を参照できるぜ☆（＾ｑ＾）
 	//pBoard->ForeachAllNodesWithWaku( [&hConsoleWindow](int node, bool& isBreak) {
@@ -174,7 +179,16 @@ DLL_EXPORT int cgfgui_thinking(
 
 	Core::PRT(g_hConsoleWindow, _T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
 	Core::PRT(g_hConsoleWindow, _T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,flgBlackTurn,boardSize,komi);
-	//PrintBoard();
+	
+	/*
+	BoardView boardView;
+	boardView.PrintBoard(g_hConsoleWindow, &board);
+	 */
+	LibertyOfNodes libertyOfNodes;
+	libertyOfNodes.Initialize(&board);
+
+	LibertyOfNodesView libertyOfNodesView;
+	libertyOfNodesView.PrintBoard(g_hConsoleWindow, &libertyOfNodes);
 
 	return bestmoveNode;
 }

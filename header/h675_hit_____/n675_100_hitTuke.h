@@ -1,8 +1,8 @@
 #pragma once
 
 
-#include "../../header/h190_board___/n190_150_liberty.h"
-#include "../../header/h675_hit_____/n675_000_hit.h"
+#include "../h190_board___/n190_150_liberty.h"
+#include "../h675_hit_____/n675_000_hit.h"
 
 
 // _____

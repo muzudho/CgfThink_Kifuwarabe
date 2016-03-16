@@ -20,7 +20,7 @@ void NoHitMouth::Research(
 	int invColor = INVCLR(color);	//白黒反転
 
 	pBoard->ForeachArroundNodes(node, [this,&pBoard, invColor](int adjNode, bool& isBreak) {
-		int adjColor = pBoard->table[adjNode];		// 上下左右隣(adjacent)の石の色
+		int adjColor = pBoard->ValueOf(adjNode);		// 上下左右隣(adjacent)の石の色
 
 		// 2016-03-12 16:45 Add
 		// 隣が相手の石、または枠ならカウントアップ。

@@ -14,8 +14,8 @@ void BoardView::PrintBoard(HANDLE hConsoleWindow, Board* pBoard)
 
 	pBoard->ForeachAllXyWithWaku([&pBoard,&hConsoleWindow,&str](int x,int y, bool& isBreak) {
 		int node = Board::ConvertToNode(x, y);
-		Core::PRT(hConsoleWindow, _T("%s"), str[pBoard->table[node]]);
-		if (x == pBoard->size + 1) {
+		Core::PRT(hConsoleWindow, _T("%s"), str[pBoard->ValueOf(node)]);
+		if (x == pBoard->GetSize() + 1) {
 			Core::PRT(hConsoleWindow, _T("\n"));
 		}
 	});

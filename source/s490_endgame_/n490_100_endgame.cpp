@@ -9,12 +9,12 @@ int Endgame::EndgameStatus(int arr_endgameBoard[], Board* pBoard)
 {
 	pBoard->ForeachAllNodesWithoutWaku([&arr_endgameBoard,&pBoard](int node, bool& isBreak) {
 		int* ptr = arr_endgameBoard + node;
-		if (pBoard->table[node] == 0) {
+		if (pBoard->ValueOf(node) == 0) {
 			*ptr = GTP_DAME;
 			int sum = 0;
 			pBoard->ForeachArroundNodes(node, [&pBoard,&sum](int adjNode, bool& isBreak) {
 				int		adjColor;	// —×Ú(adjacent)‚·‚éÎ‚ÌF
-				adjColor = pBoard->table[adjNode];
+				adjColor = pBoard->ValueOf(adjNode);
 				if (adjColor == WAKU) {
 					goto gt_Next;
 				}
@@ -52,8 +52,8 @@ int Endgame::EndgameDrawFigure(int arr_endgameBoard[], Board* pBoard)
 	int		node;
 	int*	ptr;
 
-	for (y = 1; y < pBoard->size + 1; y++) {
-		for (x = 1; x < pBoard->size + 1; x++) {
+	for (y = 1; y < pBoard->GetSize() + 1; y++) {
+		for (x = 1; x < pBoard->GetSize() + 1; x++) {
 			node = Board::ConvertToNode(x, y);
 			ptr = arr_endgameBoard + node;
 			if ((rand() % 2) == 0) {
@@ -80,8 +80,8 @@ int Endgame::EndgameDrawNumber(int arr_endgameBoard[], Board* pBoard)
 	int		node;
 	int*	ptr;
 
-	for (y = 1; y < pBoard->size + 1; y++) {
-		for (x = 1; x < pBoard->size + 1; x++) {
+	for (y = 1; y < pBoard->GetSize() + 1; y++) {
+		for (x = 1; x < pBoard->GetSize() + 1; x++) {
 			node = Board::ConvertToNode(x, y);
 			ptr = arr_endgameBoard + node;
 			*ptr = (rand() % 110) - 55;

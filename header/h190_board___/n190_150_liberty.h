@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "../../header/h190_board___/n190_100_board.h"
+#include "../h190_board___/n190_100_board.h"
 
 
 

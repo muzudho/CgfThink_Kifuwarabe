@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../h190_board___/n190_050_abstractBoard.h"
+
+
 //--------------------------------------------------------------------------------
 // 定義
 //--------------------------------------------------------------------------------
@@ -10,16 +13,11 @@
 #define WHITE 2
 #define WAKU  3		// 盤外
 
-#define BOARD_MAX ((19+2)*256)	// 19路盤を最大サイズとする
 #define INVCLR(x) (3-(x))		// 石の色を反転させる
 
 
-class Board {
+class Board : public AbstractBoard{
 public:
-	// 盤上の石の色。
-	int table[BOARD_MAX];
-
-	int size;
 
 	// 上、右、下、左　に移動するのに使う加減値
 	int dir4[4] = {
@@ -36,6 +34,7 @@ public:
 	int hama[3];
 
 public:
+	void	Initialize( int initBoard[]);
 
 	// (x,y)を1つの座標に変換
 	static int ConvertToNode(
@@ -59,13 +58,62 @@ public:
 		int color
 	);
 
-	// 枠も含めて碁盤を全走査
+	// 碁盤の枠を全走査。左上角から時計回り。
 	// .cpp に本体を書くとなんかエラーが出たので、.h に書いているんだぜ☆（＾ｑ＾）
-	template<typename Func> void ForeachAllNodesWithWaku(Func func)
+	template<typename Func> void ForeachAllNodesOfWaku(Func func)
 	{
-		for (int x = 0; x < this->size + 2; x++)
+		// 上辺（最後の手前まで）
 		{
-			for (int y = 0; y < this->size + 2; y++)
+			int y = 0;
+			for (int x = 0; x < this->size + 2 - 1; x++)
+			{
+				int node = Board::ConvertToNode(x, y);
+
+				bool isBreak = false;
+				func(node, isBreak);
+				if (isBreak)
+				{
+					break;
+				}
+			}
+		}
+
+		// 右辺（最後の手前まで）
+		{
+			int x = this->size + 2 - 1;
+			for (int y = 0; y < this->size + 2 - 1; y++)
+			{
+				int node = Board::ConvertToNode(x, y);
+
+				bool isBreak = false;
+				func(node, isBreak);
+				if (isBreak)
+				{
+					break;
+				}
+			}
+		}
+
+		// 下辺（最後の手前まで）
+		{
+			int y = this->size + 2 - 1;
+			for (int x = this->size + 2 - 1; 0 < x; x--)
+			{
+				int node = Board::ConvertToNode(x, y);
+
+				bool isBreak = false;
+				func(node, isBreak);
+				if (isBreak)
+				{
+					break;
+				}
+			}
+		}
+
+		// 左辺（最後の手前まで）
+		{
+			int x = 0;
+			for (int y = this->size + 2 - 1; 0 < y; y--)
 			{
 				int node = Board::ConvertToNode(x, y);
 
@@ -79,13 +127,33 @@ public:
 		}
 	}
 
-	// 枠も含めて碁盤を全走査
+	// 枠も含めて碁盤を全走査。左上から右上へ、端で改行して次の行の先頭から。
+	// .cpp に本体を書くとなんかエラーが出たので、.h に書いているんだぜ☆（＾ｑ＾）
+	template<typename Func> void ForeachAllNodesWithWaku(Func func)
+	{
+		for (int y = 0; y < this->size + 2; y++)
+		{
+			for (int x = 0; x < this->size + 2; x++)
+			{
+				int node = Board::ConvertToNode(x, y);
+
+				bool isBreak = false;
+				func(node, isBreak);
+				if (isBreak)
+				{
+					break;
+				}
+			}
+		}
+	}
+
+	// 枠も含めて碁盤を全走査。左上から右上へ、端で改行して次の行の先頭から。
 	// .cpp に本体を書くとなんかエラーが出たので、.h に書いているんだぜ☆（＾ｑ＾）
 	template<typename Func> void ForeachAllXyWithWaku(Func func)
 	{
-		for (int x = 0; x < this->size + 2; x++)
+		for (int y = 0; y < this->size + 2; y++)
 		{
-			for (int y = 0; y < this->size + 2; y++)
+			for (int x = 0; x < this->size + 2; x++)
 			{
 				bool isBreak = false;
 				func(x,y, isBreak);
@@ -97,13 +165,13 @@ public:
 		}
 	}
 
-	// 枠を含めない碁盤を全走査
+	// 枠を含めない碁盤を全走査。左上から右上へ、端で改行して次の行の先頭から。
 	// .cpp に本体を書くとなんかエラーが出たので、.h に書いているんだぜ☆（＾ｑ＾）
 	template<typename Func> void ForeachAllNodesWithoutWaku( Func func)
 	{
-		for (int x = 1; x < this->size + 1; x++)
+		for (int y = 1; y < this->size + 1; y++)
 		{
-			for (int y = 1; y < this->size + 1; y++)
+			for (int x = 1; x < this->size + 1; x++)
 			{
 				int node = Board::ConvertToNode(x, y);
 

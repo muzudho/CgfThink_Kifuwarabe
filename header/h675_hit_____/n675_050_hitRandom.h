@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "../../header/h675_hit_____/n675_000_hit.h"
+#include "../h675_hit_____/n675_000_hit.h"
 
 
 

@@ -30,7 +30,7 @@ void NoHitHasinohoBocchi::Research(
 
 	this->isBocchi = true;
 	pBoard->ForeachArroundNodes(node, [this,&pBoard](int adjNode, bool& isBreak) {
-		int adjColor = pBoard->table[adjNode];		// ÇªÇÃêF
+		int adjColor = pBoard->ValueOf(adjNode);		// ÇªÇÃêF
 
 		if (adjColor == BLACK || adjColor == WHITE)
 		{
@@ -48,8 +48,8 @@ void NoHitHasinohoBocchi::Research(
 	int x, y;
 	Board::ConvertToXy(x, y, node);
 
-	if (x < 1 || pBoard->size < x ||
-		y < 1 || pBoard->size < y
+	if (x < 1 || pBoard->GetSize() < x ||
+		y < 1 || pBoard->GetSize() < y
 		) {
 		// î’äO
 		//PRT(_T("(%d,%d) ban=%d ; Soto \n"), x, y, boardSize);
@@ -57,8 +57,8 @@ void NoHitHasinohoBocchi::Research(
 		goto gt_EndMethod;
 	}
 
-	if (x == 1 || pBoard->size == x ||
-		y == 1 || pBoard->size == y
+	if (x == 1 || pBoard->GetSize() == x ||
+		y == 1 || pBoard->GetSize() == y
 	) {
 		// ï”
 		//PRT(_T("(%d,%d) ban=%d ; EDGE \n"), x, y, boardSize);
@@ -70,8 +70,8 @@ void NoHitHasinohoBocchi::Research(
 		goto gt_EndMethod;
 	}
 
-	if ( (x == 1 || pBoard->size == x) &&
-		(y == 1 || pBoard->size == y)
+	if ( (x == 1 || pBoard->GetSize() == x) &&
+		(y == 1 || pBoard->GetSize() == y)
 	) {
 		// äp
 		//PRT(_T("(%d,%d) ban=%d ; CORNER \n"), x, y, boardSize);

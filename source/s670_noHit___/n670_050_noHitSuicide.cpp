@@ -27,7 +27,7 @@ bool NoHitSuicide::IsThis(
 	int invColor = INVCLR(color);	//白黒反転
 
 	pBoard->ForeachArroundDirAndNodes(node, [this,&pBoard, &liberties, invColor](int iDir, int adjNode, bool& isBreak) {
-		int adjColor = pBoard->table[adjNode];		// 上下左右隣(adjacent)の石の色
+		int adjColor = pBoard->ValueOf(adjNode);		// 上下左右隣(adjacent)の石の色
 
 		// 隣に、呼吸点が 1 個の相手の石があれば、それは取ることができます。
 		if (adjColor == invColor && liberties[iDir].liberty == 1) {
@@ -45,7 +45,7 @@ bool NoHitSuicide::IsThis(
 		flgMove = Move::MoveOne(hConsoleWindow, node, color, pBoard);		// 石を置きます。コウの位置が変わるかも。
 
 											// 石を置く前の状態に戻します。
-		pBoard->table[node] = 0;					// 置いた石を消します。
+		pBoard->SetValue(node, 0);					// 置いた石を消します。
 		pBoard->kouNode = temp_kouNode;			// コウの位置を元に戻します。
 
 		if (flgMove == MOVE_SUICIDE) {		// 自殺手なら

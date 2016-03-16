@@ -37,13 +37,13 @@ int Move::MoveOne(
 	//----------------------------------------
 	// 空点でないところに置こうとした場合
 	//----------------------------------------
-	if (pBoard->table[node] != 0) {
+	if (pBoard->ValueOf(node) != 0) {
 		Core::PRT(hConsoleWindow, _T("move() Err: 空点ではない！z=%04x\n"), node);
 		// 操作を弾きます。
 		return MOVE_EXIST;
 	}
 
-	pBoard->table[node] = color;	// とりあえず置いてみる
+	pBoard->SetValue(node, color);	// とりあえず置いてみる
 
 	// ここから下は、石を置いたあとの盤面です。
 
@@ -53,7 +53,7 @@ int Move::MoveOne(
 	pBoard->ForeachArroundNodes(node, [&pBoard, &tottaIshi, &delNode, color, invClr](int adjNode, bool& isBreak) {
 		Liberty liberty1;
 
-		if (pBoard->table[adjNode] != invClr) {
+		if (pBoard->ValueOf(adjNode) != invClr) {
 			// 隣接する石が　相手の石　でないなら無視。
 			goto gt_Next1;
 		}
@@ -92,7 +92,7 @@ int Move::MoveOne(
 
 		// 操作を弾きます。
 		Core::PRT(hConsoleWindow, _T("move() Err: 自殺手! z=%04x\n"), node);
-		pBoard->table[node] = 0;
+		pBoard->SetValue(node, 0);
 		return MOVE_SUICIDE;
 	}
 
@@ -110,7 +110,7 @@ int Move::MoveOne(
 		pBoard->ForeachArroundNodes(delNode, [&pBoard, &sum, color](int adjNode, bool& isBreak) {
 			Liberty liberty2;
 
-			if (pBoard->table[adjNode] != color) {
+			if (pBoard->ValueOf(adjNode) != color) {
 				goto gt_Next2;
 			}
 

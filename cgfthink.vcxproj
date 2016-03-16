@@ -135,12 +135,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="header\h090_core____\n090_100_core.h" />
+    <ClInclude Include="header\h190_board___\n190_050_abstractBoard.h" />
     <ClInclude Include="header\h190_board___\n190_150_liberty.h" />
     <ClInclude Include="header\h190_board___\n190_100_board.h" />
     <ClInclude Include="header\h190_board___\n190_200_libertyOfNodes.h" />
     <ClInclude Include="header\h300_move____\n300_100_move.h" />
     <ClInclude Include="header\h390_explain_\n390_100_explain.h" />
     <ClInclude Include="header\h480_view____\n480_100_boardView.h" />
+    <ClInclude Include="header\h480_view____\n480_200_libertyOfNodesView.h" />
     <ClInclude Include="header\h490_endgame_\n490_100_endgame.h" />
     <ClInclude Include="header\h670_noHit___\n670_000_noHit.h" />
     <ClInclude Include="header\h670_noHit___\n670_050_noHitSuicide.h" />
@@ -156,11 +158,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\s090_core____\n090_100_core.cpp" />
+    <ClCompile Include="source\s190_board___\n190_050_abstractBoard.cpp" />
     <ClCompile Include="source\s190_board___\n190_150_liberty.cpp" />
     <ClCompile Include="source\s190_board___\n190_200_libertyOfNodes.cpp" />
     <ClCompile Include="source\s190_board___\n190_100_board.cpp" />
     <ClCompile Include="source\s300_move____\n300_100_move.cpp" />
     <ClCompile Include="source\s480_view____\n480_100_boardView.cpp" />
+    <ClCompile Include="source\s480_view____\n480_200_libertyOfNodesView.cpp" />
     <ClCompile Include="source\s490_endgame_\n490_100_endgame.cpp" />
     <ClCompile Include="source\s670_noHit___\n670_000_noHit.cpp" />
     <ClCompile Include="source\s670_noHit___\n670_050_noHitSuicide.cpp" />

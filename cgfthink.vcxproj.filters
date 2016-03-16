@@ -129,6 +129,12 @@
     <ClInclude Include="header\h700_think___\n700_100_evaluation.h">
       <Filter>Header Files\h700_think___</Filter>
     </ClInclude>
+    <ClInclude Include="header\h480_view____\n480_200_libertyOfNodesView.h">
+      <Filter>Header Files\h480_view____</Filter>
+    </ClInclude>
+    <ClInclude Include="header\h190_board___\n190_050_abstractBoard.h">
+      <Filter>Header Files\h190_board___</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\s190_board___\n190_200_libertyOfNodes.cpp">
@@ -184,6 +190,12 @@
     </ClCompile>
     <ClCompile Include="source\s700_think___\n700_100_evaluation.cpp">
       <Filter>Source Files\s700_think___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s480_view____\n480_200_libertyOfNodesView.cpp">
+      <Filter>Source Files\s480_view____</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s190_board___\n190_050_abstractBoard.cpp">
+      <Filter>Source Files\s190_board___</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

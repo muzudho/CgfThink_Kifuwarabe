@@ -27,7 +27,7 @@ int Evaluation::Evaluate(
 	HitTuke					hitTuke;		// 相手の石に積極的にツケるようにする仕組み。
 	int score = 0;					// 読んでいる手の評価値
 
-	if (pBoard->table[node]) {
+	if (pBoard->ValueOf(node)) {
 		// 石があるか、枠なら
 		//PRT(_T("石があるか、枠。 \n"));
 		flgAbort	= 1;
@@ -48,7 +48,7 @@ int Evaluation::Evaluate(
 
 	Liberty liberties[4];// 上隣 → 右隣 → 下隣 → 左隣
 	pBoard->ForeachArroundDirAndNodes(node, [&pBoard, &liberties](int iDir, int adjNode, bool& isBreak) {
-		int adjColor = pBoard->table[adjNode];		// 上下左右隣(adjacent)の石の色
+		int adjColor = pBoard->ValueOf(adjNode);		// 上下左右隣(adjacent)の石の色
 
 		liberties[iDir].Count(adjNode, pBoard);						// 隣の石（または連）の呼吸点　の数を数えます。
 	});

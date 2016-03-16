@@ -23,7 +23,7 @@ int HitTuke::Evaluate(
 
 	// 評価値の計算（４方向分繰り返す）
 	pBoard->ForeachArroundDirAndNodes(node, [&pBoard,&liberties,&score, invColor](int iDir,int adjNode, bool& isBreak) {
-		int adjColor = pBoard->table[adjNode];		// その色
+		int adjColor = pBoard->ValueOf(adjNode);		// その色
 
 		score +=
 			(adjColor == invColor)		// 隣の石

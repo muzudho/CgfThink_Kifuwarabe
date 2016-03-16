@@ -23,7 +23,7 @@ bool NoHitOwnEye::IsThis(
 	bool result = false;
 
 	pBoard->ForeachArroundDirAndNodes(node, [this,&pBoard,&liberties, color](int iDir, int adjNode, bool& isBreak) {
-		int adjColor = pBoard->table[adjNode];		// 上下左右隣(adjacent)の石の色
+		int adjColor = pBoard->ValueOf(adjNode);		// 上下左右隣(adjacent)の石の色
 
 		// 次の２つは　安全なつながり方です。
 		// (１)枠につなげる。

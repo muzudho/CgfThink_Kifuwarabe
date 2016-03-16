@@ -4,6 +4,15 @@
 
 
 
+void Board::Initialize(int initBoard[])
+{
+	// Œ»İ‹Ç–Ê‚ğŠû•ˆ‚Æ‰Šú”Õ–Ê‚©‚çì‚é
+	for (int iNode = 0; iNode < BOARD_MAX; iNode++) {
+		this->table[iNode] = initBoard[iNode];	// ‰Šú”Õ–Ê‚ğƒRƒs[
+	}
+}
+
+
 int Board::ConvertToNode(int x, int y)
 {
 	return y * 256 + x;
