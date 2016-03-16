@@ -1,23 +1,23 @@
-	#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
+#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
+#include "../../header/h090_core____/n090_100_core.h"
+#include "../../header/h480_view____/n480_100_boardView.h"
 
-	#include "../../header/h090_core____/n090_100_core.h"
-	#include "../../header/h480_view____/n480_100_boardView.h"
 
-	void BoardView::PrintBoard(HANDLE hConsoleWindow, Board* pBoard)
-	{
-		_TCHAR* str[4] = {
-			_T("・"),	// 空き
-			_T("●"),	// 黒石
-			_T("○"),	// 白石
-			_T("＋")		// 枠
-		};
+void BoardView::PrintBoard(HANDLE hConsoleWindow, Board* pBoard)
+{
+	_TCHAR* str[4] = {
+		_T("・"),	// 空き
+		_T("●"),	// 黒石
+		_T("○"),	// 白石
+		_T("＋")		// 枠
+	};
 
-		pBoard->ForeachAllXyWithWaku([&pBoard,&hConsoleWindow,&str](int x,int y) {
-			int node = Board::ConvertToNode(x, y);
-			Core::PRT(hConsoleWindow, _T("%s"), str[pBoard->table[node]]);
-			if (x == pBoard->size + 1) {
-				Core::PRT(hConsoleWindow, _T("\n"));
-			}
-		});
-	}
+	pBoard->ForeachAllXyWithWaku([&pBoard,&hConsoleWindow,&str](int x,int y, bool& isBreak) {
+		int node = Board::ConvertToNode(x, y);
+		Core::PRT(hConsoleWindow, _T("%s"), str[pBoard->table[node]]);
+		if (x == pBoard->size + 1) {
+			Core::PRT(hConsoleWindow, _T("\n"));
+		}
+	});
+}
 

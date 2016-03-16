@@ -1,6 +1,6 @@
-	#include <windows.h>	// rand() 等を使用するために。
-	#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
-	#include "../../header/h090_core____/n090_100_core.h"
+#include <windows.h>	// rand() 等を使用するために。
+#include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
+#include "../../header/h090_core____/n090_100_core.h"
 
 
 // printf()の代用関数。

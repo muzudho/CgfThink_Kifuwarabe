@@ -1,7 +1,3 @@
-//
-// /header/h675_hit_____/h675_100_hitTuke.h
-//
-
 #pragma once
 
 

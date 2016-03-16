@@ -63,21 +63,4 @@ void Liberty::CountElement(int tNode, int color, Board* pBoard)
 	gt_Next:
 		;
 	});
-	/*
-	int adjNode;
-	int iDir;
-	for (iDir = 0; iDir < 4; iDir++) {				// 隣接する四方向
-		adjNode = tNode + pBoard->dir4[iDir];
-		if (this->checkedBoard[adjNode]) {
-			continue;
-		}
-		if (pBoard->table[adjNode] == 0) {				// 空点
-			this->checkedBoard[adjNode] = 1;			// この空点は検索済みとする
-			this->liberty++;							// リバティの数
-		}
-		if (pBoard->table[adjNode] == color) {
-			this->CountElement(adjNode, color, pBoard);	// 未探索の自分の石
-		}
-	}
-	*/
 }

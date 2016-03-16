@@ -25,6 +25,7 @@ Board::Board()
 {
 	this->size = 0;
 	this->kouNode = 0;		// コウになる位置。
+	this->hama[0] = 0;	
 	this->hama[BLACK] = 0;	// 取った石の数
 	this->hama[WHITE] = 0;
 }
@@ -50,14 +51,5 @@ void Board::DeleteRenStones(
 			this->DeleteRenStones(adjNode, color);
 		}
 	});
-	/*
-	int adjNode;	// 上下左右に隣接する交点
-	for (int iDir = 0; iDir < 4; iDir++) {
-		adjNode = tNode + this->dir4[iDir];
-		if (this->table[adjNode] == color) {
-			this->DeleteRenStones(adjNode, color);
-		}
-	}
-	*/
 }
 

@@ -1,8 +1,3 @@
-//
-// /source/s675_hit_____/s675_000_hit.cpp
-//
-
-
 #include "../../header/h675_hit_____/n675_000_hit.h"
 
 

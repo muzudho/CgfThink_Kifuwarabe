@@ -32,8 +32,8 @@ public:
 	// 次にコウになる位置。無ければ 0。
 	int kouNode;
 
-	// ハマ。取った石の数のこと。[0]... 黒が取った石の数, [1]...白が取った石の数
-	int hama[2];
+	// ハマ。取った石の数のこと。[0]...空き。[1]... 黒が取った石の数, [2]...白が取った石の数
+	int hama[3];
 
 public:
 
@@ -68,7 +68,13 @@ public:
 			for (int y = 0; y < this->size + 2; y++)
 			{
 				int node = Board::ConvertToNode(x, y);
-				func(node);
+
+				bool isBreak = false;
+				func(node, isBreak);
+				if (isBreak)
+				{
+					break;
+				}
 			}
 		}
 	}
@@ -81,7 +87,12 @@ public:
 		{
 			for (int y = 0; y < this->size + 2; y++)
 			{
-				func(x,y);
+				bool isBreak = false;
+				func(x,y, isBreak);
+				if (isBreak)
+				{
+					break;
+				}
 			}
 		}
 	}
@@ -95,7 +106,13 @@ public:
 			for (int y = 1; y < this->size + 1; y++)
 			{
 				int node = Board::ConvertToNode(x, y);
-				func(node);
+
+				bool isBreak = false;
+				func(node, isBreak);
+				if (isBreak)
+				{
+					break;
+				}
 			}
 		}
 	}

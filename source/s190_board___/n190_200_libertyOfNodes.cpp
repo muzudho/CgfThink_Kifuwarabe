@@ -4,7 +4,7 @@
 
 void LibertyOfNodes::Initialize( Board* pBoard)
 {
-	pBoard->ForeachAllNodesWithoutWaku([this,&pBoard](int node) {
+	pBoard->ForeachAllNodesWithoutWaku([this,&pBoard](int node, bool& isBreak) {
 		Liberty liberty;
 		liberty.Count(node, pBoard);
 

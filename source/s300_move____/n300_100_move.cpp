@@ -69,7 +69,7 @@ int Move::MoveOne(
 			// 呼吸点がないようなら、石（連）は取れます。
 
 			// 囲んだ石の数を　ハマに加点。
-			pBoard->hama[color - 1] += liberty1.renIshi;
+			pBoard->hama[color] += liberty1.renIshi;
 			tottaIshi += liberty1.renIshi;
 			delNode = adjNode;	// 取られた石の座標。コウの判定で使う。
 
@@ -80,38 +80,6 @@ int Move::MoveOne(
 	gt_Next1:
 		;
 	});
-	/*
-	int iDir;
-	int adjNode;						// 四方に隣接する交点
-	for (iDir = 0; iDir < 4; iDir++) {
-		adjNode = node + pBoard->dir4[iDir];
-
-		if (pBoard->table[adjNode] != invClr) {
-			// 隣接する石が　相手の石　でないなら無視。
-			continue;
-		}
-
-		//----------------------------------------
-		// 相手の石が取れるか判定します。
-		//----------------------------------------
-
-		// 隣接する石（連）の呼吸点を数えます。
-		Liberty liberty;
-		liberty.Count(adjNode, pBoard);
-
-		if (liberty.liberty == 0) {
-			// 呼吸点がないようなら、石（連）は取れます。
-
-			// 囲んだ石の数を　ハマに加点。
-			pBoard->hama[color - 1] += liberty.renIshi;
-			tottaIshi += liberty.renIshi;
-			delNode = adjNode;	// 取られた石の座標。コウの判定で使う。
-
-			// 処理が被らないように、囲まれている相手の石（計算済み）を消します。
-			pBoard->DeleteRenStones(adjNode, invClr);
-		}
-	}
-	*/
 
 	//----------------------------------------
 	// 自殺手になるかを判定
@@ -154,19 +122,7 @@ int Move::MoveOne(
 		gt_Next2:
 			;
 		});
-		/*
-		for (iDir = 0; iDir < 4; iDir++) {
-			adjNode = delNode + pBoard->dir4[iDir];
-			if (pBoard->table[adjNode] != color) {
-				continue;
-			}
-			Liberty liberty;
-			liberty.Count(adjNode, pBoard);
-			if (liberty.liberty == 1 && liberty.renIshi == 1) {
-				sum++;
-			}
-		}
-		*/
+
 		if (sum >= 2) {
 			Core::PRT(hConsoleWindow, _T("１つ取られて、コウの位置へ打つと、１つの石を2つ以上取れる？node=%04x\n"), node);
 			// これはエラー。

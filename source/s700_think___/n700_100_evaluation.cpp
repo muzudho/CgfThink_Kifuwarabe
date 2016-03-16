@@ -52,17 +52,6 @@ int Evaluation::Evaluate(
 
 		liberties[iDir].Count(adjNode, pBoard);						// 隣の石（または連）の呼吸点　の数を数えます。
 	});
-	/*
-	int iDir;
-	int adjNode;	// 上下左右隣(adjacent)の交点
-	int adjColor;	// 上下左右隣(adjacent)の石の色
-	for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
-		adjNode = node + pBoard->dir4[iDir];	// 隣接(adjacent)する交点と、
-		adjColor = pBoard->table[adjNode];		// その色
-
-		liberties[iDir].Count(adjNode, pBoard);						// 隣の石（または連）の呼吸点　の数を数えます。
-	}
-	*/
 
 	// 評価値の計算（４方向分）
 	score += hitTuke.Evaluate(invColor, node, liberties, pBoard);

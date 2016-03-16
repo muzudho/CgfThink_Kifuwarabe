@@ -1,5 +1,4 @@
 #include <windows.h>								// rand() “™‚ğg—p‚·‚é‚½‚ß‚ÉB
-
 #include "../../header/h675_hit_____/n675_050_hitRandom.h"
 
 

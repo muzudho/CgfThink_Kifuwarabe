@@ -1,7 +1,3 @@
-//
-// /header/h670_noHit___/h670_100_noHitEye.h
-//
-
 #pragma once
 
 

@@ -35,21 +35,6 @@ bool NoHitSuicide::IsThis(
 			this->flgCapture = 1; 	// 敵石を、取ったフラグ。
 		}
 	});
-	/*
-	int iDir;
-	int adjNode;	// 上下左右隣(adjacent)の交点
-	int adjColor;	// 上下左右隣(adjacent)の石の色
-	for (iDir = 0; iDir < 4; iDir++) {		// 上隣 → 右隣 → 下隣 → 左隣
-		adjNode = node + pBoard->dir4[iDir];	// 隣接(adjacent)する交点と、
-		adjColor = pBoard->table[adjNode];		// その色
-
-		// 隣に、呼吸点が 1 個の相手の石があれば、それは取ることができます。
-		if (adjColor == invColor && liberties[iDir].liberty == 1) {
-			//PRT(_T("敵石を取った。 \n"));
-			this->flgCapture = 1; 	// 敵石を、取ったフラグ。
-		}
-	}
-	*/
 
 	int flgMove;	// 移動結果の種類
 

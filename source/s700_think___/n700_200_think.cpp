@@ -3,10 +3,8 @@
 #include <fstream>
 using namespace std;
 
-
 #include <time.h>		// clock() を使用するために。
 #include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
-
 #include "../../header/h090_core____/n090_100_core.h"
 #include "../../header/h190_board___/n190_100_board.h"
 #include "../../header/h300_move____/n300_100_move.h"
@@ -23,7 +21,6 @@ int Think::Bestmove(
 )
 {
 	Core::PRT(hConsoleWindow, _T("Bestmove開始☆！ \n"));
-	//PRT(_T("color=%d invClr=%d \n", color, invClr));
 
 	int maxScore;	// 今まで読んだ手で一番高かった評価値
 	int bestmoveNode;
@@ -37,8 +34,12 @@ int Think::Bestmove(
 	maxScore = -1;
 	bestmoveNode = 0; // 0 ならパス。
 
-	pBoard->ForeachAllNodesWithoutWaku([color,&maxScore,&bestmoveNode,&pBoard,&hConsoleWindow](int node) {
+	Core::PRT(hConsoleWindow, _T("aa \n"));
+
+	pBoard->ForeachAllNodesWithoutWaku([color,&maxScore,&bestmoveNode,&pBoard,&hConsoleWindow](int node, bool& isBreak) {
 		//PRT(_T("node=%d \n"));
+
+		Core::PRT(hConsoleWindow, _T("bb \n"));
 
 		// この局面で、石を置いたときの評価値
 		int flgAbort = 0;
@@ -58,6 +59,8 @@ int Think::Bestmove(
 	gt_Next:
 		;
 	});
+
+	Core::PRT(hConsoleWindow, _T("cc \n"));
 
 	return bestmoveNode;
 }
