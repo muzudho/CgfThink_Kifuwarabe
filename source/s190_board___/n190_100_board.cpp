@@ -1,3 +1,4 @@
+#include <vector>
 #include "../../header/h090_core____/n090_100_core.h"
 #include "../../header/h190_board___/n190_100_board.h"
 
@@ -13,26 +14,9 @@ void Board::Initialize(int initBoard[])
 }
 
 
-int Board::ConvertToNode(int x, int y)
-{
-	return y * 256 + x;
-}
-
-
-
-
-void Board::ConvertToXy(int& x, int& y, int node)
-{
-	y = node / 256;
-	x = node % 256;
-}
-
-
-
 
 Board::Board()
 {
-	this->size = 0;
 	this->kouNode = 0;		// コウになる位置。
 	this->hama[0] = 0;	
 	this->hama[BLACK] = 0;	// 取った石の数
@@ -41,6 +25,52 @@ Board::Board()
 
 Board::~Board()
 {
+}
+
+int Board::NorthOf(int node)
+{
+	return this->table[node + this->dir4[0]];
+}
+
+int Board::EastOf(int node)
+{
+	return this->table[node + this->dir4[1]];
+}
+
+int Board::SouthOf(int node)
+{
+	return this->table[node + this->dir4[2]];
+}
+
+int Board::WestOf(int node)
+{
+	return this->table[node + this->dir4[3]];
+}
+
+std::vector<int> Board::GetOpenNodesOfStone(int node, int size123)
+{
+	std::vector<int> openNodes;
+
+	// 上側 → 右側 → 下側 → 左側
+	this->ForeachArroundNodes(node,[this,size123,&openNodes](int adjNode, bool& isBreak) {
+		if (adjNode == EMPTY && adjNode != this->kouNode)
+		{
+			// 空きスペースで、コウにならない位置なら。
+			openNodes.push_back(adjNode);
+
+			if (openNodes.size() == size123) {
+				// 計算を打ち切り。
+				isBreak = true;
+				goto gt_Next;
+			}
+		}
+
+	gt_Next:
+		;
+	});
+
+gt_EndMethod:
+	return openNodes;
 }
 
 

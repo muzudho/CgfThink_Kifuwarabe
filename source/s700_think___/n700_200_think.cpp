@@ -7,6 +7,7 @@ using namespace std;
 #include <tchar.h>		// Unicode対応の _T() 関数を使用するために。
 #include "../../header/h090_core____/n090_100_core.h"
 #include "../../header/h190_board___/n190_100_board.h"
+#include "../../header/h190_board___/n190_200_libertyOfNodes.h"
 #include "../../header/h300_move____/n300_100_move.h"
 #include "../../header/h390_explain_/n390_100_explain.h"
 #include "../../header/h490_endgame_/n490_100_endgame.h"
@@ -15,9 +16,10 @@ using namespace std;
 
 
 int Think::Bestmove(
-	HANDLE	hConsoleWindow,
-	int		color,
-	Board*	pBoard
+	HANDLE			hConsoleWindow	,
+	int				color			,
+	Board*			pBoard			,
+	LibertyOfNodes*	pLibertyOfNodes
 )
 {
 	Core::PRT(hConsoleWindow, _T("Bestmove開始☆！ \n"));
@@ -36,7 +38,7 @@ int Think::Bestmove(
 
 	Core::PRT(hConsoleWindow, _T("aa \n"));
 
-	pBoard->ForeachAllNodesWithoutWaku([color,&maxScore,&bestmoveNode,&pBoard,&hConsoleWindow](int node, bool& isBreak) {
+	pBoard->ForeachAllNodesWithoutWaku([color,&maxScore,&bestmoveNode,&pBoard,&pLibertyOfNodes, &hConsoleWindow](int node, bool& isBreak) {
 		//PRT(_T("node=%d \n"));
 
 		Core::PRT(hConsoleWindow, _T("bb \n"));
@@ -44,7 +46,7 @@ int Think::Bestmove(
 		// この局面で、石を置いたときの評価値
 		int flgAbort = 0;
 		int score;		// 読んでいる手の評価値
-		score = Evaluation::Evaluate(hConsoleWindow, flgAbort, color, node, pBoard);
+		score = Evaluation::Evaluate(hConsoleWindow, flgAbort, color, node, pBoard, pLibertyOfNodes);
 		if (flgAbort)
 		{
 			goto gt_Next;

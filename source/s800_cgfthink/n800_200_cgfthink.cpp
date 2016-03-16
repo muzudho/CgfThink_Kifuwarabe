@@ -174,8 +174,12 @@ DLL_EXPORT int cgfgui_thinking(
 		color = WHITE;
 	}
 
+	// 石（または連）の呼吸点を数えて、各交点に格納しておきます。
+	LibertyOfNodes libertyOfNodes;
+	libertyOfNodes.Initialize(&board);
+
 	// １手指します。
-	bestmoveNode = Think::Bestmove(g_hConsoleWindow, color, &board);
+	bestmoveNode = Think::Bestmove(g_hConsoleWindow, color, &board, &libertyOfNodes);
 
 	Core::PRT(g_hConsoleWindow, _T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
 	Core::PRT(g_hConsoleWindow, _T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,flgBlackTurn,boardSize,komi);
@@ -184,8 +188,6 @@ DLL_EXPORT int cgfgui_thinking(
 	BoardView boardView;
 	boardView.PrintBoard(g_hConsoleWindow, &board);
 	 */
-	LibertyOfNodes libertyOfNodes;
-	libertyOfNodes.Initialize(&board);
 
 	LibertyOfNodesView libertyOfNodesView;
 	libertyOfNodesView.PrintBoard(g_hConsoleWindow, &libertyOfNodes);

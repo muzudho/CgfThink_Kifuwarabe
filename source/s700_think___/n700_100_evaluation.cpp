@@ -1,5 +1,6 @@
 #include "../../header/h090_core____/n090_100_core.h"
 #include "../../header/h190_board___/n190_100_board.h"
+#include "../../header/h190_board___/n190_200_libertyOfNodes.h"
 #include "../../header/h300_move____/n300_100_move.h"
 #include "../../header/h670_noHit___/n670_050_noHitSuicide.h"
 #include "../../header/h670_noHit___/n670_100_noHitOwnEye.h"
@@ -7,15 +8,17 @@
 #include "../../header/h670_noHit___/n670_120_noHitHasinohoBocchi.h"
 #include "../../header/h675_hit_____/n675_050_hitRandom.h"
 #include "../../header/h675_hit_____/n675_100_hitTuke.h"
+#include "../../header/h675_hit_____/n675_150_hitAte.h"
 #include "../../header/h700_think___/n700_100_evaluation.h"
 
 
 int Evaluation::Evaluate(
-	HANDLE	hConsoleWindow,
-	int&	flgAbort	,
-	int		color		,
-	int		node        ,
-	Board*  pBoard
+	HANDLE			hConsoleWindow	,
+	int&			flgAbort		,
+	int				color			,
+	int				node			,
+	Board*			pBoard			,
+	LibertyOfNodes* pLibertyOfNodes
 )
 {
 	int invColor = INVCLR(color);	//白黒反転
@@ -25,6 +28,7 @@ int Evaluation::Evaluate(
 	NoHitHasinohoBocchi		noHitHasinoho;	// 端の方には、ぼっち石　を、あまり打たないようにする仕組み。
 	HitRandom				hitRandom;		// 手をばらけさせる仕組み。
 	HitTuke					hitTuke;		// 相手の石に積極的にツケるようにする仕組み。
+	HitAte					hitAte;			// アタリに積極的にアテるようにする仕組み。
 	int score = 0;					// 読んでいる手の評価値
 
 	if (pBoard->ValueOf(node)) {
@@ -41,7 +45,7 @@ int Evaluation::Evaluate(
 		goto gt_EndMethod;
 	}
 
-	score = hitRandom.Evaluate_AdjNode(); // 0 ～ 99 のランダムな評価値を与える。
+	int nHitRandom = hitRandom.Evaluate(); // 0 ～ 99 のランダムな評価値を与える。
 
 	noHitMouth.Research(color, node, pBoard);		// 相手の口に石を打ち込む状況でないか調査。
 
@@ -53,8 +57,11 @@ int Evaluation::Evaluate(
 		liberties[iDir].Count(adjNode, pBoard);						// 隣の石（または連）の呼吸点　の数を数えます。
 	});
 
-	// 評価値の計算（４方向分）
-	score += hitTuke.Evaluate(invColor, node, liberties, pBoard);
+	// ツケるかどうかを評価
+	int nTuke = hitTuke.Evaluate(invColor, node, liberties, pBoard);
+
+	// アテるかどうかを評価
+	int nAte = hitAte.Evaluate(color, node, pBoard, pLibertyOfNodes);
 
 	if (
 		noHitOwnEye.IsThis(color, node, liberties, pBoard)		||		// 自分の眼に打ち込む状況か調査
@@ -65,17 +72,39 @@ int Evaluation::Evaluate(
 	}
 
 	// 2016-03-12 16:45 Add
-	score += noHitMouth.Evaluate(noHitSuicide.flgCapture);
+	int nNoHitMouth = noHitMouth.Evaluate(noHitSuicide.flgCapture);
 
 	// 2016-03-15 00:57 Add
 	noHitHasinoho.Research(node, pBoard);
-	score += noHitHasinoho.Evaluate();
+	int nNoHitHasinoho = noHitHasinoho.Evaluate();
 
-	Core::PRT(hConsoleWindow, _T("ノード=%x "), node);
-	Core::PRT(hConsoleWindow, _T("スコア=%d "), score);
-	//PRT(_T("noHitMouth.adjOppo=%d "), noHitMouth.adjOppo);
-	//PRT(_T("noHitMouth.Evaluate=%d "), noHitMouth.Evaluate(noHitSuicide.flgCapture));
-	Core::PRT(hConsoleWindow, _T("\n"));
+	//----------------------------------------
+	// 集計
+	//----------------------------------------
+	Core::PRT(hConsoleWindow, _T("ノード=%x スコア="), node);
+
+
+	// ばらしたい
+	Core::PRT(hConsoleWindow, _T("%d,"), nHitRandom);
+	score += nHitRandom;
+
+	// マウスに打ちたくない
+	Core::PRT(hConsoleWindow, _T("%d,"), nNoHitMouth);
+	score += nNoHitMouth;
+
+	// ツケたい
+	Core::PRT(hConsoleWindow, _T("%d,"), nTuke);
+	score += nTuke;
+
+	// アテたい
+	Core::PRT(hConsoleWindow, _T("%d,"), nAte);
+	score += nAte;
+
+	// 端の方に打ちたくない
+	Core::PRT(hConsoleWindow, _T("%d,"), nNoHitHasinoho);
+	score += nNoHitHasinoho;
+
+	Core::PRT(hConsoleWindow, _T("[%d] \n"), score);
 
 gt_EndMethod:
 	return score;

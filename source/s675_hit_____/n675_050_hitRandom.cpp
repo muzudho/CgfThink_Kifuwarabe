@@ -11,12 +11,8 @@ HitRandom::HitRandom()
 
 
 
-int HitRandom::Evaluate_AdjNode(
+int HitRandom::Evaluate(
 	)
 {
-	int score = 0;
-
-	score = rand() % 100; // 0 ` 99 ‚Ìƒ‰ƒ“ƒ_ƒ€‚È•]‰¿’l‚ğ—^‚¦‚éB
-
-	return score;
+	return rand() % 100; // 0 ` 99 ‚Ìƒ‰ƒ“ƒ_ƒ€‚È•]‰¿’l‚ğ—^‚¦‚éB
 }

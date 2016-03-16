@@ -135,6 +135,9 @@
     <ClInclude Include="header\h190_board___\n190_050_abstractBoard.h">
       <Filter>Header Files\h190_board___</Filter>
     </ClInclude>
+    <ClInclude Include="header\h675_hit_____\n675_150_hitAte.h">
+      <Filter>Header Files\h675_hit_____</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\s190_board___\n190_200_libertyOfNodes.cpp">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="source\s190_board___\n190_050_abstractBoard.cpp">
       <Filter>Source Files\s190_board___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\s675_hit_____\n675_150_hitAte.cpp">
+      <Filter>Source Files\s675_hit_____</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
