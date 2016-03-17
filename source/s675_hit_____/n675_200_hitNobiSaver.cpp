@@ -1,11 +1,16 @@
 #include "../../header/h190_board___/n190_150_liberty.h"
+#include "../../header/h190_board___/n190_250_markingBoard.h"
 #include "..\..\header\h675_hit_____\n675_200_hitNobiSaver.h"
 
-int HitNobiSaver::Evaluate(Core core, int color, int node, Board * pBoard, LibertyOfNodes * pLibertyOfNodes)
+int HitNobiSaver::Evaluate(
+	Core core, int color, int node, Board * pBoard, LibertyOfNodes * pLibertyOfNodes, MarkingBoard*	pMarkingBoard
+)
 {
 	int score = 0;
 
-	/*
+	// カレント位置をマークします。
+	pMarkingBoard->SetValue(node, 1);
+
 	// まず　呼吸点が１つ、
 	// 次に　呼吸点が２つ、
 	// と、呼吸点の少ない方から順に評価を付けていきます。
@@ -13,7 +18,7 @@ int HitNobiSaver::Evaluate(Core core, int color, int node, Board * pBoard, Liber
 	//
 	for (int iExpectedLiberty = 1; iExpectedLiberty < 4; iExpectedLiberty++)
 	{
-		pBoard->ForeachAllNodesWithoutWaku([&pBoard,&pLibertyOfNodes,&score, color, iExpectedLiberty](int node, bool& isBreak) {
+		pBoard->ForeachAllNodesWithoutWaku([this,&core,&pBoard,&pMarkingBoard,&pLibertyOfNodes,&score, color, iExpectedLiberty](int node, bool& isBreak) {
 
 			int currentLiberty = pLibertyOfNodes->ValueOf(node); // 石を置く前の呼吸点の数。
 
@@ -24,8 +29,9 @@ int HitNobiSaver::Evaluate(Core core, int color, int node, Board * pBoard, Liber
 			)
 			{
 				// 上、右、下、左を調べます。
-				pBoard->ForeachArroundNodes(node, [&pBoard,&score, color, node, currentLiberty](int adjNode, bool& isBreak) {
-					if (pBoard->ValueOf(adjNode) == EMPTY)
+				pBoard->ForeachArroundNodes(node, [this,&core,&pBoard,&pLibertyOfNodes,&pMarkingBoard,&score, color, node, currentLiberty](int adjNode, bool& isBreak) {
+					int adjColor = pBoard->ValueOf(adjNode);
+					if (adjColor == EMPTY)
 					{
 						// わたしの石の北隣にある空きスペースの位置。
 
@@ -42,7 +48,7 @@ int HitNobiSaver::Evaluate(Core core, int color, int node, Board * pBoard, Liber
 						else
 						{
 							// ツケて　呼吸点が増えているので、どれだけ増えたかを数えます。
-							int upLiberty = futureLiberty - currentLiberty;
+							int upLiberty = futureLiberty.liberty - currentLiberty;
 
 							score += 40  // 40を基本に。
 								+
@@ -62,13 +68,14 @@ int HitNobiSaver::Evaluate(Core core, int color, int node, Board * pBoard, Liber
 					}
 					else if
 					(
-						pBoard->ValueOf(adjNode) == color // 北隣がコンピューターの石で、
+						adjColor == color // 北隣が自分の石で、
 						&&
-						taikyoku.MarkingBoard.CanDo_North(node) // 北隣のマーキングが 0 なら
+						pMarkingBoard->ValueOf(adjNode) == 0 // 北隣のマーキングが 0 なら
 					)
 					{
 						// 再帰呼び出し
-						if (Util_SasiteNext.FindStone_LibertyWeak(out tryLocation, out tryScore, myStone_location.ToNorth(), currentLiberty, taikyoku))    // 再帰的に検索
+						score = this->Evaluate(core, adjColor, adjNode, pBoard, pLibertyOfNodes, pMarkingBoard);
+						if ( 0 < score )
 						{
 							//found = true;
 						}
@@ -80,6 +87,5 @@ int HitNobiSaver::Evaluate(Core core, int color, int node, Board * pBoard, Liber
 		});
 	}
 
-	*/
 	return score;
 }

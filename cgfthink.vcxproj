@@ -139,6 +139,7 @@
     <ClInclude Include="header\h190_board___\n190_150_liberty.h" />
     <ClInclude Include="header\h190_board___\n190_100_board.h" />
     <ClInclude Include="header\h190_board___\n190_200_libertyOfNodes.h" />
+    <ClInclude Include="header\h190_board___\n190_250_markingBoard.h" />
     <ClInclude Include="header\h300_move____\n300_100_move.h" />
     <ClInclude Include="header\h390_explain_\n390_100_explain.h" />
     <ClInclude Include="header\h480_view____\n480_100_boardView.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="source\s190_board___\n190_150_liberty.cpp" />
     <ClCompile Include="source\s190_board___\n190_200_libertyOfNodes.cpp" />
     <ClCompile Include="source\s190_board___\n190_100_board.cpp" />
+    <ClCompile Include="source\s190_board___\n190_250_markingBoard.cpp" />
     <ClCompile Include="source\s300_move____\n300_100_move.cpp" />
     <ClCompile Include="source\s480_view____\n480_100_boardView.cpp" />
     <ClCompile Include="source\s480_view____\n480_200_libertyOfNodesView.cpp" />

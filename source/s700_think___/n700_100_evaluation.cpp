@@ -9,6 +9,7 @@
 #include "../../header/h675_hit_____/n675_050_hitRandom.h"
 #include "../../header/h675_hit_____/n675_100_hitTuke.h"
 #include "../../header/h675_hit_____/n675_150_hitAte.h"
+#include "../../header/h675_hit_____/n675_200_hitNobiSaver.h"
 #include "../../header/h700_think___/n700_100_evaluation.h"
 
 
@@ -29,7 +30,9 @@ int Evaluation::EvaluateAtNode(
 	HitRandom				hitRandom;		// 手をばらけさせる仕組み。
 	HitTuke					hitTuke;		// 相手の石に積極的にツケるようにする仕組み。
 	HitAte					hitAte;			// アタリに積極的にアテるようにする仕組み。
+	HitNobiSaver			hitNoviServer;	// 助けられる石を積極的にノビるようにする仕組み。
 	int score = 0;					// 読んでいる手の評価値
+	MarkingBoard			markingBoard;
 
 
 	int x, y;
@@ -69,6 +72,11 @@ int Evaluation::EvaluateAtNode(
 	// アテるかどうかを評価
 	int nAte = hitAte.Evaluate(core, color, node, pBoard, pLibertyOfNodes);
 
+	// ノビるかどうかを評価
+	markingBoard.Initialize(pBoard);
+	int nNobiSaver = hitNoviServer.Evaluate(core, color, node, pBoard, pLibertyOfNodes, &markingBoard);
+
+
 	if (
 		noHitOwnEye.IsThis(color, node, liberties, pBoard)		||		// 自分の眼に打ち込む状況か調査
 		noHitSuicide.IsThis(core, color, node, liberties, pBoard)			// 自殺手になる状況でないか調査。
@@ -90,23 +98,27 @@ int Evaluation::EvaluateAtNode(
 	//----------------------------------------
 
 	// ばらしたい
-	core.PRT(_T("%d,"), nHitRandom);
+	core.PRT(_T("b%d,"), nHitRandom);
 	score += nHitRandom;
 
 	// マウスに打ちたくない
-	core.PRT(_T("%d,"), nNoHitMouth);
+	core.PRT(_T("m%d,"), nNoHitMouth);
 	score += nNoHitMouth;
 
 	// ツケたい
-	core.PRT(_T("%d,"), nTuke);
+	core.PRT(_T("t%d,"), nTuke);
 	score += nTuke;
 
 	// アテたい
-	core.PRT(_T("%d,"), nAte);
+	core.PRT(_T("a%d,"), nAte);
 	score += nAte;
 
+	// ノビたい
+	core.PRT(_T("n%d,"), nNobiSaver);
+	score += nNobiSaver;
+
 	// 端の方に打ちたくない
-	core.PRT(_T("%d,"), nNoHitHasinoho);
+	core.PRT(_T("h%d,"), nNoHitHasinoho);
 	score += nNoHitHasinoho;
 
 	core.PRT(_T("[%d] \n"), score);
