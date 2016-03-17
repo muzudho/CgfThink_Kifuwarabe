@@ -26,7 +26,6 @@
 // _____
 class HitAte : Hit {
 public:
-	//HitAte();
 
 	// •]‰¿’l‚ğo‚µ‚Ü‚·B
 	int Evaluate(
@@ -34,6 +33,6 @@ public:
 		int				color,
 		int				node,
 		Board*			pBoard,
-		LibertyOfNodes*	libertyOfNodes
+		LibertyOfNodes*	pLibertyOfNodes
 		);
 };

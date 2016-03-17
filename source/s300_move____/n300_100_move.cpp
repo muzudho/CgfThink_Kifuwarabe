@@ -71,7 +71,8 @@ int Move::MoveOne(
 	pBoard->ForeachArroundNodes(node, [&pBoard, &tottaIshi, &delNode, color, invClr](int adjNode, bool& isBreak) {
 		Liberty liberty1;
 
-		if (pBoard->ValueOf(adjNode) != invClr) {
+		int adjColor = pBoard->ValueOf(adjNode);
+		if (adjColor != invClr) {
 			// 隣接する石が　相手の石　でないなら無視。
 			goto gt_Next1;
 		}
@@ -81,7 +82,7 @@ int Move::MoveOne(
 		//----------------------------------------
 
 		// 隣接する石（連）の呼吸点を数えます。
-		liberty1.Count(adjNode, pBoard);
+		liberty1.Count(adjNode, adjColor, pBoard);
 
 		if (liberty1.liberty == 0) {
 			// 呼吸点がないようなら、石（連）は取れます。
@@ -103,7 +104,7 @@ int Move::MoveOne(
 	// 自殺手になるかを判定
 	//----------------------------------------
 	Liberty liberty;
-	liberty.Count(node, pBoard);
+	liberty.Count(node, color, pBoard);
 
 	if (liberty.liberty == 0) {
 		// 置いた石に呼吸点がない場合。
@@ -128,11 +129,12 @@ int Move::MoveOne(
 		pBoard->ForeachArroundNodes(delNode, [&pBoard, &sum, color](int adjNode, bool& isBreak) {
 			Liberty liberty2;
 
-			if (pBoard->ValueOf(adjNode) != color) {
+			int adjColor = pBoard->ValueOf(adjNode);
+			if (adjColor != color) {
 				goto gt_Next2;
 			}
 
-			liberty2.Count(adjNode, pBoard);
+			liberty2.Count(adjNode, adjColor, pBoard);
 			if (liberty2.liberty == 1 && liberty2.renIshi == 1) {
 				sum++;
 			}

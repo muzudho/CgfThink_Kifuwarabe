@@ -22,7 +22,7 @@ void LibertyOfNodes::Initialize( Board* pBoard)
 
 	pBoard->ForeachAllNodesWithoutWaku([this,&pBoard](int node, bool& isBreak) {
 		Liberty liberty;
-		liberty.Count(node, pBoard);
+		liberty.Count(node, pBoard->ValueOf(node), pBoard);
 
 		// ŒÄ‹z“_‚Ì”‚ðŠo‚¦‚Ä‚¨‚­Œé”Õ‚Å‚·B
 		this->SetValue( node, liberty.liberty);

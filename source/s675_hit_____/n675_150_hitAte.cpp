@@ -7,10 +7,11 @@
 int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNodes* pLibertyOfNodes)
 {
 	int score		= 0;
+	bool isBadMove = false; // 打たない方がマシなとき。
 	int opponent	= INVCLR(color);
 
 	// 上右下左に、相手の石がないか探します。
-	pBoard->ForeachArroundNodes(node, [&core,&pBoard,&pLibertyOfNodes,&score, color, opponent](int adjNode, bool& isBreak) {
+	pBoard->ForeachArroundNodes(node, [&core,&pBoard,&pLibertyOfNodes,&score,&isBadMove, color, opponent](int adjNode, bool& isBreak) {
 		int libertyOfRen = pLibertyOfNodes->ValueOf(adjNode);
 		int x, y;
 		AbstractBoard::ConvertToXy(x, y, adjNode);
@@ -55,10 +56,10 @@ int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNod
 							{
 								// 呼吸点の数比べ。
 								Liberty myLiberty;
-								myLiberty.Count(openNodes[me], pBoard);
+								myLiberty.Count(openNodes[me], color, pBoard);
 
 								Liberty yourLiberty;
-								yourLiberty.Count(openNodes[you], pBoard);
+								yourLiberty.Count(openNodes[you], opponent, pBoard);
 
 								if (0 < myLiberty.liberty)    // 妥当性チェック
 								{
@@ -74,7 +75,8 @@ int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNod
 									{
 										// 人間側の呼吸点の方が、コンピューター側と同じ、あるいは多いので、
 										// 位置 a に置く価値なし。
-										score += 0;
+										//score += 0;
+										isBadMove = true;
 									}
 									else
 									{
@@ -98,6 +100,11 @@ int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNod
 		//core.PRT(_T(";"));
 	});
 
+	if (score < 1 && isBadMove)
+	{
+		// 打ち比べて、打たない方がマシと判断されたとき。
+		score -= 120;
+	}
 
 	return score;
 }

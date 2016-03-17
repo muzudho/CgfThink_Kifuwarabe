@@ -59,9 +59,8 @@ int Evaluation::EvaluateAtNode(
 
 	Liberty liberties[4];// 上隣 → 右隣 → 下隣 → 左隣
 	pBoard->ForeachArroundDirAndNodes(node, [&pBoard, &liberties](int iDir, int adjNode, bool& isBreak) {
-		int adjColor = pBoard->ValueOf(adjNode);		// 上下左右隣(adjacent)の石の色
-
-		liberties[iDir].Count(adjNode, pBoard);						// 隣の石（または連）の呼吸点　の数を数えます。
+		int adjColor = pBoard->ValueOf(adjNode);			// 上下左右隣(adjacent)の石の色
+		liberties[iDir].Count(adjNode, adjColor, pBoard);	// 隣の石（または連）の呼吸点　の数を数えます。
 	});
 
 	// ツケるかどうかを評価

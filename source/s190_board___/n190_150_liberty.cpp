@@ -12,14 +12,14 @@ Liberty::Liberty()
 
 
 
-void Liberty::Count(int node, Board* pBoard)
+void Liberty::Count(int node, int color, Board* pBoard)
 {
-	int thisColor;	// 上下左右隣(adjacent)の石の色
+	//int thisColor;	// 上下左右隣(adjacent)の石の色
 
-	thisColor = pBoard->ValueOf(node);		// その色
+	//thisColor = pBoard->ValueOf(node);		// その色
 
 									// 眼に打ち込まないか、口の中に打ち込まないか、の処理のあとに
-	if (thisColor == 0 || thisColor == WAKU) {
+	if (color == EMPTY || color == WAKU) {
 		// 空っぽか、枠なら。
 		//PRT(_T("空っぽか、枠。 \n"));
 		goto gt_EndMethod;

@@ -21,9 +21,10 @@ public:
 	Liberty();
 
 
-	// 位置 tNode におけるリバティ（石の呼吸点）の数と石の数を計算。結果は liberty 変数に格納。
+	// 位置 node におけるリバティ（石の呼吸点）の数と石の数を計算。結果は liberty 変数に格納。
 	void	Count(
 		int		node,
+		int		color,
 		Board*	pBoard
 	);
 
