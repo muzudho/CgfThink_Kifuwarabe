@@ -23,9 +23,10 @@ int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNod
 
 			std::vector<int> openNodes = pBoard->GetOpenNodesOfStone(core, adjNode, libertyOfRen);
 			//core.PRT(_T("開%d"), openNodes.size());
+
 			if (!openNodes.empty())
 			{
-				// この石（連ではなく）の開いている方向（１方向～３方向）がある場合。
+				// 相手の石（連ではなく）の開いている方向（１方向～３方向）がある場合。
 				int openSize = openNodes.size();
 
 				if (openSize == 1)
@@ -58,14 +59,14 @@ int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNod
 								Liberty myLiberty;
 								myLiberty.Count(openNodes[me], color, pBoard);
 
-								Liberty yourLiberty;
-								yourLiberty.Count(openNodes[you], opponent, pBoard);
-
 								if (0 < myLiberty.liberty)    // 妥当性チェック
 								{
 									// 石を試しに置きます。
 									Move move;
 									move.MoveOne(core, openNodes[me], color, pBoard);
+
+									Liberty yourLiberty;
+									yourLiberty.Count(openNodes[you], opponent, pBoard);
 
 									if (
 										1 == myLiberty.liberty  // 隣接する私（コンピューター）側の（連または）石の呼吸点は１個。

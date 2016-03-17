@@ -14,11 +14,8 @@ Liberty::Liberty()
 
 void Liberty::Count(int node, int color, Board* pBoard)
 {
-	//int thisColor;	// 上下左右隣(adjacent)の石の色
 
-	//thisColor = pBoard->ValueOf(node);		// その色
-
-									// 眼に打ち込まないか、口の中に打ち込まないか、の処理のあとに
+	// 眼に打ち込まないか、口の中に打ち込まないか、の処理のあとに
 	if (color == EMPTY || color == WAKU) {
 		// 空っぽか、枠なら。
 		//PRT(_T("空っぽか、枠。 \n"));
@@ -33,7 +30,8 @@ void Liberty::Count(int node, int color, Board* pBoard)
 		this->checkedBoard[i] = 0;
 	}
 
-	this->CountElement(node, pBoard->ValueOf(node), pBoard);
+	this->CountElement(node, color, pBoard);
+	//this->CountElement(node, pBoard->ValueOf(node), pBoard);
 
 gt_EndMethod:
 	return;
