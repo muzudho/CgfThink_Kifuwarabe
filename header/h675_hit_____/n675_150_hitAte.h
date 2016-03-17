@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include "../h090_core____/n090_100_core.h"
 #include "../h190_board___/n190_200_libertyOfNodes.h"
 #include "../h675_hit_____/n675_000_hit.h"
 
@@ -29,6 +30,7 @@ public:
 
 	// •]‰¿’l‚ğo‚µ‚Ü‚·B
 	int Evaluate(
+		Core			core,
 		int				color,
 		int				node,
 		Board*			pBoard,

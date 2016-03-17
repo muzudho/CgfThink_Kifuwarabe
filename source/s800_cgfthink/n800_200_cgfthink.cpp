@@ -169,6 +169,8 @@ DLL_EXPORT int cgfgui_thinking(
 	// 石（または連）の呼吸点を数えて、各交点に格納しておきます。
 	LibertyOfNodes libertyOfNodes;
 	libertyOfNodes.Initialize(&board);
+	LibertyOfNodesView libertyOfNodesView;
+	libertyOfNodesView.PrintBoard(core, &libertyOfNodes);
 
 	// １手指します。
 	bestmoveNode = Think::Bestmove(core, color, &board, &libertyOfNodes);
@@ -180,9 +182,6 @@ DLL_EXPORT int cgfgui_thinking(
 	BoardView boardView;
 	boardView.PrintBoard(g_hConsoleWindow, &board);
 	 */
-
-	LibertyOfNodesView libertyOfNodesView;
-	libertyOfNodesView.PrintBoard(core, &libertyOfNodes);
 
 	return bestmoveNode;
 }

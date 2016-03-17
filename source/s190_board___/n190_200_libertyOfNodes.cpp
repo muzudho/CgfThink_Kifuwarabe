@@ -4,7 +4,6 @@
 
 LibertyOfNodes::LibertyOfNodes()
 {
-	this->size = 0;
 }
 
 LibertyOfNodes::~LibertyOfNodes()
@@ -13,12 +12,12 @@ LibertyOfNodes::~LibertyOfNodes()
 
 void LibertyOfNodes::Initialize( Board* pBoard)
 {
-	this->size = pBoard->GetSize();
+	this->SetSize( pBoard->GetSize());
 
 	// 枠を 0 に初期化。
-	pBoard->ForeachAllNodesOfWaku([this](int node, bool& isBreak) {
+	this->ForeachAllNodesOfWaku([this](int node, bool& isBreak) {
 		// 呼吸点の数を覚えておく碁盤です。
-		this->table[node] = 0;
+		this->SetValue( node, 0);
 	});
 
 	pBoard->ForeachAllNodesWithoutWaku([this,&pBoard](int node, bool& isBreak) {
@@ -26,6 +25,6 @@ void LibertyOfNodes::Initialize( Board* pBoard)
 		liberty.Count(node, pBoard);
 
 		// 呼吸点の数を覚えておく碁盤です。
-		this->table[node] = liberty.liberty;
+		this->SetValue( node, liberty.liberty);
 	});
 }

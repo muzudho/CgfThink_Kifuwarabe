@@ -12,7 +12,7 @@
 #include "../../header/h700_think___/n700_100_evaluation.h"
 
 
-int Evaluation::Evaluate(
+int Evaluation::EvaluateAtNode(
 	Core			core			,
 	int&			flgAbort		,
 	int				color			,
@@ -31,16 +31,23 @@ int Evaluation::Evaluate(
 	HitAte					hitAte;			// アタリに積極的にアテるようにする仕組み。
 	int score = 0;					// 読んでいる手の評価値
 
+
+	int x, y;
+	AbstractBoard::ConvertToXy(x, y, node);
+	int libertyOfRen = pLibertyOfNodes->ValueOf(node);
+	core.PRT(_T("(%d,%d) LibRen=%d スコア="), x, y, libertyOfRen);
+
+
 	if (pBoard->ValueOf(node)) {
 		// 石があるか、枠なら
-		//PRT(_T("石があるか、枠。 \n"));
+		core.PRT(_T("石があるか、枠。 \n"));
 		flgAbort	= 1;
 		goto gt_EndMethod;
 	}
 
 	if (node == pBoard->kouNode) {
 		// コウになる位置なら
-		//PRT(_T("コウ。 \n"));
+		core.PRT(_T("コウ。 \n"));
 		flgAbort	= 1;
 		goto gt_EndMethod;
 	}
@@ -61,12 +68,13 @@ int Evaluation::Evaluate(
 	int nTuke = hitTuke.Evaluate(invColor, node, liberties, pBoard);
 
 	// アテるかどうかを評価
-	int nAte = hitAte.Evaluate(color, node, pBoard, pLibertyOfNodes);
+	int nAte = hitAte.Evaluate(core, color, node, pBoard, pLibertyOfNodes);
 
 	if (
 		noHitOwnEye.IsThis(color, node, liberties, pBoard)		||		// 自分の眼に打ち込む状況か調査
 		noHitSuicide.IsThis(core, color, node, liberties, pBoard)			// 自殺手になる状況でないか調査。
 	) {
+		core.PRT(_T("自分の眼、または自殺手を回避。 \n"));
 		flgAbort = 1;
 		goto gt_EndMethod;
 	}
@@ -81,8 +89,6 @@ int Evaluation::Evaluate(
 	//----------------------------------------
 	// 集計
 	//----------------------------------------
-	core.PRT(_T("ノード=%x スコア="), node);
-
 
 	// ばらしたい
 	core.PRT(_T("%d,"), nHitRandom);

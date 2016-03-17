@@ -9,7 +9,7 @@ void Board::Initialize(int initBoard[])
 {
 	// 現在局面を棋譜と初期盤面から作る
 	for (int iNode = 0; iNode < BOARD_MAX; iNode++) {
-		this->table[iNode] = initBoard[iNode];	// 初期盤面をコピー
+		this->SetValue(iNode, initBoard[iNode]);	// 初期盤面をコピー
 	}
 }
 
@@ -27,33 +27,14 @@ Board::~Board()
 {
 }
 
-int Board::NorthOf(int node)
-{
-	return this->table[node + this->dir4[0]];
-}
-
-int Board::EastOf(int node)
-{
-	return this->table[node + this->dir4[1]];
-}
-
-int Board::SouthOf(int node)
-{
-	return this->table[node + this->dir4[2]];
-}
-
-int Board::WestOf(int node)
-{
-	return this->table[node + this->dir4[3]];
-}
-
-std::vector<int> Board::GetOpenNodesOfStone(int node, int size123)
+std::vector<int> Board::GetOpenNodesOfStone(Core core, int node, int size123)
 {
 	std::vector<int> openNodes;
 
 	// 上側 → 右側 → 下側 → 左側
-	this->ForeachArroundNodes(node,[this,size123,&openNodes](int adjNode, bool& isBreak) {
-		if (adjNode == EMPTY && adjNode != this->kouNode)
+	this->ForeachArroundNodes(node,[this,&core,size123,&openNodes](int adjNode, bool& isBreak) {
+
+		if (this->ValueOf(adjNode) == EMPTY && adjNode != this->kouNode)
 		{
 			// 空きスペースで、コウにならない位置なら。
 			openNodes.push_back(adjNode);
@@ -82,11 +63,11 @@ void Board::DeleteRenStones(
 	)
 {
 	// 指定した位置の石を削除。
-	this->table[tNode] = 0;
+	this->SetValue(tNode, 0);
 
 	// ４方向の石にも同じ処理を行います。
 	this->ForeachArroundNodes(tNode, [this,color]( int adjNode,	bool& isBreak) {
-		if (this->table[adjNode] == color) {
+		if (this->ValueOf(adjNode) == color) {
 			this->DeleteRenStones(adjNode, color);
 		}
 	});

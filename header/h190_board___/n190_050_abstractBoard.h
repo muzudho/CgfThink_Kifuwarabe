@@ -6,7 +6,7 @@
 
 // 碁盤を想定した、枠付きのテーブルです。
 class AbstractBoard {
-protected:
+private:
 	// 盤上の石の色。
 	int table[BOARD_MAX];
 
@@ -38,7 +38,17 @@ public:
 	AbstractBoard();
 	~AbstractBoard();
 
-	int*	GetTable();
+	// 上側に隣接している位置
+	int NorthOf(int node);
+
+	// 右側に隣接している位置
+	int EastOf(int node);
+
+	// 下側に隣接している位置
+	int SouthOf(int node);
+
+	// 左側に隣接している位置
+	int WestOf(int node);
 
 	void	SetSize(int size);
 	int		GetSize();

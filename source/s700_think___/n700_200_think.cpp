@@ -36,17 +36,15 @@ int Think::Bestmove(
 	maxScore = -1;
 	bestmoveNode = 0; // 0 ならパス。
 
-	core.PRT(_T("aa \n"));
-
 	pBoard->ForeachAllNodesWithoutWaku([color,&maxScore,&bestmoveNode,&pBoard,&pLibertyOfNodes, &core](int node, bool& isBreak) {
-		//PRT(_T("node=%d \n"));
-
-		core.PRT(_T("bb \n"));
+		int x, y;
+		AbstractBoard::ConvertToXy(x,y,node);
+		core.PRT(_T("#(%d,%d) "),x,y);
 
 		// この局面で、石を置いたときの評価値
 		int flgAbort = 0;
 		int score;		// 読んでいる手の評価値
-		score = Evaluation::Evaluate(core, flgAbort, color, node, pBoard, pLibertyOfNodes);
+		score = Evaluation::EvaluateAtNode(core, flgAbort, color, node, pBoard, pLibertyOfNodes);
 		if (flgAbort)
 		{
 			goto gt_Next;
@@ -61,8 +59,6 @@ int Think::Bestmove(
 	gt_Next:
 		;
 	});
-
-	core.PRT(_T("cc \n"));
 
 	return bestmoveNode;
 }

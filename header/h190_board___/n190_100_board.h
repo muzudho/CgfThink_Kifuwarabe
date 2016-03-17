@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "../h090_core____/n090_100_core.h"
 #include "../h190_board___/n190_050_abstractBoard.h"
 
 
@@ -32,22 +33,11 @@ public:
 	Board();
 	~Board();
 
-	// 上側に隣接している位置
-	int NorthOf(int node);
-
-	// 右側に隣接している位置
-	int EastOf(int node);
-
-	// 下側に隣接している位置
-	int SouthOf(int node);
-
-	// 左側に隣接している位置
-	int WestOf(int node);
-
 	// 指定したnode（石）に隣接している空きスペース（1以上3以下）を配列に入れて返します。
 	std::vector<int> GetOpenNodesOfStone(
-		int node,
-		int size123 // 1～3 のいずれかを指定してください。
+		Core	core	,
+		int		node	,
+		int		size123		// 1～3 のいずれかを指定してください。
 		);
 
 	// 連になっている石を消す。１個の石でも消す。

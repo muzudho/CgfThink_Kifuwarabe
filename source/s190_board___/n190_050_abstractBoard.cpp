@@ -20,9 +20,24 @@ AbstractBoard::~AbstractBoard()
 {
 }
 
-int* AbstractBoard::GetTable()
+int AbstractBoard::NorthOf(int node)
 {
-	return this->table;
+	return this->ValueOf(node + this->dir4[0]);
+}
+
+int AbstractBoard::EastOf(int node)
+{
+	return this->ValueOf(node + this->dir4[1]);
+}
+
+int AbstractBoard::SouthOf(int node)
+{
+	return this->ValueOf(node + this->dir4[2]);
+}
+
+int AbstractBoard::WestOf(int node)
+{
+	return this->ValueOf(node + this->dir4[3]);
 }
 
 void AbstractBoard::SetSize(int size)
