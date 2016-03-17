@@ -32,30 +32,33 @@ int Evaluation::EvaluateAtNode(
 	HitAte					hitAte;			// アタリに積極的にアテるようにする仕組み。
 	HitNobiSaver			hitNoviServer;	// 助けられる石を積極的にノビるようにする仕組み。
 	int score = 0;					// 読んでいる手の評価値
-	MarkingBoard			markingBoard;
 
+
+	if (pBoard->ValueOf(node) == BLACK || pBoard->ValueOf(node) == WHITE) {
+		// 石があるなら
+		//core.PRT(_T("石がある。"));
+		core.PRT(_T("\n"));
+		flgAbort = 1;
+		goto gt_EndMethod;
+	} else if (pBoard->ValueOf(node) == WAKU) {
+		// 枠なら
+		//core.PRT(_T("枠。"));
+		core.PRT(_T("\n"));
+		flgAbort = 1;
+		goto gt_EndMethod;
+	} else if (node == pBoard->kouNode) {
+		// コウになる位置なら
+		//core.PRT(_T("コウ。 "));
+		core.PRT(_T("\n"));
+		flgAbort = 1;
+		goto gt_EndMethod;
+	}
 
 	int x, y;
 	AbstractBoard::ConvertToXy(x, y, node);
 	int libertyOfRen = pLibertyOfNodes->ValueOf(node);
-	core.PRT(_T("(%d,%d) LibRen=%d スコア="), x, y, libertyOfRen);
 
 
-	if (pBoard->ValueOf(node)) {
-		// 石があるか、枠なら
-		core.PRT(_T("石があるか、枠。 \n"));
-		flgAbort	= 1;
-		goto gt_EndMethod;
-	}
-
-	if (node == pBoard->kouNode) {
-		// コウになる位置なら
-		core.PRT(_T("コウ。 \n"));
-		flgAbort	= 1;
-		goto gt_EndMethod;
-	}
-
-	int nHitRandom = hitRandom.Evaluate(); // 0 ～ 99 のランダムな評価値を与える。
 
 	noHitMouth.Research(color, node, pBoard);		// 相手の口に石を打ち込む状況でないか調査。
 
@@ -72,26 +75,36 @@ int Evaluation::EvaluateAtNode(
 	// アテるかどうかを評価
 	int nAte = hitAte.Evaluate(core, color, node, pBoard, pLibertyOfNodes);
 
-	// ノビるかどうかを評価
-	markingBoard.Initialize(pBoard);
-	int nNobiSaver = hitNoviServer.Evaluate(core, color, node, pBoard, pLibertyOfNodes, &markingBoard);
-
-
-	if (
-		noHitOwnEye.IsThis(color, node, liberties, pBoard)		||		// 自分の眼に打ち込む状況か調査
-		noHitSuicide.IsThis(core, color, node, liberties, pBoard)			// 自殺手になる状況でないか調査。
-	) {
-		core.PRT(_T("自分の眼、または自殺手を回避。 \n"));
+	if (noHitOwnEye.IsThis(color, node, liberties, pBoard)) {// 自分の眼に打ち込む状況か調査
+		core.PRT(_T("自分の眼に打ち込むのを回避。"));
+		core.PRT(_T("\n"));
 		flgAbort = 1;
 		goto gt_EndMethod;
 	}
 
-	// 2016-03-12 16:45 Add
+	if (noHitSuicide.IsThis(core, color, node, liberties, pBoard)) {// 自殺手になる状況でないか調査。
+		core.PRT(_T("自殺手を回避。"));
+		core.PRT(_T("\n"));
+		flgAbort = 1;
+		goto gt_EndMethod;
+	}
+
+	//core.PRT(_T("(%d,%d) "), x, y);
+	core.PRT(_T("LibRen=%d スコア="), libertyOfRen);
+
+	int nHitRandom = hitRandom.Evaluate(); // 0 ～ 99 のランダムな評価値を与える。
+
+	//----------------------------------------
+	// 自分の眼を埋める、自殺手を打つ、のチェック終了後にする処理
+	//----------------------------------------
+
 	int nNoHitMouth = noHitMouth.Evaluate(noHitSuicide.flgCapture);
 
-	// 2016-03-15 00:57 Add
 	noHitHasinoho.Research(node, pBoard);
 	int nNoHitHasinoho = noHitHasinoho.Evaluate();
+
+	// ノビるかどうかを評価
+	int nNobiSaver = hitNoviServer.Evaluate(core, color, node, pBoard, pLibertyOfNodes);
 
 	//----------------------------------------
 	// 集計

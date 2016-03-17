@@ -1,91 +1,73 @@
 #include "../../header/h190_board___/n190_150_liberty.h"
-#include "../../header/h190_board___/n190_250_markingBoard.h"
 #include "..\..\header\h675_hit_____\n675_200_hitNobiSaver.h"
 
 int HitNobiSaver::Evaluate(
-	Core core, int color, int node, Board * pBoard, LibertyOfNodes * pLibertyOfNodes, MarkingBoard*	pMarkingBoard
+	Core			core			,
+	int				color			,
+	int				node			,
+	Board*			pBoard			,
+	LibertyOfNodes* pLibertyOfNodes
 )
 {
 	int score = 0;
 
-	// カレント位置をマークします。
-	pMarkingBoard->SetValue(node, 1);
+	// 石を置く前の、上、右、下、左　にある自分の石（または連）の呼吸点の数の合計。
+	int currentAdjLibertySum = 0;
+	pLibertyOfNodes->ForeachArroundNodes(node, [&pBoard,&pLibertyOfNodes, &currentAdjLibertySum, color](int adjNode, bool& isBreak) {
+		if (pBoard->ValueOf(adjNode)== color)//自分の石
+		{
+			currentAdjLibertySum += pLibertyOfNodes->ValueOf(adjNode);
+		}
+	});
 
-	// まず　呼吸点が１つ、
-	// 次に　呼吸点が２つ、
-	// と、呼吸点の少ない方から順に評価を付けていきます。
-	// 盤面を４回探し回ることになります。
-	//
-	for (int iExpectedLiberty = 1; iExpectedLiberty < 4; iExpectedLiberty++)
+	//----------------------------------------
+	// 危機でも無いのに伸ばしてしまうということがないよう、呼吸点が 1～3 のときを危機と定義します。
+	//----------------------------------------
+	if (!(0<currentAdjLibertySum && currentAdjLibertySum<4))
 	{
-		pBoard->ForeachAllNodesWithoutWaku([this,&core,&pBoard,&pMarkingBoard,&pLibertyOfNodes,&score, color, iExpectedLiberty](int node, bool& isBreak) {
-
-			int currentLiberty = pLibertyOfNodes->ValueOf(node); // 石を置く前の呼吸点の数。
-
-			if (
-				pBoard->ValueOf(node) == color // 脅かされているかもしれない自分の石
-				&&
-				currentLiberty == iExpectedLiberty // 呼吸点の数
-			)
-			{
-				// 上、右、下、左を調べます。
-				pBoard->ForeachArroundNodes(node, [this,&core,&pBoard,&pLibertyOfNodes,&pMarkingBoard,&score, color, node, currentLiberty](int adjNode, bool& isBreak) {
-					int adjColor = pBoard->ValueOf(adjNode);
-					if (adjColor == EMPTY)
-					{
-						// わたしの石の北隣にある空きスペースの位置。
-
-						// 空きスペースに石を置いたと考えて、石を置いた局面のその自分の石（または連）の呼吸点を数えます。
-						Liberty futureLiberty;
-						futureLiberty.Count(adjNode, color, pBoard);
-
-						// 評価値計算
-						if (futureLiberty.liberty <= currentLiberty)
-						{
-							// ツケて　呼吸点が減っているようでは話しになりません。
-							//score += 0;
-						}
-						else
-						{
-							// ツケて　呼吸点が増えているので、どれだけ増えたかを数えます。
-							int upLiberty = futureLiberty.liberty - currentLiberty;
-
-							score += 40  // 40を基本に。
-								+
-								(upLiberty - 1) * 50    // 呼吸点が２以上増えるなら、
-														// 呼吸点が１増えるたびに 50 点のボーナス。
-								/
-								(currentLiberty * currentLiberty * currentLiberty)  // ツケる前の呼吸点の数が大きいほど、
-																					// スコアが減る（緊急の関心を薄れさせる）仕掛け。
-																					// 呼吸点 1 = 1／1 点
-																					// 呼吸点 2 = 1／8 点
-																					// 呼吸点 3 = 1／27 点
-																					// 呼吸点 4 = 1／64 点
-								;
-						}
-
-						//found = true;
-					}
-					else if
-					(
-						adjColor == color // 北隣が自分の石で、
-						&&
-						pMarkingBoard->ValueOf(adjNode) == 0 // 北隣のマーキングが 0 なら
-					)
-					{
-						// 再帰呼び出し
-						score = this->Evaluate(core, adjColor, adjNode, pBoard, pLibertyOfNodes, pMarkingBoard);
-						if ( 0 < score )
-						{
-							//found = true;
-						}
-					}
-
-				});
-			}
-
-		});
+		// 危機じゃなかった。
+		goto gt_EndMethod;
 	}
 
+	// 呼吸点に自分の石を置いたと考えて、石を置いた局面のその自分の石（または連）の呼吸点を数えます。
+	Liberty futureLiberty;
+	futureLiberty.Count(node, color, pBoard);
+
+	// 評価値計算
+	/*
+	if (0== currentAdjLibertySum)
+	{
+		// FIXME:
+		// 0による除算を回避するために計算を省略。
+	}
+	else
+	 */
+	if (futureLiberty.liberty <= currentAdjLibertySum)
+	{
+		// ツケて　呼吸点が増えていないようでは話しになりません。
+		//score += 0;
+	}
+	else
+	{
+		// ツケて　呼吸点が増えているので、どれだけ増えたかを数えます。
+		int upLiberty = futureLiberty.liberty - currentAdjLibertySum;
+
+		//score += 40  // 40を基本に。
+		score += 1  // 1 を基本に。
+			+
+			(upLiberty - 1) * 50    // 呼吸点が２以上増えるなら、
+									// 呼吸点が１増えるたびに 50 点のボーナス。
+			/
+			(currentAdjLibertySum * currentAdjLibertySum * currentAdjLibertySum)
+									// ツケる前の呼吸点の数が大きいほど、
+									// スコアが減る（緊急の関心を薄れさせる）仕掛け。
+									// 呼吸点 1 = 1／1 点
+									// 呼吸点 2 = 1／8 点
+									// 呼吸点 3 = 1／27 点
+									// 呼吸点 4 = 1／64 点
+			;
+	}
+	
+gt_EndMethod:
 	return score;
 }

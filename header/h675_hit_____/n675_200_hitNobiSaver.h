@@ -3,7 +3,6 @@
 
 #include "../h090_core____/n090_100_core.h"
 #include "../h190_board___/n190_200_libertyOfNodes.h"
-#include "../h190_board___/n190_250_markingBoard.h"
 #include "../h675_hit_____/n675_000_hit.h"
 
 // 助けられそうな石を　ノビ　させようとします。
@@ -30,7 +29,6 @@ public:
 		int				color,
 		int				node,
 		Board*			pBoard,
-		LibertyOfNodes*	pLibertyOfNodes,
-		MarkingBoard*	pMarkingBoard
-		);
+		LibertyOfNodes*	pLibertyOfNodes
+	);
 };
