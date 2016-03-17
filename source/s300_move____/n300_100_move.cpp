@@ -4,6 +4,16 @@
 #include "../../header/h300_move____/n300_100_move.h"
 
 
+Move::Move()
+{
+	this->kouNodeForUndo = 0;
+	this->moveNodeForUndo = 0;
+}
+
+Move::~Move()
+{
+}
+
 int Move::MoveOne(
 	Core core,
 	int node,
@@ -11,6 +21,14 @@ int Move::MoveOne(
 	Board* pBoard
 	)
 {
+	//----------------------------------------
+	// Undo用に記憶
+	//----------------------------------------
+	this->kouNodeForUndo = pBoard->kouNode;		// コウの位置を退避
+	this->moveNodeForUndo = node;				// 石を置いた位置を記憶
+
+	//----------------------------------------
+
 	int sum;
 	int delNode		= 0;
 	int tottaIshi	= 0;				// 取った石の合計
@@ -141,4 +159,14 @@ int Move::MoveOne(
 
 	// 操作を受け入れます。
 	return MOVE_SUCCESS;
+}
+
+void Move::UndoOnce(Core core, Board * pBoard)
+{
+	// 石を置く前の状態に戻します。
+	pBoard->kouNode = this->kouNodeForUndo;			// コウの位置を元に戻します。
+	pBoard->SetValue(this->moveNodeForUndo, 0);		// 置いた石を消します。
+
+	this->kouNodeForUndo = 0;
+	this->moveNodeForUndo = 0;
 }

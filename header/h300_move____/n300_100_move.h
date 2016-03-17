@@ -24,12 +24,23 @@ enum MoveResult {
 
 class Move {
 public:
+	// 1手進めたことで消えたコウの場所を覚えておくものです。（戻せるのは１回だけです）
+	int kouNodeForUndo;
+	// 石を置いた位置を覚えておくものです。（戻せるのは１回だけです）
+	int moveNodeForUndo;
+public:
+	Move();
+	~Move();
+
 	// 1手進める。
-	static int	MoveOne(
+	int	MoveOne(
 		Core core,
 		int node,	// 座標
 		int color,		// 石の色
 		Board* pBoard
 		);
+
+	// 1手戻す。（戻せるのは１回だけです）
+	void UndoOnce(Core core, Board* pBoard);
 };
 

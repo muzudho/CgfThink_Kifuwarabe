@@ -124,7 +124,8 @@ DLL_EXPORT int cgfgui_thinking(
 		color	= kifu[iTesuu][1];	// 石の色
 		time	= kifu[iTesuu][2];	// 消費時間
 		thoughtTime[iTesuu & 1] += time; // 手数の下1桁を見て [0]先手、[1]後手。
-		if (Move::MoveOne(core, node, color, &board) != MOVE_SUCCESS) {
+		Move move;
+		if (move.MoveOne(core, node, color, &board) != MOVE_SUCCESS) {
 			// 動かせなければそこで止める。（エラーがあった？？）
 			core.PRT(_T("棋譜を進められなかったので止めた☆ \n"));
 			break;

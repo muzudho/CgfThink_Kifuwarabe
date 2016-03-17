@@ -1,5 +1,7 @@
 #include <tchar.h> // Unicode対応の _T() 関数を使用するために。
 #include "../../header/h090_core____/n090_100_core.h"
+#include "../../header/h190_board___/n190_150_liberty.h"
+#include "../../header/h300_move____/n300_100_move.h"
 #include "..\..\header\h675_hit_____\n675_150_hitAte.h"
 
 int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNodes* pLibertyOfNodes)
@@ -8,7 +10,7 @@ int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNod
 	int opponent	= INVCLR(color);
 
 	// 上右下左に、相手の石がないか探します。
-	pBoard->ForeachArroundNodes(node, [&core,&pBoard,&pLibertyOfNodes,&score, opponent](int adjNode, bool& isBreak) {
+	pBoard->ForeachArroundNodes(node, [&core,&pBoard,&pLibertyOfNodes,&score, color, opponent](int adjNode, bool& isBreak) {
 		int libertyOfRen = pLibertyOfNodes->ValueOf(adjNode);
 		int x, y;
 		AbstractBoard::ConvertToXy(x, y, adjNode);
@@ -23,8 +25,9 @@ int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNod
 			if (!openNodes.empty())
 			{
 				// この石（連ではなく）の開いている方向（１方向～３方向）がある場合。
+				int openSize = openNodes.size();
 
-				if (openNodes.size() == 1)
+				if (openSize == 1)
 				{
 					//core.PRT(_T("Ate!"));
 
@@ -37,6 +40,57 @@ int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNod
 				}
 				else {
 					// アタリ　ではない場合。
+
+					// わたし（コンピューター）が置いたときと、相手（人間）に置き返されたときの
+					// 全パターンについて
+
+					// 配列のインデックスが 0,1 や、0,2 や、 1,2 など、異なるペア com,man になるもの
+					// 全てについて。
+
+					for (int me = 0; me < openSize; me++)
+					{
+						for (int you = 0; you < openSize; you++)
+						{
+							if (me != you)
+							{
+								// 呼吸点の数比べ。
+								Liberty myLiberty;
+								myLiberty.Count(openNodes[me], pBoard);
+
+								Liberty yourLiberty;
+								yourLiberty.Count(openNodes[you], pBoard);
+
+								if (0 < myLiberty.liberty)    // 妥当性チェック
+								{
+									// 石を試しに置きます。
+									Move move;
+									move.MoveOne(core, openNodes[me], color, pBoard);
+
+									if (
+										1 == myLiberty.liberty  // 隣接する私（コンピューター）側の（連または）石の呼吸点は１個。
+										&&
+										0 < yourLiberty.liberty   // 隣接するあなた（人間）側の（連または）石の呼吸点は１個以上。
+									)
+									{
+										// 人間側の呼吸点の方が、コンピューター側と同じ、あるいは多いので、
+										// 位置 a に置く価値なし。
+										score += 0;
+									}
+									else
+									{
+										// コンピューターが置いた手より、
+										// 人間が置く手に、呼吸点が同じ、また多い手がない場合、置く価値あり。
+										score += 120 - 20 * yourLiberty.liberty;
+									}
+
+									// 石を置く前の状態に戻します。
+									move.UndoOnce(core, pBoard);
+								}
+							}
+						}
+					}
+					// 
+
 				}
 			}
 		}
