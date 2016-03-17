@@ -155,6 +155,7 @@
     <ClInclude Include="header\h675_hit_____\n675_100_hitTuke.h" />
     <ClInclude Include="header\h675_hit_____\n675_150_hitAte.h" />
     <ClInclude Include="header\h675_hit_____\n675_200_hitNobiSaver.h" />
+    <ClInclude Include="header\h675_hit_____\n675_250_hitGnugo12Random.h" />
     <ClInclude Include="header\h700_think___\n700_100_evaluation.h" />
     <ClInclude Include="header\h700_think___\n700_200_think.h" />
     <ClInclude Include="header\h800_cgfthink\n800_200_cgfthink.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="source\s675_hit_____\n675_100_hitTuke.cpp" />
     <ClCompile Include="source\s675_hit_____\n675_150_hitAte.cpp" />
     <ClCompile Include="source\s675_hit_____\n675_200_hitNobiSaver.cpp" />
+    <ClCompile Include="source\s675_hit_____\n675_250_hitGnugo12Random.cpp" />
     <ClCompile Include="source\s700_think___\n700_100_evaluation.cpp" />
     <ClCompile Include="source\s700_think___\n700_200_think.cpp" />
     <ClCompile Include="source\s800_cgfthink\n800_200_cgfthink.cpp" />

@@ -10,6 +10,7 @@
 #include "../../header/h675_hit_____/n675_100_hitTuke.h"
 #include "../../header/h675_hit_____/n675_150_hitAte.h"
 #include "../../header/h675_hit_____/n675_200_hitNobiSaver.h"
+#include "../../header/h675_hit_____/n675_250_hitGnugo12Random.h"
 #include "../../header/h700_think___/n700_100_evaluation.h"
 
 
@@ -22,34 +23,35 @@ int Evaluation::EvaluateAtNode(
 	LibertyOfNodes* pLibertyOfNodes
 )
 {
-	int invColor = INVCLR(color);	//白黒反転
-	NoHitSuicide			noHitSuicide;	// 自殺手を打たないようにする仕組み。
-	NoHitOwnEye				noHitOwnEye;	// 自分の眼に打たない仕組み。
-	NoHitMouth				noHitMouth;		// 相手の口に打たない仕組み。
-	NoHitHasinohoBocchi		noHitHasinoho;	// 端の方には、ぼっち石　を、あまり打たないようにする仕組み。
-	HitRandom				hitRandom;		// 手をばらけさせる仕組み。
-	HitTuke					hitTuke;		// 相手の石に積極的にツケるようにする仕組み。
-	HitAte					hitAte;			// アタリに積極的にアテるようにする仕組み。
-	HitNobiSaver			hitNoviServer;	// 助けられる石を積極的にノビるようにする仕組み。
+	int invColor = INVCLR(color);				//白黒反転
+	NoHitSuicide			noHitSuicide;		// 自殺手を打たないようにする仕組み。
+	NoHitOwnEye				noHitOwnEye;		// 自分の眼に打たない仕組み。
+	NoHitMouth				noHitMouth;			// 相手の口に打たない仕組み。
+	NoHitHasinohoBocchi		noHitHasinoho;		// 端の方には、ぼっち石　を、あまり打たないようにする仕組み。
+	HitRandom				hitRandom;			// 手をばらけさせる仕組み。
+	HitTuke					hitTuke;			// 相手の石に積極的にツケるようにする仕組み。
+	HitAte					hitAte;				// アタリに積極的にアテるようにする仕組み。
+	HitNobiSaver			hitNoviServer;		// 助けられる石を積極的にノビるようにする仕組み。
+	HitGnugo12Random		hitGnugo12Random;	// Gnugo1.2を参考にしたランダム。
 	int score = 0;					// 読んでいる手の評価値
 
 
 	if (pBoard->ValueOf(node) == BLACK || pBoard->ValueOf(node) == WHITE) {
 		// 石があるなら
 		//core.PRT(_T("石がある。"));
-		core.PRT(_T("\n"));
+		//core.PRT(_T("\n"));
 		flgAbort = 1;
 		goto gt_EndMethod;
 	} else if (pBoard->ValueOf(node) == WAKU) {
 		// 枠なら
 		//core.PRT(_T("枠。"));
-		core.PRT(_T("\n"));
+		//core.PRT(_T("\n"));
 		flgAbort = 1;
 		goto gt_EndMethod;
 	} else if (node == pBoard->kouNode) {
 		// コウになる位置なら
 		//core.PRT(_T("コウ。 "));
-		core.PRT(_T("\n"));
+		//core.PRT(_T("\n"));
 		flgAbort = 1;
 		goto gt_EndMethod;
 	}
@@ -76,20 +78,20 @@ int Evaluation::EvaluateAtNode(
 	int nAte = hitAte.Evaluate(core, color, node, pBoard, pLibertyOfNodes);
 
 	if (noHitOwnEye.IsThis(color, node, liberties, pBoard)) {// 自分の眼に打ち込む状況か調査
-		core.PRT(_T("自分の眼に打ち込むのを回避。"));
-		core.PRT(_T("\n"));
+		//core.PRT(_T("自分の眼に打ち込むのを回避。"));
+		//core.PRT(_T("\n"));
 		flgAbort = 1;
 		goto gt_EndMethod;
 	}
 
 	if (noHitSuicide.IsThis(core, color, node, liberties, pBoard)) {// 自殺手になる状況でないか調査。
-		core.PRT(_T("自殺手を回避。"));
-		core.PRT(_T("\n"));
+		//core.PRT(_T("自殺手を回避。"));
+		//core.PRT(_T("\n"));
 		flgAbort = 1;
 		goto gt_EndMethod;
 	}
 
-	//core.PRT(_T("(%d,%d) "), x, y);
+	core.PRT(_T("$(%d,%d) "), x, y);
 	core.PRT(_T("LibRen=%d スコア="), libertyOfRen);
 
 	int nHitRandom = hitRandom.Evaluate(); // 0 ～ 99 のランダムな評価値を与える。
@@ -105,6 +107,9 @@ int Evaluation::EvaluateAtNode(
 
 	// ノビるかどうかを評価
 	int nNobiSaver = hitNoviServer.Evaluate(core, color, node, pBoard, pLibertyOfNodes);
+
+	// Gnugo1.2みたいに打ちたい
+	int nHitGnugo12Random = hitGnugo12Random.Evaluate(color,node,pBoard);
 
 	//----------------------------------------
 	// 集計
@@ -133,6 +138,10 @@ int Evaluation::EvaluateAtNode(
 	// 端の方に打ちたくない
 	core.PRT(_T("h%d,"), nNoHitHasinoho);
 	score += nNoHitHasinoho;
+
+	// Gnugo1.2みたいに打ちたい
+	core.PRT(_T("g%d,"), nHitGnugo12Random);
+	score += nHitGnugo12Random;
 
 	core.PRT(_T("[%d] \n"), score);
 

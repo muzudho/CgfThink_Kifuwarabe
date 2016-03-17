@@ -110,7 +110,7 @@ int Move::MoveOne(
 		// ’u‚¢‚½Î‚ÉŒÄ‹z“_‚ª‚È‚¢ê‡B
 
 		// ‘€ì‚ð’e‚«‚Ü‚·B
-		core.PRT(_T("move() Err: Ž©ŽEŽè! z=%04x\n"), node);
+		//core.PRT(_T("move() Err: Ž©ŽEŽè! z=%04x\n"), node);
 		pBoard->SetValue(node, 0);
 		return MOVE_SUICIDE;
 	}
