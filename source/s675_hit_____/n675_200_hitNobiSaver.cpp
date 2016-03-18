@@ -33,11 +33,6 @@ int HitNobiSaver::Evaluate(
 	// 呼吸点に自分の石を置いたと考えて、石を置いた局面のその自分の石（または連）の呼吸点を数えます。
 	Liberty futureLiberty;
 	futureLiberty.Count(node, color, pBoard);
-	{
-		int x, y;
-		AbstractBoard::ConvertToXy(x, y, node);
-		core.PRT(_T("futureLiberty(xy=%d,%d,color=%d) "), x,y, color);
-	}
 
 	// 評価値計算
 	if (futureLiberty.liberty <= currentAdjLibertySum)
@@ -49,9 +44,6 @@ int HitNobiSaver::Evaluate(
 	{
 		// ツケて　呼吸点が増えているので、どれだけ増えたかを数えます。
 		int upLiberty = futureLiberty.liberty - currentAdjLibertySum;
-		core.PRT(_T("futureLiberty.liberty=%d "), futureLiberty.liberty);
-		core.PRT(_T("currentAdjLibertySum=%d "), currentAdjLibertySum);
-		core.PRT(_T("upLiberty=%d "),upLiberty);
 
 		//score += 40  // 40を基本に。
 		score += 1  // 1 を基本に。
@@ -69,6 +61,11 @@ int HitNobiSaver::Evaluate(
 			;
 	}
 	
+	//----------------------------------------
+	// 効き目に倍率を掛けます。
+	//----------------------------------------
+	score *= 80 / 10;
+
 gt_EndMethod:
 	return score;
 }

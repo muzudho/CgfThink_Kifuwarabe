@@ -22,7 +22,9 @@ int Think::Bestmove(
 	LibertyOfNodes*	pLibertyOfNodes
 )
 {
+#ifdef CHECK_LOG
 	core.PRT( _T("Bestmove開始☆！ \n"));
+#endif
 
 	int maxScore;	// 今まで読んだ手で一番高かった評価値
 	int bestmoveNode;
@@ -37,11 +39,11 @@ int Think::Bestmove(
 	bestmoveNode = 0; // 0 ならパス。
 
 	pBoard->ForeachAllNodesWithoutWaku([color,&maxScore,&bestmoveNode,&pBoard,&pLibertyOfNodes, &core](int node, bool& isBreak) {
-		{
+		//{
 			//int x, y;
 			//AbstractBoard::ConvertToXy(x, y, node);
 			//core.PRT(_T("#(%d,%d) "), x, y);
-		}
+		//}
 
 		// この局面で、石を置いたときの評価値
 		int flgAbort = 0;

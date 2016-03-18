@@ -6,12 +6,13 @@
 
 int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNodes* pLibertyOfNodes)
 {
-	int score		= 0;
-	bool isBadMove = false; // 打たない方がマシなとき。
+	int goodScore	= 0;
+	int badScore	= 0;
+	bool isBadMove	= false; // 打たない方がマシなとき。
 	int opponent	= INVCLR(color);
 
 	// 上右下左に、相手の石がないか探します。
-	pBoard->ForeachArroundNodes(node, [&core,&pBoard,&pLibertyOfNodes,&score,&isBadMove, color, opponent](int adjNode, bool& isBreak) {
+	pBoard->ForeachArroundNodes(node, [&core,&pBoard,&pLibertyOfNodes,&goodScore, &badScore,&isBadMove, color, opponent](int adjNode, bool& isBreak) {
 		int libertyOfRen = pLibertyOfNodes->ValueOf(adjNode);
 		int x, y;
 		AbstractBoard::ConvertToXy(x, y, adjNode);
@@ -34,10 +35,10 @@ int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNod
 					//core.PRT(_T("Ate!"));
 
 					// アタリ　の状態です。
-					if (score < 120)
+					if (goodScore < 120)
 					{
 						// 他の指し手に　これといった手がないようなら、アテにいきましょう。
-						score += 120;
+						goodScore += 120;
 					}
 				}
 				else {
@@ -83,7 +84,7 @@ int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNod
 									{
 										// コンピューターが置いた手より、
 										// 人間が置く手に、呼吸点が同じ、また多い手がない場合、置く価値あり。
-										score += 120 - 20 * yourLiberty.liberty;
+										goodScore += 120 - 20 * yourLiberty.liberty;
 									}
 
 									// 石を置く前の状態に戻します。
@@ -101,11 +102,17 @@ int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNod
 		//core.PRT(_T(";"));
 	});
 
-	if (score < 1 && isBadMove)
+	if (badScore < 1 && isBadMove)
 	{
 		// 打ち比べて、打たない方がマシと判断されたとき。
-		score -= 120;
+		badScore -= 120;
 	}
 
-	return score;
+	//----------------------------------------
+	// 効き目に倍率を掛けます。
+	//----------------------------------------
+	goodScore	*= 80 / 10;
+	badScore	*= 120 / 10;
+
+	return goodScore + badScore;
 }

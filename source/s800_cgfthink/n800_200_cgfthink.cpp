@@ -46,9 +46,11 @@ DLL_EXPORT void cgfgui_thinking_init(
 	int* pThinkStoped	// 普段は0。中止ボタンが押されたときに 1 になります。この値が1になった場合は思考を終了してください。
 )
 {
+#ifdef CHECK_LOG
 	// ログ： 動いていることの確認。
 	ofstream outputfile(_T("muzudho_cgfthink_log.txt"));
 	outputfile << _T("called: cgfgui_thinking_init") << endl;
+#endif
 
 	//--------------------
 	// ポインタの受け渡し
@@ -87,14 +89,16 @@ DLL_EXPORT int cgfgui_thinking(
 {
 	int bestmoveNode = 0;	// コンピューターが打つ交点。
 
-	
+	Core core;
+	core.hConsoleWindow = g_hConsoleWindow;
+
+#ifdef CHECK_LOG
 	// ログ： 動いていることの確認。
 	ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
 	outputfile << _T("called: cgfgui_thinking") << endl;
+	core.PRT(_T("cgfgui_thinking 開始☆！ boardSize=%d \n"), boardSize);
+#endif
 
-	Core core;
-	core.hConsoleWindow = g_hConsoleWindow;
-	core.PRT( _T("cgfgui_thinking 開始☆！ boardSize=%d \n"), boardSize);
 
 
 	//--------------------
@@ -170,14 +174,18 @@ DLL_EXPORT int cgfgui_thinking(
 	// 石（または連）の呼吸点を数えて、各交点に格納しておきます。
 	LibertyOfNodes libertyOfNodes;
 	libertyOfNodes.Initialize(&board);
+
+#ifdef CHECK_LOG
 	LibertyOfNodesView libertyOfNodesView;
 	libertyOfNodesView.PrintBoard(core, &libertyOfNodes);
+#endif
 
 	// １手指します。
 	bestmoveNode = Think::Bestmove(core, color, &board, &libertyOfNodes);
 
-	core.PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
-	core.PRT(_T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,flgBlackTurn,boardSize,komi);
+	core.PRT(_T("先手%4d秒　　　後手%4d秒　　　着手(%2d,%2d)\n"), thoughtTime[0], thoughtTime[1], (bestmoveNode & 0xff), (bestmoveNode >> 8));
+	//core.PRT(_T("思考時間：先手=%d秒、後手=%d秒\n"), thoughtTime[0], thoughtTime[1]);
+	//core.PRT(_T("着手=(%2d,%2d)(%04x), 手数=%d,手番=%d,盤size=%d,komi=%.1f\n"),(bestmoveNode&0xff),(bestmoveNode>>8),bestmoveNode, curTesuu,flgBlackTurn,boardSize,komi);
 	
 	/*
 	BoardView boardView;
@@ -193,9 +201,11 @@ DLL_EXPORT void cgfgui_thinking_close(
 	void
 )
 {
+#ifdef CHECK_LOG
 	// ログ： 動いていることの確認。
 	ofstream outputfile(_T("muzudho_cgfthink_log.txt"), ios::app);
 	outputfile << _T("called: cgfgui_thinking_close") << endl;
+#endif
 
 	FreeConsole();
 	// この下に、メモリの解放など必要な場合のコードを記述してください。

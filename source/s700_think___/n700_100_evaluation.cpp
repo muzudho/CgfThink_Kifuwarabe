@@ -38,20 +38,26 @@ int Evaluation::EvaluateAtNode(
 
 	if (pBoard->ValueOf(node) == BLACK || pBoard->ValueOf(node) == WHITE) {
 		// 石があるなら
-		//core.PRT(_T("石がある。"));
-		//core.PRT(_T("\n"));
+#ifdef CHECK_LOG
+		core.PRT(_T("石がある。"));
+		core.PRT(_T("\n"));
+#endif
 		flgAbort = 1;
 		goto gt_EndMethod;
 	} else if (pBoard->ValueOf(node) == WAKU) {
 		// 枠なら
-		//core.PRT(_T("枠。"));
-		//core.PRT(_T("\n"));
+#ifdef CHECK_LOG
+		core.PRT(_T("枠。"));
+		core.PRT(_T("\n"));
+#endif
 		flgAbort = 1;
 		goto gt_EndMethod;
 	} else if (node == pBoard->kouNode) {
 		// コウになる位置なら
-		//core.PRT(_T("コウ。 "));
-		//core.PRT(_T("\n"));
+#ifdef CHECK_LOG
+		core.PRT(_T("コウ。 "));
+		core.PRT(_T("\n"));
+#endif
 		flgAbort = 1;
 		goto gt_EndMethod;
 	}
@@ -78,21 +84,27 @@ int Evaluation::EvaluateAtNode(
 	int nAte = hitAte.Evaluate(core, color, node, pBoard, pLibertyOfNodes);
 
 	if (noHitOwnEye.IsThis(color, node, liberties, pBoard)) {// 自分の眼に打ち込む状況か調査
-		//core.PRT(_T("自分の眼に打ち込むのを回避。"));
-		//core.PRT(_T("\n"));
+#ifdef CHECK_LOG
+		core.PRT(_T("自分の眼に打ち込むのを回避。"));
+		core.PRT(_T("\n"));
+#endif
 		flgAbort = 1;
 		goto gt_EndMethod;
 	}
 
 	if (noHitSuicide.IsThis(core, color, node, liberties, pBoard)) {// 自殺手になる状況でないか調査。
-		//core.PRT(_T("自殺手を回避。"));
-		//core.PRT(_T("\n"));
+#ifdef CHECK_LOG
+		core.PRT(_T("自殺手を回避。"));
+		core.PRT(_T("\n"));
+#endif
 		flgAbort = 1;
 		goto gt_EndMethod;
 	}
 
+#ifdef EVAL_LOG
 	core.PRT(_T("$(%d,%d) "), x, y);
 	core.PRT(_T("LibRen=%d スコア="), libertyOfRen);
+#endif
 
 	int nHitRandom = hitRandom.Evaluate(); // 0 ～ 99 のランダムな評価値を与える。
 
@@ -116,34 +128,50 @@ int Evaluation::EvaluateAtNode(
 	//----------------------------------------
 
 	// ばらしたい
+#ifdef EVAL_LOG
 	core.PRT(_T("b%d,"), nHitRandom);
+#endif
 	score += nHitRandom;
 
 	// マウスに打ちたくない
+#ifdef EVAL_LOG
 	core.PRT(_T("m%d,"), nNoHitMouth);
+#endif
 	score += nNoHitMouth;
 
 	// ツケたい
+#ifdef EVAL_LOG
 	core.PRT(_T("t%d,"), nTuke);
+#endif
 	score += nTuke;
 
 	// アテたい
+#ifdef EVAL_LOG
 	core.PRT(_T("a%d,"), nAte);
+#endif
 	score += nAte;
 
 	// ノビたい
+#ifdef EVAL_LOG
 	core.PRT(_T("n%d,"), nNobiSaver);
+#endif
 	score += nNobiSaver;
 
 	// 端の方に打ちたくない
+#ifdef EVAL_LOG
 	core.PRT(_T("h%d,"), nNoHitHasinoho);
+#endif
 	score += nNoHitHasinoho;
 
 	// Gnugo1.2みたいに打ちたい
+#ifdef EVAL_LOG
 	core.PRT(_T("g%d,"), nHitGnugo12Random);
+#endif
 	score += nHitGnugo12Random;
 
+#ifdef EVAL_LOG
 	core.PRT(_T("[%d] \n"), score);
+#endif
 
 gt_EndMethod:
 	return score;
