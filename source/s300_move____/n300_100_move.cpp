@@ -6,8 +6,6 @@
 
 Move::Move()
 {
-	this->kouNodeForUndo = 0;
-	this->moveNodeForUndo = 0;
 }
 
 Move::~Move()
@@ -24,8 +22,8 @@ int Move::MoveOne(
 	//----------------------------------------
 	// Undo用に記憶
 	//----------------------------------------
-	this->kouNodeForUndo = pBoard->kouNode;		// コウの位置を退避
-	this->moveNodeForUndo = node;				// 石を置いた位置を記憶
+	pBoard->kouNodeForUndo = pBoard->kouNode;		// コウの位置を退避
+	pBoard->moveNodeForUndo = node;				// 石を置いた位置を記憶
 
 	//----------------------------------------
 
@@ -39,6 +37,7 @@ int Move::MoveOne(
 	//----------------------------------------
 	if (node == 0) {
 		// 操作を受け付けます。
+		pBoard->kouNodeForUndo = pBoard->kouNode;
 		pBoard->kouNode = 0;
 		return MOVE_SUCCESS;
 	}
@@ -119,12 +118,10 @@ int Move::MoveOne(
 	// 次にコウになる位置を判定しておく。
 	//----------------------------------------
 
-	pBoard->kouNode = 0;	// コウではない
 
 	// コウになるのは、石を1つだけ取った場合です。
 	if (tottaIshi == 1) {
 		// 取られた石の4方向に、自分の呼吸点が1個の連が1つだけある場合、その位置はコウ。
-		pBoard->kouNode = delNode;	// 取り合えず取られた石の場所をコウの位置とする
 		sum = 0;
 		pBoard->ForeachArroundNodes(delNode, [&pBoard, &sum, color](int adjNode, bool& isBreak) {
 			Liberty liberty2;
@@ -150,9 +147,22 @@ int Move::MoveOne(
 			// 操作を弾きます。
 			return MOVE_FATAL;
 		}
+
 		if (sum == 0) {
+			pBoard->kouNodeForUndo = pBoard->kouNode;
 			pBoard->kouNode = 0;	// コウにはならない。
 		}
+		else
+		{
+			pBoard->kouNodeForUndo = pBoard->kouNode;
+			pBoard->kouNode = delNode;	// 取り合えず取られた石の場所をコウの位置とする
+		}
+	}
+	else
+	{
+		// コウではない
+		pBoard->kouNodeForUndo = pBoard->kouNode;
+		pBoard->kouNode = 0;
 	}
 
 	//----------------------------------------
@@ -166,9 +176,9 @@ int Move::MoveOne(
 void Move::UndoOnce(Core core, Board * pBoard)
 {
 	// 石を置く前の状態に戻します。
-	pBoard->kouNode = this->kouNodeForUndo;			// コウの位置を元に戻します。
-	pBoard->SetValue(this->moveNodeForUndo, 0);		// 置いた石を消します。
+	pBoard->kouNode = pBoard->kouNodeForUndo;			// コウの位置を元に戻します。
+	pBoard->SetValue(pBoard->moveNodeForUndo, 0);		// 置いた石を消します。
 
-	this->kouNodeForUndo = 0;
-	this->moveNodeForUndo = 0;
+	pBoard->kouNodeForUndo = 0;
+	pBoard->moveNodeForUndo = 0;
 }

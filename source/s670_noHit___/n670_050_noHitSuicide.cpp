@@ -40,15 +40,11 @@ bool NoHitSuicide::IsThis(
 
 	if (this->flgCapture == 0) {					// 石が取れない場合
 													// 実際に置いてみて　自殺手かどうか判定
-		//int temp_kouNode = pBoard->kouNode;		// コウの位置を退避
-
 		Move move;
 		flgMove = move.MoveOne(core, node, color, pBoard);		// 石を置きます。コウの位置が変わるかも。
 
 		// 石を置く前の状態に戻します。
 		move.UndoOnce(core, pBoard);
-		//pBoard->SetValue(node, 0);					// 置いた石を消します。
-		//pBoard->kouNode = temp_kouNode;			// コウの位置を元に戻します。
 
 		if (flgMove == MOVE_SUICIDE) {		// 自殺手なら
 											//PRT(_T("自殺手は打たない。 \n"));

@@ -21,6 +21,10 @@
 class Board : public AbstractBoard{
 public:
 
+	// 1手進めたことで消えたコウの場所を覚えておくものです。（戻せるのは１回だけです）
+	int kouNodeForUndo;
+	// 石を置いた位置を覚えておくものです。（戻せるのは１回だけです）
+	int moveNodeForUndo;
 	// 次にコウになる位置。無ければ 0。
 	int kouNode;
 

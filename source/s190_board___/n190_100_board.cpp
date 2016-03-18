@@ -17,7 +17,10 @@ void Board::Initialize(int initBoard[])
 
 Board::Board()
 {
+	this->kouNodeForUndo = 0;
+	this->moveNodeForUndo = 0;
 	this->kouNode = 0;		// コウになる位置。
+
 	this->hama[0] = 0;	
 	this->hama[BLACK] = 0;	// 取った石の数
 	this->hama[WHITE] = 0;
