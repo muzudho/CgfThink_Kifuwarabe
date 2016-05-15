@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+    <ProjectGuid>{37B2CE93-FA97-4C1C-8EBC-31CD3237BCDF}</ProjectGuid>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\bin\KifuwarabeIgoCgfthink\</OutDir>
+    <IntDir>..\bin\KifuwarabeIgoCgfthink\$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\bin\KifuwarabeIgoCgfthink\</OutDir>
+    <IntDir>..\bin\KifuwarabeIgoCgfthink\$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CGFTHINK_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>..\bin\Debug\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>..\bin\Debug\cgfthink.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>..\bin\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>..\bin\Debug\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Debug\cgfthink.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0411</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>..\bin\Debug\cgfthink.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LinkDLL>true</LinkDLL>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OutputFile>..\bin\Debug\cgfthink.dll</OutputFile>
+      <ImportLibrary>..\bin\Debug\cgfthink.lib</ImportLibrary>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CGFTHINK_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>..\bin\Release\</AssemblerListingLocation>
+      <BrowseInformation>true</BrowseInformation>
+      <PrecompiledHeaderOutputFile>..\bin\Release\cgfthink.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>..\bin\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>..\bin\Release\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Release\cgfthink.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0411</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>..\bin\Release\cgfthink.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LinkDLL>true</LinkDLL>
+      <SubSystem>Console</SubSystem>
+      <OutputFile>..\bin\Release\cgfthink.dll</OutputFile>
+      <ImportLibrary>..\bin\Release\cgfthink.lib</ImportLibrary>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="header\n090_core____\n090_100_core.h" />
+    <ClInclude Include="header\n190_board___\n190_050_abstractBoard.h" />
+    <ClInclude Include="header\n190_board___\n190_100_board.h" />
+    <ClInclude Include="header\n190_board___\n190_150_liberty.h" />
+    <ClInclude Include="header\n190_board___\n190_200_libertyOfNodes.h" />
+    <ClInclude Include="header\n190_board___\n190_250_markingBoard.h" />
+    <ClInclude Include="header\n400_robotArm\n400_100_move.h" />
+    <ClInclude Include="header\n700_think___\nn400_tactics_\nnn100_noHit___\n700_400_100_000_noHit.h" />
+    <ClInclude Include="header\n700_think___\nn400_tactics_\nnn100_noHit___\n700_400_100_050_noHitSuicide.h" />
+    <ClInclude Include="header\n700_think___\nn400_tactics_\nnn100_noHit___\n700_400_100_100_noHitOwnEye.h" />
+    <ClInclude Include="header\n700_think___\nn400_tactics_\nnn100_noHit___\n700_400_100_110_noHitMouth.h" />
+    <ClInclude Include="header\n700_think___\nn400_tactics_\nnn100_noHit___\n700_400_100_120_noHitHasinohoBocchi.h" />
+    <ClInclude Include="header\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_000_hit.h" />
+    <ClInclude Include="header\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_050_hitRandom.h" />
+    <ClInclude Include="header\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_100_hitTuke.h" />
+    <ClInclude Include="header\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_150_hitAte.h" />
+    <ClInclude Include="header\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_200_hitNobiSaver.h" />
+    <ClInclude Include="header\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_250_hitGnugo12Random.h" />
+    <ClInclude Include="header\n750_explain_\n750_100_figureType.h" />
+    <ClInclude Include="header\n800_scene___\n800_500_endgame.h" />
+    <ClInclude Include="header\n930_print___\n930_500_boardView.h" />
+    <ClInclude Include="header\n930_print___\n930_520_libertyOfNodesView.h" />
+    <ClInclude Include="header\n950_main____\n950_100_cppBoard.h" />
+    <ClInclude Include="header\n950_main____\n950_500_guiAndThinkInterface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\n090_core____\n090_100_core.cpp" />
+    <ClCompile Include="source\n190_board___\n190_050_abstractBoard.cpp" />
+    <ClCompile Include="source\n190_board___\n190_100_board.cpp" />
+    <ClCompile Include="source\n190_board___\n190_150_liberty.cpp" />
+    <ClCompile Include="source\n190_board___\n190_200_libertyOfNodes.cpp" />
+    <ClCompile Include="source\n190_board___\n190_250_markingBoard.cpp" />
+    <ClCompile Include="source\n400_robotArm\n400_100_move.cpp" />
+    <ClCompile Include="source\n700_think___\nn400_tactics_\nnn100_noHit___\n700_400_100_000_noHit.cpp" />
+    <ClCompile Include="source\n700_think___\nn400_tactics_\nnn100_noHit___\n700_400_100_050_noHitSuicide.cpp" />
+    <ClCompile Include="source\n700_think___\nn400_tactics_\nnn100_noHit___\n700_400_100_100_noHitOwnEye.cpp" />
+    <ClCompile Include="source\n700_think___\nn400_tactics_\nnn100_noHit___\n700_400_100_110_noHitMouth.cpp" />
+    <ClCompile Include="source\n700_think___\nn400_tactics_\nnn100_noHit___\n700_400_100_120_noHitHasinohoBocchi.cpp" />
+    <ClCompile Include="source\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_000_hit.cpp" />
+    <ClCompile Include="source\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_050_hitRandom.cpp" />
+    <ClCompile Include="source\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_100_hitTuke.cpp" />
+    <ClCompile Include="source\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_150_hitAte.cpp" />
+    <ClCompile Include="source\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_200_hitNobiSaver.cpp" />
+    <ClCompile Include="source\n700_think___\nn400_tactics_\nnn200_hit_____\n700_400_200_250_hitGnugo12Random.cpp" />
+    <ClCompile Include="source\n700_think___\nn800_best____\n700_800_100_evaluation.cpp" />
+    <ClCompile Include="source\n700_think___\nn800_best____\n700_800_200_think.cpp" />
+    <ClCompile Include="source\n800_scene___\n800_500_endgame.cpp" />
+    <ClCompile Include="source\n930_view____\n930_500_boardView.cpp" />
+    <ClCompile Include="source\n930_view____\n930_520_libertyOfNodesView.cpp" />
+    <ClCompile Include="source\n950_main____\n950_500_guiAndThinkInterface.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
