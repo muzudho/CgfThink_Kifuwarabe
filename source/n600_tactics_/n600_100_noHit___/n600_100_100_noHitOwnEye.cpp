@@ -1,6 +1,6 @@
-﻿#include "../../header/n190_board___/n190_100_board.h"
-#include "../../header/n190_board___/n190_150_liberty.h"
-#include "../../header/n670_noHit___/n670_100_noHitOwnEye.h"
+﻿#include "../../../header/n190_board___/n190_100_board.h"
+#include "../../../header/n190_board___/n190_150_liberty.h"
+#include "../../../header/n600_tactics_/n600_100_noHit___/n600_100_100_noHitOwnEye.h"
 
 
 

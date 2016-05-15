@@ -1,7 +1,7 @@
 ﻿#include <windows.h>								// rand() 等を使用するために。
-#include "../../header/n190_board___/n190_100_board.h"
-#include "../../header/n190_board___/n190_150_liberty.h"
-#include "../../header/n675_hit_____/n675_250_hitGnugo12Random.h"
+#include "../../../header/n190_board___/n190_100_board.h"
+#include "../../../header/n190_board___/n190_150_liberty.h"
+#include "../../../header/n600_tactics_/n600_200_hit_____/n600_200_250_hitGnugo12Random.h"
 
 
 

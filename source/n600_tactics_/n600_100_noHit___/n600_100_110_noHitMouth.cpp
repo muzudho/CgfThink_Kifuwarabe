@@ -1,5 +1,5 @@
-﻿#include "../../header/n190_board___/n190_100_board.h"
-#include "../../header/n670_noHit___/n670_110_noHitMouth.h"
+﻿#include "../../../header/n190_board___/n190_100_board.h"
+#include "../../../header/n600_tactics_/n600_100_noHit___/n600_100_110_noHitMouth.h"
 
 
 

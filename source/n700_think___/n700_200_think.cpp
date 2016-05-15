@@ -11,8 +11,8 @@ using namespace std;
 #include "../../header/n300_move____/n300_100_move.h"
 #include "../../header/n390_explain_/n390_100_explain.h"
 #include "../../header/n490_endgame_/n490_100_endgame.h"
-#include "../../header/n670_noHit___/n670_050_noHitSuicide.h"
-#include "../../header/n670_noHit___/n670_100_noHitOwnEye.h"
+#include "../../header/n600_tactics_/n600_100_noHit___/n600_100_050_noHitSuicide.h"
+#include "../../header/n600_tactics_/n600_100_noHit___/n600_100_100_noHitOwnEye.h"
 #include "../../header/n700_think___/n700_100_evaluation.h"
 #include "../../header/n700_think___/n700_200_think.h"
 

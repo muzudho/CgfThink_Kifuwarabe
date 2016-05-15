@@ -2,15 +2,18 @@
 #include "../../header/n190_board___/n190_100_board.h"
 #include "../../header/n190_board___/n190_200_libertyOfNodes.h"
 #include "../../header/n300_move____/n300_100_move.h"
-#include "../../header/n670_noHit___/n670_050_noHitSuicide.h"
-#include "../../header/n670_noHit___/n670_100_noHitOwnEye.h"
-#include "../../header/n670_noHit___/n670_110_noHitMouth.h"
-#include "../../header/n670_noHit___/n670_120_noHitHasinohoBocchi.h"
-#include "../../header/n675_hit_____/n675_050_hitRandom.h"
-#include "../../header/n675_hit_____/n675_100_hitTuke.h"
-#include "../../header/n675_hit_____/n675_150_hitAte.h"
-#include "../../header/n675_hit_____/n675_200_hitNobiSaver.h"
-#include "../../header/n675_hit_____/n675_250_hitGnugo12Random.h"
+
+#include "../../header/n600_tactics_/n600_100_noHit___/n600_100_050_noHitSuicide.h"
+#include "../../header/n600_tactics_/n600_100_noHit___/n600_100_100_noHitOwnEye.h"
+#include "../../header/n600_tactics_/n600_100_noHit___/n600_100_110_noHitMouth.h"
+#include "../../header/n600_tactics_/n600_100_noHit___/n600_100_120_noHitHasinohoBocchi.h"
+
+#include "../../header/n600_tactics_/n600_200_hit_____/n600_200_050_hitRandom.h"
+#include "../../header/n600_tactics_/n600_200_hit_____/n600_200_100_hitTuke.h"
+#include "../../header/n600_tactics_/n600_200_hit_____/n600_200_150_hitAte.h"
+#include "../../header/n600_tactics_/n600_200_hit_____/n600_200_200_hitNobiSaver.h"
+#include "../../header/n600_tactics_/n600_200_hit_____/n600_200_250_hitGnugo12Random.h"
+
 #include "../../header/n700_think___/n700_100_evaluation.h"
 
 

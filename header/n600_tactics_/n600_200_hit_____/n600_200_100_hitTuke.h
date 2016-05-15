@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 
-#include "../n190_board___/n190_100_board.h"
-#include "../n190_board___/n190_150_liberty.h"
-#include "../n675_hit_____/n675_000_hit.h"
+#include "../../n190_board___/n190_100_board.h"
+#include "../../n190_board___/n190_150_liberty.h"
+#include "../../n600_tactics_/n600_200_hit_____/n600_200_000_hit.h"
 
 
 // _____

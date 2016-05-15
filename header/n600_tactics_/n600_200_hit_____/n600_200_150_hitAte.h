@@ -1,10 +1,10 @@
 ﻿#pragma once
 
 
-#include "../n090_core____/n090_100_core.h"
-#include "../n190_board___/n190_100_board.h"
-#include "../n190_board___/n190_200_libertyOfNodes.h"
-#include "../n675_hit_____/n675_000_hit.h"
+#include "../../n090_core____/n090_100_core.h"
+#include "../../n190_board___/n190_100_board.h"
+#include "../../n190_board___/n190_200_libertyOfNodes.h"
+#include "../../n600_tactics_/n600_200_hit_____/n600_200_000_hit.h"
 
 // アテようとします。
 //

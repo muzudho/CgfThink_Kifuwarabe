@@ -1,5 +1,5 @@
 ﻿#include <windows.h>								// rand() 等を使用するために。
-#include "../../header/n675_hit_____/n675_050_hitRandom.h"
+#include "../../../header/n600_tactics_/n600_200_hit_____/n600_200_050_hitRandom.h"
 
 
 

@@ -19,23 +19,11 @@
     <Filter Include="Header Files\n700_think___">
       <UniqueIdentifier>{7a9f15bd-5afc-4b17-b5cb-29bb1dc995ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\n675_hit_____">
-      <UniqueIdentifier>{5febfd03-799c-4c3c-b4e5-feedbcb30c96}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\n670_noHit___">
-      <UniqueIdentifier>{498a9cb4-0845-414e-b2b9-57c197399749}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\n800_cgfthink">
       <UniqueIdentifier>{ab5b3ed0-00e7-48e9-adc0-f469b69e7758}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\n700_think___">
       <UniqueIdentifier>{23bac57b-b209-4516-8a37-fbdb8dae0cf4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\n675_hit_____">
-      <UniqueIdentifier>{5c1b73b4-e4d8-4fdf-8588-dac063718a5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\n670_noHit___">
-      <UniqueIdentifier>{4b17c28a-ad00-4ec2-a1db-9559ad68961b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\n490_endgame_">
       <UniqueIdentifier>{4dfad55f-b569-4c3f-872d-7b273a7a79e7}</UniqueIdentifier>
@@ -70,6 +58,24 @@
     <Filter Include="Header Files\n090_core____">
       <UniqueIdentifier>{36a26ab2-6e8a-4e36-91f0-c48a68a3705a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\n600_tactics_">
+      <UniqueIdentifier>{5c1480c0-2cf8-406c-b87b-a54bbf7e6c4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\n600_tactics_\n600_100_noHit___">
+      <UniqueIdentifier>{498a9cb4-0845-414e-b2b9-57c197399749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\n600_tactics_\n600_200_hit_____">
+      <UniqueIdentifier>{5febfd03-799c-4c3c-b4e5-feedbcb30c96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\n600_tactics_">
+      <UniqueIdentifier>{5ef6e650-f9e9-421c-ab1b-405424b13010}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\n600_tactics_\n600_100_noHit___">
+      <UniqueIdentifier>{4b17c28a-ad00-4ec2-a1db-9559ad68961b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\n600_tactics_\n600_200_hit_____">
+      <UniqueIdentifier>{5c1b73b4-e4d8-4fdf-8588-dac063718a5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\n800_cgfthink\n800_100_cppBoard.h">
@@ -83,39 +89,6 @@
     </ClInclude>
     <ClInclude Include="header\n700_think___\n700_200_think.h">
       <Filter>Header Files\n700_think___</Filter>
-    </ClInclude>
-    <ClInclude Include="header\n675_hit_____\n675_000_hit.h">
-      <Filter>Header Files\n675_hit_____</Filter>
-    </ClInclude>
-    <ClInclude Include="header\n675_hit_____\n675_050_hitRandom.h">
-      <Filter>Header Files\n675_hit_____</Filter>
-    </ClInclude>
-    <ClInclude Include="header\n675_hit_____\n675_100_hitTuke.h">
-      <Filter>Header Files\n675_hit_____</Filter>
-    </ClInclude>
-    <ClInclude Include="header\n675_hit_____\n675_150_hitAte.h">
-      <Filter>Header Files\n675_hit_____</Filter>
-    </ClInclude>
-    <ClInclude Include="header\n675_hit_____\n675_200_hitNobiSaver.h">
-      <Filter>Header Files\n675_hit_____</Filter>
-    </ClInclude>
-    <ClInclude Include="header\n675_hit_____\n675_250_hitGnugo12Random.h">
-      <Filter>Header Files\n675_hit_____</Filter>
-    </ClInclude>
-    <ClInclude Include="header\n670_noHit___\n670_000_noHit.h">
-      <Filter>Header Files\n670_noHit___</Filter>
-    </ClInclude>
-    <ClInclude Include="header\n670_noHit___\n670_050_noHitSuicide.h">
-      <Filter>Header Files\n670_noHit___</Filter>
-    </ClInclude>
-    <ClInclude Include="header\n670_noHit___\n670_100_noHitOwnEye.h">
-      <Filter>Header Files\n670_noHit___</Filter>
-    </ClInclude>
-    <ClInclude Include="header\n670_noHit___\n670_110_noHitMouth.h">
-      <Filter>Header Files\n670_noHit___</Filter>
-    </ClInclude>
-    <ClInclude Include="header\n670_noHit___\n670_120_noHitHasinohoBocchi.h">
-      <Filter>Header Files\n670_noHit___</Filter>
     </ClInclude>
     <ClInclude Include="header\n490_endgame_\n490_100_endgame.h">
       <Filter>Header Files\n490_endgame_</Filter>
@@ -150,6 +123,39 @@
     <ClInclude Include="header\n190_board___\n190_250_markingBoard.h">
       <Filter>Header Files\n190_board___</Filter>
     </ClInclude>
+    <ClInclude Include="header\n600_tactics_\n600_100_noHit___\n600_100_000_noHit.h">
+      <Filter>Header Files\n600_tactics_\n600_100_noHit___</Filter>
+    </ClInclude>
+    <ClInclude Include="header\n600_tactics_\n600_100_noHit___\n600_100_050_noHitSuicide.h">
+      <Filter>Header Files\n600_tactics_\n600_100_noHit___</Filter>
+    </ClInclude>
+    <ClInclude Include="header\n600_tactics_\n600_100_noHit___\n600_100_100_noHitOwnEye.h">
+      <Filter>Header Files\n600_tactics_\n600_100_noHit___</Filter>
+    </ClInclude>
+    <ClInclude Include="header\n600_tactics_\n600_100_noHit___\n600_100_110_noHitMouth.h">
+      <Filter>Header Files\n600_tactics_\n600_100_noHit___</Filter>
+    </ClInclude>
+    <ClInclude Include="header\n600_tactics_\n600_100_noHit___\n600_100_120_noHitHasinohoBocchi.h">
+      <Filter>Header Files\n600_tactics_\n600_100_noHit___</Filter>
+    </ClInclude>
+    <ClInclude Include="header\n600_tactics_\n600_200_hit_____\n600_200_000_hit.h">
+      <Filter>Header Files\n600_tactics_\n600_200_hit_____</Filter>
+    </ClInclude>
+    <ClInclude Include="header\n600_tactics_\n600_200_hit_____\n600_200_050_hitRandom.h">
+      <Filter>Header Files\n600_tactics_\n600_200_hit_____</Filter>
+    </ClInclude>
+    <ClInclude Include="header\n600_tactics_\n600_200_hit_____\n600_200_100_hitTuke.h">
+      <Filter>Header Files\n600_tactics_\n600_200_hit_____</Filter>
+    </ClInclude>
+    <ClInclude Include="header\n600_tactics_\n600_200_hit_____\n600_200_150_hitAte.h">
+      <Filter>Header Files\n600_tactics_\n600_200_hit_____</Filter>
+    </ClInclude>
+    <ClInclude Include="header\n600_tactics_\n600_200_hit_____\n600_200_200_hitNobiSaver.h">
+      <Filter>Header Files\n600_tactics_\n600_200_hit_____</Filter>
+    </ClInclude>
+    <ClInclude Include="header\n600_tactics_\n600_200_hit_____\n600_200_250_hitGnugo12Random.h">
+      <Filter>Header Files\n600_tactics_\n600_200_hit_____</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\n800_cgfthink\n800_200_cgfthink.cpp">
@@ -160,42 +166,6 @@
     </ClCompile>
     <ClCompile Include="source\n700_think___\n700_200_think.cpp">
       <Filter>Source Files\n700_think___</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n675_hit_____\n675_000_hit.cpp">
-      <Filter>Source Files\n675_hit_____</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n675_hit_____\n675_050_hitRandom.cpp">
-      <Filter>Source Files\n675_hit_____</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n675_hit_____\n675_100_hitTuke.cpp">
-      <Filter>Source Files\n675_hit_____</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n675_hit_____\n675_150_hitAte.cpp">
-      <Filter>Source Files\n675_hit_____</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n675_hit_____\n675_200_hitNobiSaver.cpp">
-      <Filter>Source Files\n675_hit_____</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n675_hit_____\n675_250_hitGnugo12Random.cpp">
-      <Filter>Source Files\n675_hit_____</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n670_noHit___\n670_000_noHit.cpp">
-      <Filter>Source Files\n670_noHit___</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n670_noHit___\n670_050_noHitSuicide.cpp">
-      <Filter>Source Files\n670_noHit___</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n670_noHit___\n670_100_noHitOwnEye.cpp">
-      <Filter>Source Files\n670_noHit___</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n670_noHit___\n670_110_noHitMouth.cpp">
-      <Filter>Source Files\n670_noHit___</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n670_noHit___\n670_120_noHitHasinoho.cpp">
-      <Filter>Source Files\n670_noHit___</Filter>
-    </ClCompile>
-    <ClCompile Include="source\n670_noHit___\n670_120_noHitHasinohoBocchi.cpp">
-      <Filter>Source Files\n670_noHit___</Filter>
     </ClCompile>
     <ClCompile Include="source\n490_endgame_\n490_100_endgame.cpp">
       <Filter>Source Files\n490_endgame_</Filter>
@@ -226,6 +196,39 @@
     </ClCompile>
     <ClCompile Include="source\n090_core____\n090_100_core.cpp">
       <Filter>Source Files\n090_core____</Filter>
+    </ClCompile>
+    <ClCompile Include="source\n600_tactics_\n600_100_noHit___\n600_100_000_noHit.cpp">
+      <Filter>Source Files\n600_tactics_\n600_100_noHit___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\n600_tactics_\n600_100_noHit___\n600_100_050_noHitSuicide.cpp">
+      <Filter>Source Files\n600_tactics_\n600_100_noHit___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\n600_tactics_\n600_100_noHit___\n600_100_100_noHitOwnEye.cpp">
+      <Filter>Source Files\n600_tactics_\n600_100_noHit___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\n600_tactics_\n600_100_noHit___\n600_100_110_noHitMouth.cpp">
+      <Filter>Source Files\n600_tactics_\n600_100_noHit___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\n600_tactics_\n600_100_noHit___\n600_100_120_noHitHasinohoBocchi.cpp">
+      <Filter>Source Files\n600_tactics_\n600_100_noHit___</Filter>
+    </ClCompile>
+    <ClCompile Include="source\n600_tactics_\n600_200_hit_____\n600_200_000_hit.cpp">
+      <Filter>Source Files\n600_tactics_\n600_200_hit_____</Filter>
+    </ClCompile>
+    <ClCompile Include="source\n600_tactics_\n600_200_hit_____\n600_200_050_hitRandom.cpp">
+      <Filter>Source Files\n600_tactics_\n600_200_hit_____</Filter>
+    </ClCompile>
+    <ClCompile Include="source\n600_tactics_\n600_200_hit_____\n600_200_100_hitTuke.cpp">
+      <Filter>Source Files\n600_tactics_\n600_200_hit_____</Filter>
+    </ClCompile>
+    <ClCompile Include="source\n600_tactics_\n600_200_hit_____\n600_200_150_hitAte.cpp">
+      <Filter>Source Files\n600_tactics_\n600_200_hit_____</Filter>
+    </ClCompile>
+    <ClCompile Include="source\n600_tactics_\n600_200_hit_____\n600_200_200_hitNobiSaver.cpp">
+      <Filter>Source Files\n600_tactics_\n600_200_hit_____</Filter>
+    </ClCompile>
+    <ClCompile Include="source\n600_tactics_\n600_200_hit_____\n600_200_250_hitGnugo12Random.cpp">
+      <Filter>Source Files\n600_tactics_\n600_200_hit_____</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
-﻿#include "../../header/n190_board___/n190_100_board.h"
-#include "../../header/n190_board___/n190_150_Liberty.h"
-#include "../../header/n675_hit_____/n675_100_hitTuke.h"
+﻿#include "../../../header/n190_board___/n190_100_board.h"
+#include "../../../header/n190_board___/n190_150_Liberty.h"
+#include "../../../header/n600_tactics_/n600_200_hit_____/n600_200_100_hitTuke.h"
 
 
 

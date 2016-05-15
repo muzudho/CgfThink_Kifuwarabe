@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 
-#include "../n190_board___/n190_150_liberty.h"
-#include "../n670_noHit___/n670_000_noHit.h"
+#include "../../n190_board___/n190_150_liberty.h"
+#include "../n600_100_noHit___/n600_100_000_noHit.h"
 
 
 // _____

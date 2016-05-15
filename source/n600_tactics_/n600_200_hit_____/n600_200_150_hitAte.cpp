@@ -1,8 +1,8 @@
 ﻿#include <tchar.h> // Unicode対応の _T() 関数を使用するために。
-#include "../../header/n090_core____/n090_100_core.h"
-#include "../../header/n190_board___/n190_150_liberty.h"
-#include "../../header/n300_move____/n300_100_move.h"
-#include "..\..\header\n675_hit_____\n675_150_hitAte.h"
+#include "../../../header/n090_core____/n090_100_core.h"
+#include "../../../header/n190_board___/n190_150_liberty.h"
+#include "../../../header/n300_move____/n300_100_move.h"
+#include "../..\..\header/n600_tactics_/n600_200_hit_____\n600_200_150_hitAte.h"
 
 int HitAte::Evaluate(Core core, int color, int node, Board* pBoard, LibertyOfNodes* pLibertyOfNodes)
 {

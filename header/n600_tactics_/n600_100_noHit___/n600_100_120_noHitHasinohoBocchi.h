@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 
-#include "../n190_board___/n190_100_board.h"
-#include "../n670_noHit___/n670_000_noHit.h"
+#include "../../n190_board___/n190_100_board.h"
+#include "../n600_100_noHit___/n600_100_000_noHit.h"
 
 
 // 盤上の端の方に　ぼっちの石（隣接する石がない石）　を打たない仕組み。

@@ -1,8 +1,8 @@
 ﻿#include <windows.h> // コンソールへの出力等
-#include "../../header/n190_board___/n190_100_board.h"
-#include "../../header/n190_board___/n190_150_liberty.h"
-#include "../../header/n300_move____/n300_100_move.h"
-#include "../../header/n670_noHit___/n670_050_noHitSuicide.h"
+#include "../../../header/n190_board___/n190_100_board.h"
+#include "../../../header/n190_board___/n190_150_liberty.h"
+#include "../../../header/n300_move____/n300_100_move.h"
+#include "../../../header/n600_tactics_/n600_100_noHit___/n600_100_050_noHitSuicide.h"
 
 
 

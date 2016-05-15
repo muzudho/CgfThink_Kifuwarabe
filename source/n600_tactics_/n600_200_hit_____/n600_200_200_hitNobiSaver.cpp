@@ -1,5 +1,5 @@
-﻿#include "../../header/n190_board___/n190_150_liberty.h"
-#include "..\..\header\n675_hit_____\n675_200_hitNobiSaver.h"
+﻿#include "../../../header/n190_board___/n190_150_liberty.h"
+#include "../..\..\header/n600_tactics_/n600_200_hit_____\n600_200_200_hitNobiSaver.h"
 
 int HitNobiSaver::Evaluate(
 	Core			core			,
